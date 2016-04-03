@@ -1,0 +1,11 @@
+@import "./addon.scss";
+
+$blue: blue;
+
+.my-component {
+  color: $blue;
+}
+
+.btn {
+  composes: btn from "theme/default/css/button.css";
+}

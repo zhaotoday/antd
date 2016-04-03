@@ -1,0 +1,13 @@
+{
+  "code": 200,
+  "message": "",
+  "data": {
+    "count": 2,
+    "items": [
+      {
+        "id": 1,
+        "name": "JavaScript"
+      }
+    ]
+  }
+}
