@@ -27,15 +27,15 @@ module.exports = {
       {
         test: /\.js[x]?$/,
         exclude: /node_modules/,
-        loader: 'babel?presets[]=es2015&presets[]=react'
+        loader: 'babel?presets[]=es2015&presets[]=react&presets[]=stage-2'
       },
       {
         test: /\.css$/,
-        loader: 'style!css?modules&localIdentName=[name]__[local]-[hash:base64:5]!postcss?sourceMap=true'
+        loader: 'style!css?modules&localIdentName=[name]__[local]-[hash:base64:5]&sourceMap!postcss'
       },
       {
         test: /\.scss$/,
-        loader: 'style!css!sass?sourceMap=true'
+        loader: 'style!css!sass?sourceMap'
       },
       {
         test: /\.(png|jpg)$/,

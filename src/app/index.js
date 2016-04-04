@@ -1,10 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router';
 import MyComponent from 'component/myComponent';
+import { connect } from 'react-redux';
+import actionCreators from '../action';
 
-module.exports = class extends React.Component {
+module.exports = connect(
+  state => ({
+    article: state.article
+  }),
+  dispatch => ({
+    addArticle: (options) => dispatch(actionCreators.addArticle(options))
+  })
+)(class extends React.Component {
   constructor() {
     super();
+  }
+
+  componentDidMount() {
+    this.props.addArticle({
+      params: {
+        data: 123456789
+      }
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.article) {
+      console.log(nextProps.article);
+    }
   }
 
   render() {
@@ -19,4 +42,4 @@ module.exports = class extends React.Component {
       {this.props.children}
     </div>;
   }
-};
+});
