@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import MyComponent from 'component/myComponent';
 import { connect } from 'react-redux';
 import actionCreators from '../action';
+import styles from 'theme/default/css';
 
 module.exports = connect(
   state => ({
@@ -32,6 +33,7 @@ module.exports = connect(
 
   render() {
     return <div>
+      <i className="iconfont icon-search"/>
       <header>
         <ul>
           <li><Link to="/article" activeClassName="active">article</Link></li>

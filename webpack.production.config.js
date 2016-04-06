@@ -1,11 +1,10 @@
 var webpack = require('webpack');
 var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var autoprefixer = require('autoprefixer')({browsers: ['safari >= 9, ie >= 11']});
 
 module.exports = {
   entry: [
-    __dirname + '/src/entry.jsx'
+    __dirname + '/src/entry.js'
   ],
   output: {
     path: __dirname + '/dist',
@@ -17,23 +16,44 @@ module.exports = {
       {
         test: /\.js[x]?$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015', 'react']
-        }
+        loader: 'babel?presets[]=es2015&presets[]=react&presets[]=stage-1&plugins[]=transform-decorators-legacy'
       },
       {
-        test: /\.(css|scss)$/,
-        loader: 'style-loader!css-loader?modules!sass-loader!postcss-loader'
+        test: /\.css$/,
+        loader: 'style!css?modules&localIdentName=[name]__[local]-[hash:base64:5]!postcss'
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style!css!sass?sourceMap'
       },
       {
         test: /\.(png|jpg)$/,
-        loader: 'url-loader?limit=8192'
+        loader: 'url?limit=8192'
       }
     ]
   },
   postcss: function () {
-    return [autoprefixer];
+    return [
+      require('precss')({browsers: ['safari >= 9, ie >= 11']}),
+      require('postcss-font-magician'),
+      require('postcss-url'),
+      require('cssnano')({
+        filterPlugins: false,
+        sourcemap: true,
+        autoprefixer: {
+          add: true,
+          remove: true,
+          browsers: ['last 2 versions']
+        },
+        safe: true,
+        discardComments: {
+          removeAll: true
+        }
+      }),
+      require('postcss-import')({
+        addDependencyTo: webpack
+      })
+    ];
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
@@ -52,10 +72,8 @@ module.exports = {
     })
   ],
   resolve: {
-    root: [
-      'src/app',
-      'node_modules'
-    ],
-    extensions: ['', '.js', '.jsx', '.coffee', '.html', '.css', '.scss']
+    root: __dirname,
+    modulesDirectories: ['src', 'node_modules'],
+    extensions: ['', '.js', '.jsx', '.html', '.css', '.scss']
   }
 };

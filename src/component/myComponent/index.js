@@ -9,11 +9,15 @@ export default class extends React.Component {
 
   render() {
     return <div className={styles['my-component']}>
-      <button className={styles.btn} type="button">
+      <button className={styles.btn} type="button" onClick={this._handleClick}>
         button
       </button>
       component
       <ChildComponent/>
     </div>;
+  }
+
+  _handleClick = () => {
+    alert('clicked');
   }
 };
