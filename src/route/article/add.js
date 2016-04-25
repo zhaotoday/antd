@@ -5,4 +5,4 @@ module.exports = {
       cb(null, require('app/article/add'))
     })
   }
-};
+}

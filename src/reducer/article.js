@@ -1,5 +1,5 @@
-import actionTypes from '../constant/article';
-import typeToReducer from 'type-to-reducer';
+import actionTypes from '../constant/article'
+import typeToReducer from 'type-to-reducer'
 
 export default typeToReducer({
   [`${actionTypes.ADD_ARTICLE}`]: {
@@ -13,4 +13,4 @@ export default typeToReducer({
       data: action.payload
     })
   }
-}, {});
+}, {})

@@ -1,0 +1,12 @@
+.login {
+  position: absolute;
+  left: 50%;
+  top: 100px;
+  margin-left: -140px;
+  width: 380px;
+
+  form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}

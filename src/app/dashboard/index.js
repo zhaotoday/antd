@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 module.exports = class extends React.Component {
   render() {
-    return <div>dashboard</div>;
+    return <div>dashboard</div>
   }
-};
+}

@@ -1,5 +1,5 @@
-import actionTypes from './actionType';
+import actionTypes from './actionType'
 
-export const TITLE = '文章标题';
+export const TITLE = '文章标题'
 
-export default actionTypes;
+export default actionTypes

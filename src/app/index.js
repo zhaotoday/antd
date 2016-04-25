@@ -1,47 +1,39 @@
-import React from 'react';
-import { Link } from 'react-router';
-import MyComponent from 'component/myComponent';
-import { connect } from 'react-redux';
-import actionCreators from '../action';
-import styles from 'theme/default/css';
+import 'antd/lib/index.css'
 
-module.exports = connect(
+import React from 'react'
+import actionCreators from '../action'
+
+import { connect } from 'react-redux'
+import { Head, Body, Sidebar, Main } from 'app/layout'
+
+@connect(
   state => ({
     article: state.article
   }),
   dispatch => ({
     addArticle: (options) => dispatch(actionCreators.addArticle(options))
   })
-)(class extends React.Component {
-  constructor() {
-    super();
-  }
-
+)
+class Comp extends React.Component {
   componentDidMount() {
-    this.props.addArticle({
-      params: {
-        data: 123456789
-      }
-    });
+    this.refs.sidebar.openKey = this.props.location.pathname
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.article) {
-      console.log(nextProps.article);
-    }
+    this.refs.sidebar.openKey = nextProps.location.pathname
   }
 
   render() {
     return <div>
-      <i className="iconfont icon-search"/>
-      <header>
-        <ul>
-          <li><Link to="/article" activeClassName="active">article</Link></li>
-          <li><Link to="/article/add" activeClassName="active">article/add</Link></li>
-        </ul>
-      </header>
-      <MyComponent/>
-      {this.props.children}
-    </div>;
+      <Head />
+      <Body>
+        <Sidebar ref="sidebar" />
+        <Main>
+          {this.props.children}
+        </Main>
+      </Body>
+    </div>
   }
-});
+}
+
+module.exports = Comp

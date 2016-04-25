@@ -1,0 +1,9 @@
+.main {
+  float: left;
+  width: 959px;
+  overflow: hidden;
+  height: 2000px;
+  margin-left: -1px;
+  border-left: 1px solid #e6e6e6;
+  padding: 15px;
+}

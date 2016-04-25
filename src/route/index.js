@@ -1,8 +1,20 @@
+import { auth } from 'util'
+
 const rootRoute = {
   component: 'div',
   childRoutes: [{
     path: '/',
     component: require('app'),
+    onEnter(nextState, replace) {
+      if (!auth.isLogin()) {
+        replace({
+          pathname: '/login',
+          state: {
+            nextPathname: nextState.location.pathname
+          }
+        })
+      }
+    },
     getIndexRoute(location, callback) {
       require.ensure([], function (require) {
         callback(null, {
@@ -17,7 +29,15 @@ const rootRoute = {
         ])
       })
     }
+  }, {
+    path: 'login',
+    component: require('app/login'),
+    onEnter(nextState, replace) {
+      if (auth.isLogin()) {
+        replace('/')
+      }
+    }
   }]
-};
+}
 
-export default rootRoute;
+export default rootRoute

@@ -1,0 +1,17 @@
+.head {
+  background-color: white;
+  border: 1px solid #e6e6e6;
+  margin-bottom: 15px;
+
+  .inner {
+    width: 1200px;
+    margin: 0 auto;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+
+    .dropdown {
+      float: right;
+    }
+  }
+}

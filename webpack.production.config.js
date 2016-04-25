@@ -1,6 +1,6 @@
-var webpack = require('webpack');
-var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
+const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: [
@@ -8,7 +8,7 @@ module.exports = {
   ],
   output: {
     path: __dirname + '/dist',
-    publicPath: 'http://localhost/dist/',
+    publicPath: '/dist/',
     filename: '[id].[chunkhash].js'
   },
   module: {
@@ -20,11 +20,13 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style!css?modules&localIdentName=[name]__[local]-[hash:base64:5]!postcss'
+        exclude: /node_modules/,
+        loader: 'style!css?modules&localIdentName=[hash:base64:5]!postcss'
       },
       {
-        test: /\.scss$/,
-        loader: 'style!css!sass?sourceMap'
+        test: /\.css$/,
+        include: /node_modules/,
+        loader: 'style!css'
       },
       {
         test: /\.(png|jpg)$/,
@@ -53,13 +55,12 @@ module.exports = {
       require('postcss-import')({
         addDependencyTo: webpack
       })
-    ];
+    ]
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
     new webpack.optimize.DedupePlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new uglifyJsPlugin({
+    new UglifyJsPlugin({
       compress: {
         warnings: false
       }
@@ -76,4 +77,4 @@ module.exports = {
     modulesDirectories: ['src', 'node_modules'],
     extensions: ['', '.js', '.jsx', '.html', '.css', '.scss']
   }
-};
+}

@@ -1,0 +1,7 @@
+.body {
+  width: 1200px;
+  min-height: 700px;
+  background-color: white;
+  margin: 0 auto;
+  border: 1px solid #e6e6e6;
+}

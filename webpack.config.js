@@ -1,6 +1,6 @@
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -20,7 +20,7 @@ module.exports = {
   output: {
     path: __dirname + '/dist',
     publicPath: '/',
-    filename: '[id].[chunkhash].js'
+    filename: '[id].[hash].js'
   },
   module: {
     loaders: [
@@ -31,11 +31,13 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         loader: 'style!css?modules&localIdentName=[name]__[local]-[hash:base64:5]!postcss'
       },
       {
-        test: /\.scss$/,
-        loader: 'style!css!sass?sourceMap'
+        test: /\.css$/,
+        include: /node_modules/,
+        loader: 'style!css'
       },
       {
         test: /\.(png|jpg)$/,
@@ -66,7 +68,7 @@ module.exports = {
       require('postcss-import')({
         addDependencyTo: webpack
       })
-    ];
+    ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -89,4 +91,4 @@ module.exports = {
     modulesDirectories: ['src', 'node_modules'],
     extensions: ['', '.js', '.jsx', '.html', '.css', '.scss']
   }
-};
+}
