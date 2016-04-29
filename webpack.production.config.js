@@ -1,4 +1,4 @@
-const webpack = require('webpack')
+﻿const webpack = require('webpack')
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 

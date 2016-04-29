@@ -8,7 +8,8 @@
     "clean": "rimraf index.html dist",
     "start": "set DEBUG=true && webpack-dev-server --hot --inline --progress --colors",
     "build": "npm run clean && webpack -p --config webpack.production.config.js --define process.env.NODE_ENV='\"production\"' --progress --profile --colors",
-    "lint": "eslint src"
+    "eslint": "eslint src",
+    "stylelint": "stylelint src/**/*.css"
   },
   "keywords": [
     "react"
@@ -51,6 +52,8 @@
     "rimraf": "^2.5.2",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
+    "stylelint": "^6.2.2",
+    "stylelint-config-standard": "^6.0.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.6.1",
