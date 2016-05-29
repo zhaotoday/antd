@@ -1,2 +1,1 @@
-# a-boilerplate-for-react-project
-A boilerplate for React project. React 项目模板。
+技术栈：react、redux、antd、webpack、es6、postcss
