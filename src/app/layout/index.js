@@ -1,7 +1,7 @@
-import Head from './component/head'
-import Body from './component/body'
-import Sidebar from './component/sidebar'
-import Main from './component/main'
+import Head from './components/head'
+import Body from './components/body'
+import Sidebar from './components/sidebar'
+import Main from './components/main'
 
 export {
   Head,

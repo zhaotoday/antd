@@ -1,7 +1,6 @@
 import React from 'react'
-import styles from './theme/css'
-import Panel from 'component/panel'
-import 'antd/lib/index.css'
+import styles from './theme/styles'
+import Panel from 'components/panel'
 import { Form, Input, Button, Row, Col } from 'antd'
 
 module.exports = Form.create()(
