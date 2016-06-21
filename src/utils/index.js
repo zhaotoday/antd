@@ -1,5 +1,11 @@
-import * as auth from './auth'
+import auth from './auth'
+import consts from './consts'
+import helpers from './helpers'
+import REST from './rest'
 
 export {
-  auth
+  auth,
+  consts,
+  helpers,
+  REST
 }

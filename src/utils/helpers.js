@@ -1,3 +1,7 @@
-/**
- * Created by Administrator on 2016/4/9.
- */
+const alertIt = () => {
+  alert('it')
+}
+
+export default {
+  alertIt
+}

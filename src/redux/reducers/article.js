@@ -1,4 +1,4 @@
-import actionTypes from '../constants/article'
+import actionTypes from '../consts/article'
 import typeToReducer from 'type-to-reducer'
 
 export default typeToReducer({

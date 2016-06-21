@@ -1,10 +1,12 @@
-import actionTypes from '../constants/article'
-import axios from 'axios'
+import actionTypes from '../consts/article'
+import Model from '../models/article'
 import { createAction } from 'redux-actions'
 
-export const addArticle = createAction(
-  actionTypes.ADD_ARTICLE,
+export const postArticle = createAction(
+  actionTypes.POST_ARTICLE,
   (options) => {
-    return axios.get('http://localhost/api.php', options)
+    return new Model().POST({
+      data: options.data
+    })
   }
 )

@@ -19,7 +19,7 @@ const login = () => {
 const logout = () => {
 }
 
-export {
+export default {
   setToken,
   getToken,
   isLogin,

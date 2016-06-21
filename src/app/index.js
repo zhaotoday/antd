@@ -16,6 +16,12 @@ import { Head, Body, Sidebar, Main } from 'app/layout'
 )
 class Comp extends React.Component {
   componentDidMount() {
+    this.props.addArticle({
+      data: {
+        title: 'the title'
+      }
+    })
+
     this.refs.sidebar.openKey = this.props.location.pathname
   }
 

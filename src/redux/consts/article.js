@@ -1,5 +1,5 @@
 import keyMirror from 'fbjs/lib/keyMirror'
 
 export default keyMirror({
-  ADD_ARTICLE: null
+  POST_ARTICLE: null
 })
