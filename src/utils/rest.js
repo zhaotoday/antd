@@ -1,3 +1,8 @@
+/**
+ * @file 基于 axios 的 RESTful HTTP 简单封装。
+ * @author 赵金添 <729234283@qq.com>
+ */
+
 import axios from 'axios'
 
 /**
@@ -7,22 +12,23 @@ export default class REST {
   /**
    * 构造函数
    * @param {string} baseURL - 接口基础地址
+   * @param {string} [version] - 接口版本
    * @param {string} path - 请求路劲
    */
-  constructor(baseURL = '', version = 'v1.0', path = '', authRequired = true) {
+  constructor(baseURL = '', version = '', path = '') {
     this.baseURL = baseURL
     this.version = version
     this.path = path
-    this.authRequired = authRequired
   }
 
   /**
    * 请求
    * @param {string} method - 请求方式
+   * @param {object} options - 选项
    * @return {object}
    */
   _request(method = 'GET', options = {}) {
-    let url = `/${this.version}${this.path}`
+    let url = this.version ? `/${this.version}${this.path}` : this.path
 
     // GET
     if (options.params) {
@@ -78,7 +84,7 @@ export default class REST {
 
   /**
    * GET
-   * @param {object} options - 请求数据
+   * @param {object} options - 选项
    * @returns {object}
    */
   GET(options = {}) {
@@ -87,7 +93,7 @@ export default class REST {
 
   /**
    * DELETE
-   * @param {object} options - 请求数据
+   * @param {object} options - 选项
    * @returns {object}
    */
   DELETE(options = {}) {
@@ -96,7 +102,7 @@ export default class REST {
 
   /**
    * POST
-   * @param {object} options - 请求数据
+   * @param {object} options - 选项
    * @returns {object}
    */
   POST(options = {}) {
@@ -105,7 +111,7 @@ export default class REST {
 
   /**
    * PATCH
-   * @param {object} options - 请求数据
+   * @param {object} options - 选项
    * @returns {object}
    */
   PATCH(options = {}) {

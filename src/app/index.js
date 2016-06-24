@@ -11,12 +11,12 @@ import { Head, Body, Sidebar, Main } from 'app/layout'
     article: state.article
   }),
   dispatch => ({
-    addArticle: (options) => dispatch(actionCreators.addArticle(options))
+    postArticle: (options) => dispatch(actionCreators.postArticle(options))
   })
 )
 class Comp extends React.Component {
   componentDidMount() {
-    this.props.addArticle({
+    this.props.postArticle({
       data: {
         title: 'the title'
       }
