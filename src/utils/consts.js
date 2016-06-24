@@ -36,6 +36,7 @@ const TITLE = '网站后台'
 
 export default {
   BASE_URL,
+  API_URL,
   PAGE_SIZE,
   TITLE
 }
