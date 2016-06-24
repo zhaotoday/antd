@@ -11,16 +11,16 @@ module.exports = {
     hot: true,
     inline: true,
     progress: true,
-    contentBase: './src',
+    contentBase: consts.SRC,
     port: consts.PORT
   },
   entry: [
     'webpack-dev-server/client?http://localhost:81',
     'webpack/hot/only-dev-server',
-    path.resolve('src/entry.js')
+    path.resolve(consts.ENTRY)
   ],
   output: {
-    path: path.resolve('dist'),
+    path: path.resolve(consts.DIST),
     publicPath: '/',
     filename: '[id].[hash].js'
   },

@@ -1,4 +1,5 @@
 const config = require('./utils/config')
+const consts = require('./utils/consts')
 const webpack = require('webpack')
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -6,11 +7,11 @@ const path = require('path')
 
 module.exports = {
   entry: [
-    path.resolve('src/entry.js')
+    path.resolve(consts.ENTRY)
   ],
   output: {
-    path: path.resolve('dist'),
-    publicPath: '/dist/',
+    path: path.resolve(consts.DIST),
+    publicPath: consts.CDN,
     filename: '[id].[chunkhash].js'
   },
   module: {

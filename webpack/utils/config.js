@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const consts = require('./consts')
 const path = require('path')
 
 const config = {
@@ -33,8 +34,8 @@ const config = {
   ],
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/template/index.html',
-      title: 'webapp',
+      template: consts.TEMPLATE,
+      title: consts.TITLE,
       filename: '../index.html',
       hash: true
     })
