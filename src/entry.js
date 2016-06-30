@@ -1,9 +1,10 @@
 import React from 'react'
 import routes from './routes'
 import store from './redux/store'
+import Router from 'react-router/lib/router'
+import browserHistory from 'react-router/lib/browserHistory'
+import Provider from 'react-redux/lib/components/Provider'
 import { render } from 'react-dom'
-import { Router, browserHistory } from 'react-router'
-import { Provider } from 'react-redux'
 
 render(
   <Provider store={store}>
