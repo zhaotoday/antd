@@ -1,10 +1,11 @@
-import 'antd/dist/antd.css'
-
 import React from 'react'
 import actionCreators from '../redux/actions'
 
 import { connect } from 'react-redux'
 import { Head, Body, Sidebar, Main } from 'app/layout'
+
+import 'antd/dist/antd'
+import 'themes/global'
 
 @connect(
   state => ({
