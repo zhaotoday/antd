@@ -52,7 +52,7 @@ module.exports = class extends React.Component {
     }]
 
     return <div>
-      <Breadcrumb separator=">">
+      <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
         <Breadcrumb.Item href="/#/article/add">文章管理</Breadcrumb.Item>
         <Breadcrumb.Item href="/#/article">文章列表</Breadcrumb.Item>
