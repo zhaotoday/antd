@@ -1,8 +1,8 @@
 module.exports = {
-  path: 'add',
+  path: 'form',
   getComponent(location, cb) {
     require.ensure([], (require) => {
-      cb(null, require('app/article/add'))
+      cb(null, require('app/articles/form'))
     })
   }
 }
