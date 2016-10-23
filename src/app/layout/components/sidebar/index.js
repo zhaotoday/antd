@@ -31,9 +31,9 @@ export default class extends React.Component {
       selectedKeys={[this.state.current]}
       openKeys={this.state.openKeys}
       mode="inline">
-      <SubMenu key="/article" title={<span><Icon type="appstore" /><span>文章管理</span></span>}>
-        <Menu.Item key="/article">文章列表</Menu.Item>
-        <Menu.Item key="/article/add">栏目列表</Menu.Item>
+      <SubMenu key="/articles" title={<span><Icon type="appstore" /><span>文章管理</span></span>}>
+        <Menu.Item key="/articles">文章列表</Menu.Item>
+        <Menu.Item key="/articles/form">栏目列表</Menu.Item>
       </SubMenu>
       <SubMenu key="/article1" title={<span><Icon type="appstore" /><span>导航二</span></span>}>
         <Menu.Item key="/article1">选项5</Menu.Item>
