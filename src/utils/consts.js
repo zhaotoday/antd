@@ -21,6 +21,7 @@ const BASE_URL = (function () {
   if (ENV === DEVELOPMENT) {
     return 'http://localhost:8080'
   } else {
+    return 'http://cms.com'
     return 'http://production.com'
   }
 })()

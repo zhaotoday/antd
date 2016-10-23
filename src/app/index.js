@@ -9,15 +9,17 @@ import 'themes/global'
 
 @connect(
   state => ({
-    article: state.article
+    articles: state.articles,
+    files: state.files
   }),
   dispatch => ({
-    postArticle: (options) => dispatch(actionCreators.postArticle(options))
+    postArticle: (options) => dispatch(actionCreators.postArticle(options)),
+    postFile: (options) => dispatch(actionCreators.postFile(options))
   })
 )
 class Comp extends React.Component {
   componentDidMount() {
-    this.props.postArticle({
+    this.props.postFile({
       data: {
         title: 'the title'
       }
