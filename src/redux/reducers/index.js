@@ -1,6 +1,6 @@
 import combineReducers from 'redux/lib/combineReducers'
-import article from './article'
+import article from './articles'
 
 export default combineReducers({
-  article
+  articles
 })
