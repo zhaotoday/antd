@@ -23,9 +23,9 @@ export default class extends React.Component {
   }
 
   render() {
-    return <Menu className={styles.sidebar} onClick={this._handleClick}
-      onOpenChange={this._handleToggle}
-      onCloseChange={this._handleToggle}
+    return <Menu className={styles.sidebar}
+      onClick={this._handleClick}
+      onOpenChange={this._handleOpenChange}
       style={{ width: 240 }}
       defaultOpenKeys={[this.state.current]}
       selectedKeys={[this.state.current]}
@@ -52,9 +52,9 @@ export default class extends React.Component {
   }
 
   // 切换
-  _handleToggle = (openKeys) => {
+  _handleOpenChange = (openKeys) => {
     this.setState({
-      openKeys: openKeys[1]
+      openKeys: openKeys
     })
   }
 }
