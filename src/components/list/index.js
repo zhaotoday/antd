@@ -7,6 +7,7 @@ export default class extends React.Component {
     columns: React.PropTypes.array,
     total: React.PropTypes.number,
     pageSize: React.PropTypes.number,
+    current: React.PropTypes.number,
     data: React.PropTypes.array,
     getData: React.PropTypes.func
   }
@@ -16,6 +17,7 @@ export default class extends React.Component {
     columns: [],
     total: 0,
     pageSize: 0,
+    current: 0,
     data: [],
     getData: () => {
     }
@@ -25,7 +27,7 @@ export default class extends React.Component {
     selectedRows: [],
     data: [],
     pagination: {
-      current: 0,
+      current: this.props.current,
       pageSize: this.props.pageSize,
       total: this.props.total
     },
@@ -38,11 +40,12 @@ export default class extends React.Component {
   get selectRows() {
     return this.state.selectedRows
   }
-/*
-  shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.total != 0
-  }
-*/
+
+  /*
+   shouldComponentUpdate(nextProps, nextState) {
+   return nextProps.total != 0
+   }
+   */
   componentWillReceiveProps(nextProps) {
     if (nextProps.total) {
       this.setState({
@@ -62,7 +65,7 @@ export default class extends React.Component {
     const rowSelection = {
       onChange: this._handleSelectChange
     }
-
+//alert(JSON.stringify(pagination))
     return <Table rowSelection={rowSelection} columns={columns} dataSource={data} pagination={pagination}
       onChange={this._handleTableChange} />
   }
@@ -83,13 +86,6 @@ export default class extends React.Component {
     const { current } = pagination
     const { getData } = this.props
 
-    getData(current).then(() => {
-      this.setState({
-        pagination: {
-          ...this.state.pagination,
-          current: current
-        }
-      })
-    })
+    getData(current)
   }
 }

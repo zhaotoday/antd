@@ -22,9 +22,13 @@ class Comp extends React.Component {
     this._getData()
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return Object.keys(nextProps.articles) != 0
+  }
+
   render() {
     const { articles } = this.props
-
+    console.log(this.state.current)
     // 列表属性
     let listProps = {
       columns: [{
@@ -47,6 +51,7 @@ class Comp extends React.Component {
         </span>
         ),
       }],
+      current: this.state.current,
       getData: this._getData,
       pageSize: consts.PAGE_SIZE
     }
@@ -79,6 +84,10 @@ class Comp extends React.Component {
         limit: consts.PAGE_SIZE,
         offset: current
       }
+    }).then(() => {
+      this.setState({
+        current: current
+      })
     })
   }
 }
