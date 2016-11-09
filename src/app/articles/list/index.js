@@ -18,6 +18,8 @@ class Comp extends React.Component {
     current: 0
   }
 
+  current = 0
+
   componentDidMount() {
     this._getData()
   }
@@ -51,7 +53,7 @@ class Comp extends React.Component {
         </span>
         ),
       }],
-      current: this.state.current,
+      current: this.current,
       getData: this._getData,
       pageSize: consts.PAGE_SIZE
     }
@@ -85,9 +87,7 @@ class Comp extends React.Component {
         offset: current
       }
     }).then(() => {
-      this.setState({
-        current: current
-      })
+      this.current = current
     })
   }
 }
