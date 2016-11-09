@@ -1,55 +1,63 @@
 import React from 'react'
-import { Breadcrumb, Table, Icon } from 'antd'
+import connect from 'react-redux/lib/components/connect'
+import actionCreators from '../../../redux/actions'
+import { Breadcrumb } from 'antd'
+import consts from 'utils/consts'
+import List from 'components/list'
 
-module.exports = class extends React.Component {
+module.exports = @connect(
+  state => ({
+    articles: state.articles
+  }),
+  dispatch => ({
+    getArticles: (options) => dispatch(actionCreators.getArticles(options))
+  })
+)
+class Comp extends React.Component {
+  state = {
+    current: 0
+  }
+
+  componentDidMount() {
+    this._getData()
+  }
+
   render() {
-    const columns = [{
-      title: '姓名',
-      dataIndex: 'name',
-      key: 'name',
-      render(text) {
-        return <a href="#">{text}</a>
-      }
-    }, {
-      title: '年龄',
-      dataIndex: 'age',
-      key: 'age'
-    }, {
-      title: '住址',
-      dataIndex: 'address',
-      key: 'address'
-    }, {
-      title: '操作',
-      key: 'operation',
-      render(text, record) {
-        return <span>
-          <a href="#">操作一{record.name}</a>
-          <span className="ant-divider"></span>
-          <a href="#">操作二</a>
-          <span className="ant-divider"></span>
-          <a href="#" className="ant-dropdown-link">
-            更多 <Icon type="down" />
-          </a>
-        </span>
-      }
-    }]
+    const { articles } = this.props
 
-    const data = [{
-      key: '1',
-      name: '胡彦斌',
-      age: 32,
-      address: '西湖区湖底公园1号'
-    }, {
-      key: '2',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号'
-    }, {
-      key: '3',
-      name: '李大嘴',
-      age: 32,
-      address: '西湖区湖底公园1号'
-    }]
+    // 列表属性
+    let listProps = {
+      columns: [{
+        title: '标题',
+        dataIndex: 'title',
+        key: 'title',
+        render: text => <a href="#">{text}</a>,
+      }, {
+        title: '栏目',
+        dataIndex: 'category_id',
+        key: 'category_id',
+      }, {
+        title: '操作',
+        key: 'action',
+        render: (text, record) => (
+          <span>
+          <a href="#">Action 一 {record.name}</a>
+          <span className="ant-divider" />
+          <a href="#">Delete</a>
+        </span>
+        ),
+      }],
+      getData: this._getData,
+      pageSize: consts.PAGE_SIZE
+    }
+
+    if (articles.data) {
+      listProps.total = articles.data.data.total
+      listProps.data = articles.data.data.items
+    } else {
+      listProps.total = 0
+      listProps.data = []
+    }
 
     return <div>
       <Breadcrumb>
@@ -58,7 +66,19 @@ module.exports = class extends React.Component {
         <Breadcrumb.Item href="/#/article">文章列表</Breadcrumb.Item>
         <Breadcrumb.Item>某应用</Breadcrumb.Item>
       </Breadcrumb>
-      <Table columns={columns} dataSource={data} />
+      <List ref="list" {...listProps} />
     </div>
+  }
+
+  /**
+   * 获取数据
+   */
+  _getData = (current = 0) => {
+    return this.props.getArticles({
+      params: {
+        limit: consts.PAGE_SIZE,
+        offset: current
+      }
+    })
   }
 }

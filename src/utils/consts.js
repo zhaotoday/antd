@@ -21,7 +21,7 @@ const BASE_URL = (function () {
   if (ENV === DEVELOPMENT) {
     return 'http://localhost:8080'
   } else {
-    return 'http://cms.com'
+    return 'http://www.cms.com'
     return 'http://production.com'
   }
 })()
@@ -30,7 +30,7 @@ const BASE_URL = (function () {
 const API_URL = BASE_URL + '/api'
 
 // 分页大小
-const PAGE_SIZE = 10
+const PAGE_SIZE = 2
 
 // 网站标题
 const TITLE = '网站后台'

@@ -6,6 +6,7 @@ import { Head, Body, Sidebar, Main } from 'app/layout'
 
 import 'antd/dist/antd.css'
 import 'themes/global'
+import { Upload, message, Button, Icon } from 'antd';
 
 @connect(
   state => ({
@@ -33,7 +34,30 @@ class Comp extends React.Component {
   }
 
   render() {
+    const props = {
+      name: 'userfile',
+      multiple: false,
+      listType: 'picture',
+      action: 'http://www.cms.com/api/files',
+      onChange(info) {
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+        }
+        if (info.file.status === 'done') {
+          message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} file upload failed.`);
+        }
+      },
+    };
+
+
     return <div>
+      <Upload {...props}>
+        <Button type="ghost">
+          <Icon type="upload" /> Click to Upload
+        </Button>
+      </Upload>
       <Head />
       <Body>
         <Sidebar ref="sidebar" />
