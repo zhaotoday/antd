@@ -3,9 +3,13 @@ import { Table } from 'antd'
 
 export default class extends React.Component {
   static propTypes = {
+    // 数据标题
     columns: React.PropTypes.array,
+    // 数据
     data: React.PropTypes.array,
+    // 分页属性
     pagination: React.PropTypes.object,
+    // 获取数据
     getData: React.PropTypes.func
   }
 
@@ -22,7 +26,9 @@ export default class extends React.Component {
   }
 
   state = {
+    // 选中行
     selectedRows: [],
+    // 分页是否加载中
     loading: true
   }
 
