@@ -14,10 +14,6 @@ module.exports = @connect(
   })
 )
 class Comp extends React.Component {
-  state = {
-    current: 0
-  }
-
   current = 0
 
   componentDidMount() {
@@ -30,7 +26,9 @@ class Comp extends React.Component {
 
   render() {
     const { articles } = this.props
-    console.log(this.state.current)
+
+    if (!Object.keys(articles).length) return null
+
     // 列表属性
     let listProps = {
       columns: [{
@@ -53,17 +51,13 @@ class Comp extends React.Component {
         </span>
         ),
       }],
-      current: this.current,
-      getData: this._getData,
-      pageSize: consts.PAGE_SIZE
-    }
-
-    if (articles.data) {
-      listProps.total = articles.data.data.total
-      listProps.data = articles.data.data.items
-    } else {
-      listProps.total = 0
-      listProps.data = []
+      data: articles.data ? articles.data.data.items : [],
+      pagination: {
+        current: this.current,
+        pageSize: consts.PAGE_SIZE,
+        total: articles.data ? articles.data.data.total : 0
+      },
+      getData: this._getData
     }
 
     return <div>
@@ -78,16 +72,29 @@ class Comp extends React.Component {
   }
 
   /**
+   * 设置分页加载中
+   */
+  _setPageLoading(loading) {
+    if (this.refs.list) this.refs.list.isLoading = loading
+  }
+
+  /**
    * 获取数据
    */
   _getData = (current = 0) => {
-    return this.props.getArticles({
+    this.current = current
+
+    this._setPageLoading(true)
+
+    this.props.getArticles({
       params: {
         limit: consts.PAGE_SIZE,
         offset: current
       }
     }).then(() => {
-      this.current = current
+      this._setPageLoading(false)
+    }).catch(() => {
+      this._setPageLoading(false)
     })
   }
 }
