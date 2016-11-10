@@ -39,13 +39,12 @@ export default class extends React.Component {
     return this.state.selectedRows
   }
 
-  /**
-   * 设置是否加载中
-   */
-  set isLoading(loading) {
-    this.setState({
-      loading: loading
-    })
+  componentDidMount() {
+    this._setLoading(false)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this._setLoading(false)
   }
 
   render() {
@@ -75,6 +74,19 @@ export default class extends React.Component {
     const { current } = pagination
     const { getData } = this.props
 
-    getData(current)
+    this._setLoading(true)
+
+    getData(current).then(() => {
+      this._setLoading(false)
+    })
+  }
+
+  /**
+   * 设置是否加载中
+   */
+  _setLoading(loading) {
+    this.setState({
+      loading: loading
+    })
   }
 }

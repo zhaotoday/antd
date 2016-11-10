@@ -45,9 +45,9 @@ class Comp extends React.Component {
         key: 'action',
         render: (text, record) => (
           <span>
-          <a href="#">Action 一 {record.name}</a>
+          <a href="#">修改</a>
           <span className="ant-divider" />
-          <a href="#">Delete</a>
+          <a href="#">删除</a>
         </span>
         ),
       }],
@@ -72,29 +72,16 @@ class Comp extends React.Component {
   }
 
   /**
-   * 设置分页加载中
-   */
-  _setPageLoading(loading) {
-    if (this.refs.list) this.refs.list.isLoading = loading
-  }
-
-  /**
    * 获取数据
    */
   _getData = (current = 0) => {
     this.current = current
 
-    this._setPageLoading(true)
-
-    this.props.getArticles({
+    return this.props.getArticles({
       params: {
         limit: consts.PAGE_SIZE,
         offset: current
       }
-    }).then(() => {
-      this._setPageLoading(false)
-    }).catch(() => {
-      this._setPageLoading(false)
     })
   }
 }
