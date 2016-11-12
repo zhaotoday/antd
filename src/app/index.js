@@ -2,7 +2,7 @@ import React from 'react'
 import actionCreators from '../redux/actions'
 
 import connect from 'react-redux/lib/components/connect'
-import { Head, Body, Sidebar, Main } from 'app/layout'
+import { Header, Body, Sidebar, Main } from 'app/layout'
 
 import 'antd/dist/antd.css'
 import 'themes/global'
@@ -53,7 +53,7 @@ class Comp extends React.Component {
 
 
     return <div>
-      <Head />
+      <Header />
       <Body>
         <Sidebar ref="sidebar" />
         <Main>

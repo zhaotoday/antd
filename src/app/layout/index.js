@@ -1,10 +1,10 @@
-import Head from './components/head'
+import Header from './components/header'
 import Body from './components/body'
 import Sidebar from './components/sidebar'
 import Main from './components/main'
 
 export {
-  Head,
+  Header,
   Body,
   Sidebar,
   Main

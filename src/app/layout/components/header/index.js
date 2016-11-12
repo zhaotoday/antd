@@ -13,13 +13,13 @@ export default class extends React.Component {
   }
 
   render() {
-    return <div className={styles.head}>
+    return <header className={styles.header}>
       <div className={styles.inner}>
         后台管理系统
         <div className={styles.dropdown}>
           <Icon type="poweroff" />admin
         </div>
       </div>
-    </div>
+    </header>
   }
 }
