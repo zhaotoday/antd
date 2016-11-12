@@ -53,11 +53,6 @@ class Comp extends React.Component {
 
 
     return <div>
-      <Upload {...props}>
-        <Button type="ghost">
-          <Icon type="upload" /> Click to Upload
-        </Button>
-      </Upload>
       <Head />
       <Body>
         <Sidebar ref="sidebar" />
