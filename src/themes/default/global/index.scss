@@ -1,8 +1,10 @@
+@import "../utils/index";
+
 @import "reset";
 @import "classes";
 @import "antd";
 
 body {
-  background-color: #f3f3f3;
-  font-size: 14px;
+  background-color: $body-background;
+  font-size: $font-size-base;
 }

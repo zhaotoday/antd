@@ -1,17 +1,36 @@
+@import "themes/utils";
+
 .header {
   background-color: white;
   border: 1px solid #e6e6e6;
   margin-bottom: 15px;
+  height: 60px;
+  line-height: 60px;
 
   .inner {
     width: 1200px;
     margin: 0 auto;
-    height: 60px;
-    line-height: 60px;
-    font-size: 20px;
 
-    .dropdown {
+    .title {
+      display: block;
+      float: left;
+      font-size: 18px;
+      background-image: url("../images/logo.png");
+      background-size: 30px 30px;
+      background-position: 0 15px;
+      background-repeat: no-repeat;
+      width: 155px;
+      height: 60px;
+      text-indent: 40px;
+      color: $text-color;
+    }
+
+    .user {
       float: right;
+
+      .logout {
+        cursor: pointer;
+      }
     }
   }
 }
