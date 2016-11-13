@@ -6,6 +6,7 @@ export default class extends React.Component {
   static propTypes = {
     // 默认值
     defaultValue: React.PropTypes.string,
+    // 编辑器高度
     height: React.PropTypes.string
   }
 
@@ -15,7 +16,7 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    const { height } = this.props
+    const { defaultValue, height } = this.props
     const items = [
       'source',
       'image', 'fullscreen', 'undo', 'redo', 'justifyleft', 'justifycenter', 'justifyright',
@@ -38,7 +39,7 @@ export default class extends React.Component {
 
     // BUGFIX: 动态插入内容，为了解决刚开始时，鼠标滚动，滚动条不滚动的 bug
     setTimeout(function () {
-      this.editor.appendHtml(this.props.defaultValue)
+      this.editor.appendHtml(defaultValue)
     }.bind(this), 100)
   }
 
