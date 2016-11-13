@@ -1,7 +1,8 @@
 import React from 'react'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
-import { Breadcrumb } from 'antd'
+import helpers from 'utils/helpers'
+import { Breadcrumb, Form, Button, Input } from 'antd'
 import consts from 'utils/consts'
 import List from 'components/list'
 
@@ -14,6 +15,10 @@ module.exports = @connect(
   })
 )
 class Comp extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   current = 0
 
   componentDidMount() {
@@ -63,10 +68,27 @@ class Comp extends React.Component {
     return <div>
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
-        <Breadcrumb.Item href="/#/articles/form">文章管理</Breadcrumb.Item>
-        <Breadcrumb.Item href="/#/article">文章列表</Breadcrumb.Item>
-        <Breadcrumb.Item>某应用</Breadcrumb.Item>
+        <Breadcrumb.Item>文章管理</Breadcrumb.Item>
+        <Breadcrumb.Item>文章列表</Breadcrumb.Item>
       </Breadcrumb>
+      <div className="actions">
+        <Form className="action" inline>
+          <Form.Item>
+            <Button type="primary" onClick={() => {helpers.go.bind(this)('/articles/form')}}>新增</Button>
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary">删除</Button>
+          </Form.Item>
+        </Form>
+        <Form className="search" inline>
+          <Form.Item>
+            <Input placeholder="请输入标题" />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary">搜索</Button>
+          </Form.Item>
+        </Form>
+      </div>
       <List ref="list" {...listProps} />
     </div>
   }
@@ -74,13 +96,13 @@ class Comp extends React.Component {
   /**
    * 获取数据
    */
-  _getData = (current = 0) => {
+  _getData = (current = 1) => {
     this.current = current
 
     return this.props.getArticles({
       params: {
         limit: consts.PAGE_SIZE,
-        offset: current
+        offset: (current - 1) * consts.PAGE_SIZE
       }
     })
   }

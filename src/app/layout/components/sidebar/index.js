@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './theme/styles'
+import helpers from 'utils/helpers'
 
 import { Menu, Icon } from 'antd'
 
@@ -31,27 +32,30 @@ export default class extends React.Component {
       selectedKeys={[this.state.current]}
       openKeys={this.state.openKeys}
       mode="inline">
-      <SubMenu key="/articles" title={<span><Icon type="appstore" /><span>文章管理</span></span>}>
+      <SubMenu key="/articles" title={<span><Icon type="file" /><span>文章管理</span></span>}>
         <Menu.Item key="/articles">文章列表</Menu.Item>
-        <Menu.Item key="/articles/form">栏目列表</Menu.Item>
+        <Menu.Item key="/categories">栏目列表</Menu.Item>
+        <Menu.Item key="/cache">更新缓存</Menu.Item>
       </SubMenu>
-      <SubMenu key="/article1" title={<span><Icon type="appstore" /><span>导航二</span></span>}>
-        <Menu.Item key="/article1">选项5</Menu.Item>
-        <Menu.Item key="/article/add1">选项6</Menu.Item>
-      </SubMenu>
-      <SubMenu key="/article2" title={<span><Icon type="appstore" /><span>导航二</span></span>}>
-        <Menu.Item key="/article2">选项5</Menu.Item>
-        <Menu.Item key="/article/add2">选项6</Menu.Item>
+      <SubMenu key="/article1" title={<span><Icon type="appstore" /><span>系统设置</span></span>}>
+        <Menu.Item key="/article1">网站设置</Menu.Item>
+        <Menu.Item key="/article1">修改密码</Menu.Item>
       </SubMenu>
     </Menu>
   }
 
-  // 点击导航菜单
+  /**
+   * 点击导航菜单
+   * @param e {object} item
+   */
   _handleClick = (e) => {
-    this.context.router.push(e.key)
+    helpers.go.bind(this)(e.key)
   }
 
-  // 切换
+  /**
+   * 切换
+   * @param openKeys {array} 展开的 SubMenu 菜单项 key 数组
+   */
   _handleOpenChange = (openKeys) => {
     this.setState({
       openKeys: openKeys
