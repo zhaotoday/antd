@@ -43,7 +43,7 @@ export default class extends React.Component {
 
     return <Upload {...props}>
       <Button type="ghost">
-        <Icon type="upload" /> 选择文件
+        <Icon type="upload" /> 请上传文件
       </Button>
     </Upload>
   }
@@ -52,7 +52,6 @@ export default class extends React.Component {
    * 处理上传状态改变事件
    */
   _handleChange = (info) => {
-    console.log(info)
     let { file, fileList } = info
     const { status, name } = file
 

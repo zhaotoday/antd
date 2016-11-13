@@ -2,18 +2,18 @@ import React from 'react'
 import { Breadcrumb, Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button } from 'antd'
 import Editor from 'components/editor'
 import Upload from 'components/upload'
+import Tree from 'components/tree'
 
 module.exports = Form.create()(class extends React.Component {
+  componentDidMount() {
+    const { setFieldsValue } = this.props.form
+    setFieldsValue({
+      title: '2'
+    })
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form
-    const formItemLayout = {
-      labelCol: {
-        span: 2
-      },
-      wrapperCol: {
-        span: 14
-      }
-    }
 
     return <div>
       <Breadcrumb>
@@ -21,6 +21,7 @@ module.exports = Form.create()(class extends React.Component {
         <Breadcrumb.Item>文章管理</Breadcrumb.Item>
         <Breadcrumb.Item>新增文章</Breadcrumb.Item>
       </Breadcrumb>
+      <Tree />
       <Form horizontal>
         <Form.Item
           labelCol={{span: 2}}
@@ -42,7 +43,7 @@ module.exports = Form.create()(class extends React.Component {
           label="内容"
           required
           hasFeedback>
-          <Editor defaultValue="abc<br/>dd" />
+          <Editor ref="editor" defaultValue="abc<br/>dd" />
         </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
@@ -63,9 +64,20 @@ module.exports = Form.create()(class extends React.Component {
   /**
    * 提交
    */
-  _handleSubmit = () => {
-    const { upload } = this.refs
+  _handleSubmit = (e) => {
+    const { upload, editor } = this.refs
+    const { form } = this.props
 
-    alert(JSON.stringify(upload.value))
+    e.preventDefault();
+
+    form.validateFields((err, fieldsValue) => {
+      if (err) {
+        return;
+      }
+
+      alert(JSON.stringify(fieldsValue))
+
+      alert(editor.value)
+    })
   }
 })
