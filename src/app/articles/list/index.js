@@ -32,8 +32,6 @@ class Comp extends React.Component {
   render() {
     const { articles } = this.props
 
-    if (!Object.keys(articles).length) return null
-
     // 列表属性
     let listProps = {
       columns: [{

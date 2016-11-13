@@ -78,6 +78,7 @@
     "axios": "^0.15.2",
     "fbjs": "^0.8.6",
     "history": "^4.4.0",
+    "kindeditor": "^4.1.10",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
