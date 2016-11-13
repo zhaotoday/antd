@@ -6,7 +6,7 @@ export default class extends React.Component {
     // 数据标题
     columns: React.PropTypes.array,
     // 数据
-    data: React.PropTypes.array,
+    dataSource: React.PropTypes.array,
     // 分页属性
     pagination: React.PropTypes.object,
     // 获取数据
@@ -15,7 +15,7 @@ export default class extends React.Component {
 
   static defaultProps = {
     columns: [],
-    data: [],
+    dataSource: [],
     pagination: {
       total: 0,
       pageSize: 0,
@@ -48,12 +48,17 @@ export default class extends React.Component {
   }
 
   render() {
-    const { columns, data, pagination } = this.props
+    let { columns, dataSource, pagination } = this.props
     const rowSelection = {
       onChange: this._handleSelectChange
     }
 
-    return <Table rowSelection={rowSelection} columns={columns} dataSource={data} pagination={pagination}
+    dataSource = dataSource.map((item, index) => {
+      item.key = index
+      return item
+    })
+
+    return <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource} pagination={pagination}
       loading={this.state.loading}
       onChange={this._handleTableChange} />
   }

@@ -51,7 +51,7 @@ class Comp extends React.Component {
         </span>
         ),
       }],
-      data: articles.data ? articles.data.data.items : [],
+      dataSource: articles.data ? articles.data.data.items : [],
       pagination: {
         current: this.current,
         pageSize: consts.PAGE_SIZE,

@@ -4,7 +4,7 @@ import actionCreators from '../redux/actions'
 import connect from 'react-redux/lib/components/connect'
 import { Header, Body, Sidebar, Main } from 'app/layout'
 
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.less'
 import 'themes/global'
 import { Upload, message, Button, Icon } from 'antd';
 

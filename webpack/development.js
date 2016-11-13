@@ -35,9 +35,9 @@ module.exports = {
         loader: 'style!css?modules&localIdentName=[name]__[local]-[hash:base64:5]!sass!postcss'
       },
       {
-        test: /\.css$/,
+        test: /\.less$/,
         include: /node_modules/,
-        loader: 'style!css'
+        loader: 'style!css!less'
       },
       ...config.module.loaders
     ]
