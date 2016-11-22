@@ -25,6 +25,11 @@ module.exports = {
         loader: 'style!css?modules&localIdentName=[hash:base64:5]!sass!postcss'
       },
       {
+        test: /\.css$/,
+        include: /node_modules/,
+        loader: 'style!css'
+      },
+      {
         test: /\.less$/,
         include: /node_modules/,
         loader: ExtractTextPlugin.extract('style', 'css!less')
