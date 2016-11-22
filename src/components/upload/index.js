@@ -3,16 +3,19 @@ import {Upload, Button, Icon, message} from 'antd'
 import consts from 'utils/consts'
 
 // 上传地址
-const action = consts.API_URL + '/api/files'
+const action = consts.API_URL + '/files'
 
 export default class extends React.Component {
   static propTypes = {
     // 文件 ID
-    value: React.PropTypes.string
+    value: React.PropTypes.string,
+    // change 事件
+    onChange: React.PropTypes.func
   }
 
   static defaultProps = {
-    value: ''
+    value: undefined,
+    onChange: undefined
   }
 
   state = {
