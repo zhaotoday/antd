@@ -2,21 +2,17 @@ import React from 'react'
 import {Upload, Button, Icon, message} from 'antd'
 import consts from 'utils/consts'
 
-const action = ''
+// 上传地址
+const action = consts.API_URL + '/api/files'
 
 export default class extends React.Component {
   static propTypes = {
     // 文件 ID
-    value: React.PropTypes.string,
-    // 上传地址
-    action: React.PropTypes.string,
-    // 默认值
-    defaultValue: React.PropTypes.string
+    value: React.PropTypes.string
   }
 
   static defaultProps = {
-    action: '',
-    defaultValue: ''
+    value: ''
   }
 
   state = {
@@ -32,7 +28,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const {action, defaultValue} = this.props
+    const {defaultValue} = this.props
     const {fileList} = this.state
     const props = {
       name: 'userfile',

@@ -69,7 +69,7 @@ module.exports = Form.create()(class extends React.Component {
               message: '请选择栏目'
             }],
           })(
-            <Upload action="http://www.cms.com/api/files" />
+            <Upload />
           )}
         </Form.Item>
       </Form>

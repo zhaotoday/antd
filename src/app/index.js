@@ -2,11 +2,11 @@ import React from 'react'
 import actionCreators from '../redux/actions'
 
 import connect from 'react-redux/lib/components/connect'
-import { Header, Body, Sidebar, Main } from 'app/layout'
+import {Header, Body, Sidebar, Main} from 'app/layout'
 
 import 'antd/dist/antd.less'
 import 'themes/global'
-import { message } from 'antd';
+import {message} from 'antd'
 
 @connect(
   state => ({
@@ -55,10 +55,10 @@ class Comp extends React.Component {
     return <div>
       <Header />
       <Body>
-        <Sidebar ref="sidebar" />
-        <Main>
-          {this.props.children}
-        </Main>
+      <Sidebar ref="sidebar" />
+      <Main>
+        {this.props.children}
+      </Main>
       </Body>
     </div>
   }
