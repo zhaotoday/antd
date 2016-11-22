@@ -1,10 +1,13 @@
 import React from 'react'
-import 'kindeditor'
-import 'kindeditor/themes/default/default.css'
-import { Upload, Button, Icon, message } from 'antd'
+import {Upload, Button, Icon, message} from 'antd'
+import consts from 'utils/consts'
+
+const action = ''
 
 export default class extends React.Component {
   static propTypes = {
+    // 文件 ID
+    value: React.PropTypes.string,
     // 上传地址
     action: React.PropTypes.string,
     // 默认值
@@ -29,8 +32,8 @@ export default class extends React.Component {
   }
 
   render() {
-    const { action, defaultValue } = this.props
-    const { fileList } = this.state
+    const {action, defaultValue} = this.props
+    const {fileList} = this.state
     const props = {
       name: 'userfile',
       defaultFileList: [],
@@ -52,8 +55,8 @@ export default class extends React.Component {
    * 处理上传状态改变事件
    */
   _handleChange = (info) => {
-    let { file, fileList } = info
-    const { status, name } = file
+    let {file, fileList} = info
+    const {status, name} = file
 
     if (status === 'done') {
       message.success(`${name} 上传成功！`)

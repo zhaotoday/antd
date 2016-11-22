@@ -6,7 +6,7 @@ import { Header, Body, Sidebar, Main } from 'app/layout'
 
 import 'antd/dist/antd.less'
 import 'themes/global'
-import { Upload, message, Button, Icon } from 'antd';
+import { message } from 'antd';
 
 @connect(
   state => ({

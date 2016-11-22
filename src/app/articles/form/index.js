@@ -1,19 +1,21 @@
 import React from 'react'
-import { Breadcrumb, Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button } from 'antd'
+import {Breadcrumb, Form, Input, Button, Row, Col, TreeSelect} from 'antd'
 import Editor from 'components/editor'
 import Upload from 'components/upload'
-import Tree from 'components/tree'
+import CategorySelect from 'components/categorySelect'
 
 module.exports = Form.create()(class extends React.Component {
   componentDidMount() {
-    const { setFieldsValue } = this.props.form
+    const {setFieldsValue} = this.props.form
+
     setFieldsValue({
-      title: '2'
+      title: '2',
+      category_id: ''
     })
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form
+    const {getFieldDecorator} = this.props.form
 
     return <div>
       <Breadcrumb>
@@ -21,7 +23,6 @@ module.exports = Form.create()(class extends React.Component {
         <Breadcrumb.Item>文章管理</Breadcrumb.Item>
         <Breadcrumb.Item>新增文章</Breadcrumb.Item>
       </Breadcrumb>
-      <Tree />
       <Form horizontal>
         <Form.Item
           labelCol={{span: 2}}
@@ -48,25 +49,44 @@ module.exports = Form.create()(class extends React.Component {
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
-          label="图片">
-          <Upload ref="upload" action="http://www.cms.com/api/files" />
+          label="栏目">
+          {getFieldDecorator('category_id', {
+            rules: [{
+              required: true,
+              message: '请选择栏目'
+            }],
+          })(
+            <CategorySelect />
+          )}
         </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
-          label=" ">
-          <Button type="primary" onClick={this._handleSubmit}>提交</Button>
+          label="图片">
+          {getFieldDecorator('category_id', {
+            rules: [{
+              required: true,
+              message: '请选择栏目'
+            }],
+          })(
+            <Upload action="http://www.cms.com/api/files" />
+          )}
         </Form.Item>
       </Form>
+      <Row>
+        <Col offset="2" span="20">
+          <Button type="primary" onClick={this._handleSubmit}>提交</Button>
+        </Col>
+      </Row>
     </div>
   }
 
   /**
-   * 提交
+   * 提交表单
    */
   _handleSubmit = (e) => {
-    const { upload, editor } = this.refs
-    const { form } = this.props
+    const {upload, editor} = this.refs
+    const {form} = this.props
 
     e.preventDefault();
 
