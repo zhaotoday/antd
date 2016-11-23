@@ -3,6 +3,11 @@ import 'kindeditor'
 import 'kindeditor/themes/default/default.css'
 
 export default class extends React.Component {
+  constructor() {
+    super()
+    this.changed = false
+  }
+
   static propTypes = {
     // 名称
     name: React.PropTypes.string,
@@ -24,7 +29,7 @@ export default class extends React.Component {
 
   componentDidMount() {
     const that = this
-    const { name, afterChange, height } = this.props
+    const {name, afterChange, height} = this.props
     const items = [
       'source',
       'image', 'fullscreen', 'undo', 'redo', 'justifyleft', 'justifycenter', 'justifyright',
@@ -42,17 +47,19 @@ export default class extends React.Component {
       items: items,
       pluginsPath: 'KEPlugins/',
       afterChange: function () {
-        if (afterChange) {
+        if (that.changed && that.props.value !== this.html() && afterChange
+        ) {
           afterChange(name, this.html())
         }
       }
     }
 
-    this.editor = KindEditor.create(this.refs.content, {...options})
-
     setTimeout(() => {
       this.editor.appendHtml(that.props.value)
+      that.changed = true
     }, 100)
+
+    this.editor = KindEditor.create(this.refs.content, {...options})
   }
 
   render() {

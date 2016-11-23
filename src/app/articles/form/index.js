@@ -10,8 +10,9 @@ module.exports = Form.create()(class extends React.Component {
 
     setFieldsValue({
       title: '2',
-      content: 'abc<br/>dd',
-      category_id: ''
+      content: 'abc<br />dd',
+      category_id: '',
+      picture: ''
     })
   }
 
@@ -72,7 +73,7 @@ module.exports = Form.create()(class extends React.Component {
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
           label="图片">
-          {getFieldDecorator('category_id', {
+          {getFieldDecorator('picture', {
             rules: [{
               required: true,
               message: '请上传图片'
@@ -114,10 +115,12 @@ module.exports = Form.create()(class extends React.Component {
    * 处理 afterChange 事件
    */
   _handleAfterChange = (name, value) => {
-    const {setFieldsValue} = this.props.form
+    const {setFieldsValue,validateFields} = this.props.form
 
     setFieldsValue({
       [name]: value
     })
+
+    validateFields([name])
   }
 })

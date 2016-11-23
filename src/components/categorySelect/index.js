@@ -42,7 +42,7 @@ export default class extends React.Component {
     }]
 
     return <TreeSelect
-      value={this.props.value||undefined}
+      value={this.props.value || undefined}
       style={{width: 300}}
       dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
       treeData={treeData}
