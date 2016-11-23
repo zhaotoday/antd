@@ -4,13 +4,13 @@ import 'kindeditor/themes/default/default.css'
 
 export default class extends React.Component {
   static propTypes = {
-    // 组件名称
+    // 名称
     name: React.PropTypes.string,
-    // 编辑器的值
+    // 值
     value: React.PropTypes.string,
-    // changed 事件
+    // afterChange 事件
     afterChange: React.PropTypes.func,
-    // 编辑器高度
+    // 高度
     height: React.PropTypes.string
   }
 
@@ -42,7 +42,7 @@ export default class extends React.Component {
       items: items,
       pluginsPath: 'KEPlugins/',
       afterChange: function () {
-        if (that.props.value !== this.html() && afterChange) {
+        if (afterChange) {
           afterChange(name, this.html())
         }
       }
@@ -53,17 +53,6 @@ export default class extends React.Component {
     setTimeout(() => {
       this.editor.appendHtml(that.props.value)
     }, 100)
-  }
-
-  // 取值
-  get value() {
-    this.editor.sync()
-    return this.refs.content.value
-  }
-
-  // 设值
-  set value(value) {
-    this.editor.html(value)
   }
 
   render() {

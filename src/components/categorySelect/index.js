@@ -3,41 +3,22 @@ import {TreeSelect} from 'antd'
 
 export default class extends React.Component {
   static propTypes = {
-    // 选择器的值
+    // 名称
+    name: React.PropTypes.string,
+    // afterChange 事件
+    afterChange: React.PropTypes.func,
+    // 值
     value: React.PropTypes.string
   }
 
   static defaultProps = {
+    name: 'categorySelect',
     value: ''
   }
 
   state = {
     //  当前选择器的值
     value: undefined
-  }
-
-  /**
-   * 获取选择器的值
-   * @returns {string}
-   */
-  get value() {
-    return this.state.value
-  }
-
-  /**
-   * 设置选择器的值
-   * @param {string} value 值
-   */
-  set value(value) {
-    this.setState({value})
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value) {
-      this.setState({
-        value: nextProps.value
-      })
-    }
   }
 
   render() {
@@ -61,7 +42,7 @@ export default class extends React.Component {
     }]
 
     return <TreeSelect
-      value={this.state.value}
+      value={this.props.value||undefined}
       style={{width: 300}}
       dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
       treeData={treeData}
@@ -72,9 +53,11 @@ export default class extends React.Component {
   }
 
   /**
-   * 选择器 change 事件
+   * 处理 change 事件
    */
   _handleChange = (value) => {
-    this.setState({value})
+    const {name, afterChange} = this.props
+
+    afterChange && afterChange(name, value)
   }
 }

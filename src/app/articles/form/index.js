@@ -11,7 +11,7 @@ module.exports = Form.create()(class extends React.Component {
     setFieldsValue({
       title: '2',
       content: 'abc<br/>dd',
-      category_id: '0-0-1'
+      category_id: ''
     })
   }
 
@@ -29,6 +29,7 @@ module.exports = Form.create()(class extends React.Component {
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
           label="标题"
+          required
           hasFeedback>
           {getFieldDecorator('title', {
             rules: [{
@@ -51,7 +52,7 @@ module.exports = Form.create()(class extends React.Component {
               message: '请输入内容'
             }],
           })(
-            <Editor afterChange={this._handleAfterChange} />
+            <Editor name="content" afterChange={this._handleAfterChange} />
           )}
         </Form.Item>
         <Form.Item
@@ -64,7 +65,7 @@ module.exports = Form.create()(class extends React.Component {
               message: '请选择栏目'
             }],
           })(
-            <CategorySelect />
+            <CategorySelect name="category_id" afterChange={this._handleAfterChange} />
           )}
         </Form.Item>
         <Form.Item
@@ -110,7 +111,7 @@ module.exports = Form.create()(class extends React.Component {
   }
 
   /**
-   * changed 事件
+   * 处理 afterChange 事件
    */
   _handleAfterChange = (name, value) => {
     const {setFieldsValue} = this.props.form
