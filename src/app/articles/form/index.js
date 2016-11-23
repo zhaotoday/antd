@@ -10,7 +10,8 @@ module.exports = Form.create()(class extends React.Component {
 
     setFieldsValue({
       title: '2',
-      category_id: ''
+      content: 'abc<br/>dd',
+      category_id: '0-0-1'
     })
   }
 
@@ -44,7 +45,14 @@ module.exports = Form.create()(class extends React.Component {
           label="内容"
           required
           hasFeedback>
-          <Editor ref="editor" defaultValue="abc<br/>dd" />
+          {getFieldDecorator('content', {
+            rules: [{
+              required: true,
+              message: '请输入内容'
+            }],
+          })(
+            <Editor />
+          )}
         </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
@@ -66,7 +74,7 @@ module.exports = Form.create()(class extends React.Component {
           {getFieldDecorator('category_id', {
             rules: [{
               required: true,
-              message: '请选择栏目'
+              message: '请上传图片'
             }],
           })(
             <Upload />
