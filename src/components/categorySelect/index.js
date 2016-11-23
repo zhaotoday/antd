@@ -16,11 +16,6 @@ export default class extends React.Component {
     value: ''
   }
 
-  state = {
-    //  当前选择器的值
-    value: undefined
-  }
-
   render() {
     const treeData = [{
       label: 'Node1',

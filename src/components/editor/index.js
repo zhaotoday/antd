@@ -5,7 +5,8 @@ import 'kindeditor/themes/default/default.css'
 export default class extends React.Component {
   constructor() {
     super()
-    this.changed = false
+    // 是否已初始化
+    this.initialized = false
   }
 
   static propTypes = {
@@ -47,8 +48,7 @@ export default class extends React.Component {
       items: items,
       pluginsPath: 'KEPlugins/',
       afterChange: function () {
-        if (that.changed && that.props.value !== this.html() && afterChange
-        ) {
+        if (that.initialized && that.props.value !== this.html() && afterChange) {
           afterChange(name, this.html())
         }
       }
@@ -56,7 +56,7 @@ export default class extends React.Component {
 
     setTimeout(() => {
       this.editor.appendHtml(that.props.value)
-      that.changed = true
+      that.initialized = true
     }, 100)
 
     this.editor = KindEditor.create(this.refs.content, {...options})
