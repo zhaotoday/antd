@@ -51,7 +51,7 @@ module.exports = Form.create()(class extends React.Component {
               message: '请输入内容'
             }],
           })(
-            <Editor />
+            <Editor afterChange={this._handleAfterChange} />
           )}
         </Form.Item>
         <Form.Item
@@ -106,6 +106,17 @@ module.exports = Form.create()(class extends React.Component {
       alert(JSON.stringify(fieldsValue))
 
       alert(editor.value)
+    })
+  }
+
+  /**
+   * changed 事件
+   */
+  _handleAfterChange = (name, value) => {
+    const {setFieldsValue} = this.props.form
+
+    setFieldsValue({
+      [name]: value
     })
   }
 })
