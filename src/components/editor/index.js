@@ -5,15 +5,15 @@ import 'kindeditor'
 import 'kindeditor/themes/default/default.css'
 import './theme/styles'
 import ImageInsert from './components/imageInsert'
+import consts from './utils/consts'
 
 export default class extends React.Component {
   constructor() {
     super()
 
-    helpers.addImgUploadPlugin(() => {
-      this.setState({
-        iiVisible: true
-      })
+    // 添加插入图片插件
+    helpers.addImageInsertPlugin(() => {
+      this.setState({iiVisible: true})
     })
 
     // 是否已初始化
@@ -47,18 +47,7 @@ export default class extends React.Component {
   componentDidMount() {
     const that = this
     const {name, afterChange, height} = this.props
-    const items = [
-      'source',
-      'fullscreen', 'undo', 'redo', 'justifyleft', 'justifycenter', 'justifyright',
-      'justifyfull', 'indent', 'outdent', 'subscript',
-      'superscript', 'link',
-      'fontname', 'formatblock',
-      'fontsize',
-      'forecolor', 'hilitecolor', 'bold',
-      'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', 'picture',
-      'hr',
-      'imgUpload'
-    ]
+    const items = consts.ITEMS
     const options = {
       width: '100%',
       height: height,
