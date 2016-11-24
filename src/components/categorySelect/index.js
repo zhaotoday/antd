@@ -5,15 +5,17 @@ export default class extends React.Component {
   static propTypes = {
     // 名称
     name: React.PropTypes.string,
-    // afterChange 事件
-    afterChange: React.PropTypes.func,
     // 值
-    value: React.PropTypes.string
+    value: React.PropTypes.string,
+    // afterChange 事件
+    afterChange: React.PropTypes.func
   }
 
   static defaultProps = {
     name: 'categorySelect',
-    value: ''
+    value: '',
+    afterChange: () => {
+    }
   }
 
   render() {
@@ -48,11 +50,10 @@ export default class extends React.Component {
   }
 
   /**
-   * 处理 change 事件
+   * change 事件
    */
   _handleChange = (value) => {
     const {name, afterChange} = this.props
-
-    afterChange && afterChange(name, value)
+    afterChange(name, value)
   }
 }

@@ -58,7 +58,7 @@ export default class extends React.Component {
       items: items,
       pluginsPath: 'KEPlugins/',
       afterChange: function () {
-        if (that.initialized && that.props.value !== this.html() && afterChange) {
+        if (that.initialized && that.props.value !== this.html()) {
           afterChange(name, this.html())
         }
       }

@@ -7,15 +7,19 @@ const action = consts.API_URL + '/files'
 
 export default class extends React.Component {
   static propTypes = {
-    // 文件 ID
+    // 名称
+    name: React.PropTypes.string,
+    // 值
     value: React.PropTypes.string,
-    // change 事件
-    onChange: React.PropTypes.func
+    // afterChange 事件
+    afterChange: React.PropTypes.func
   }
 
   static defaultProps = {
+    name: 'upload',
     value: undefined,
-    onChange: undefined
+    afterChange: () => {
+    }
   }
 
   state = {
