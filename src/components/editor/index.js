@@ -1,14 +1,21 @@
 import React from 'react'
-import { Modal } from 'antd'
-import Upload from 'components/upload'
+import * as helpers from './utils/helpers'
 
 import 'kindeditor'
 import 'kindeditor/themes/default/default.css'
 import './theme/styles'
+import ImageInsert from './components/imageInsert'
 
 export default class extends React.Component {
   constructor() {
     super()
+
+    helpers.addImgUploadPlugin(() => {
+      this.setState({
+        iiVisible: true
+      })
+    })
+
     // 是否已初始化
     this.initialized = false
   }
@@ -33,8 +40,8 @@ export default class extends React.Component {
   }
 
   state = {
-    // 图片上传框是否可视
-    imgUploadVisible: false
+    // 插入图片组件是否可见
+    iiVisible: false
   }
 
   componentDidMount() {
@@ -70,49 +77,28 @@ export default class extends React.Component {
     }, 100)
 
     this.editor = KindEditor.create(this.refs.content, {...options})
-
-    // 自定义插入图片插件
-    KindEditor.lang({
-      'imgUpload': '插入图片'
-    })
-
-    KindEditor.plugin('imgUpload', function (K) {
-      this.clickToolbar('imgUpload', function () {
-        that.setState({
-          imgUploadVisible: true
-        })
-        //that.insertHtml('<strong>测试内容</strong>')
-      })
-    })
   }
 
   render() {
     return <div>
       <textarea ref="content" />
-      <Modal title="插入图片" visible={this.state.imgUploadVisible} okText="插入" cancelText="取消"
-        onOk={this._handleOk} onCancel={this._handleCancel}>
-        <Upload />
-      </Modal>
+      <ImageInsert visible={this.state.iiVisible} onOk={this._handleImageInsertOk}
+        onCancel={this._handleImageInsertCancel} />
     </div>
   }
 
   /**
-   * 确定插入
+   * 确定插入图片
    */
-  _handleOk = () => {
-    this.setState({
-      imgUploadVisible: false
-    })
-
-    this.editor.insertHtml(333)
+  _handleImageInsertOk = () => {
+    this.setState({iiVisible: false})
+    this.editor.insertHtml('222')
   }
 
   /**
-   * 取消
+   * 取消插入图片
    */
-  _handleCancel = () => {
-    this.setState({
-      imgUploadVisible: false
-    })
+  _handleImageInsertCancel = () => {
+    this.setState({iiVisible: false})
   }
 }
