@@ -8,7 +8,7 @@ const ITEMS = [
   'forecolor', 'hilitecolor', 'bold',
   'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', 'picture',
   'hr',
-  'imageInsert'
+  'image'
 ]
 
 export default {

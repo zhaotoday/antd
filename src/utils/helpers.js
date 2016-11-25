@@ -1,5 +1,6 @@
 import moment from 'moment'
 import consts from './consts'
+import FileModel from 'redux/models/files'
 
 /**
  * 路由跳转
@@ -10,17 +11,28 @@ const go = function (path) {
 }
 
 /**
- * 获取文件地址
- * @param model {string} 模型
- * @param createdAt {string} 创建时间
- * @param ext {string} 后缀
- * @returns {string}
+ * 加载文件
+ * @param fileId {string} 文件 ID
+ * @returns {promise}
  */
-const getFileSrc = (model, createdAt, ext) => {
-  return `${consts.BASE_URL}/files/${model}/${moment(parseFloat(createdAt + '000')).format('YYYYMMDD/HHmmss')}${ext}`
+const getFileURL = (fileId) => {
+  return new Promise((resolve, reject) => {
+    new FileModel()
+      .addPaths(['{file_id}'])
+      .replace({
+        file_id: fileId
+      })
+      .GET()
+      .then((response) => {
+        const {model, created_at, ext, name} = response.data.data
+        const url = `${consts.BASE_URL}/files/${model}/${moment(parseFloat(created_at + '000')).format('YYYYMMDD/HHmmss')}${ext}`
+
+        resolve(url)
+      }).catch(reject)
+  })
 }
 
 export default {
   go,
-  getFileSrc
+  getFileURL
 }

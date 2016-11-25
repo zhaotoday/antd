@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal} from 'antd'
+import {Modal, message} from 'antd'
 import Upload from 'components/upload'
 
 export default class extends React.Component {
@@ -23,10 +23,16 @@ export default class extends React.Component {
     }
   }
 
+  state = {
+    uploadValue: ''
+  }
+
   render() {
+    const {uploadValue} = this.state
+
     return <Modal title="插入图片" visible={this.props.visible} okText="插入" cancelText="取消"
       onOk={this._handleOk} onCancel={this._handleCancel}>
-      <Upload />
+      <Upload value={uploadValue} afterChange={this._handleUploadAfterChange} />
     </Modal>
   }
 
@@ -34,7 +40,16 @@ export default class extends React.Component {
    * 确定插入
    */
   _handleOk = () => {
-    this.props.onOk()
+    const {uploadValue} = this.state
+
+    if (!uploadValue) {
+      message.error('请上传文件')
+      return
+    }
+    this.props.onOk(uploadValue)
+    this.setState({
+      uploadValue: ''
+    })
   }
 
   /**
@@ -42,5 +57,17 @@ export default class extends React.Component {
    */
   _handleCancel = () => {
     this.props.onCancel()
+    this.setState({
+      uploadValue: ''
+    })
+  }
+
+  /**
+   * 上传 afterChange 事件
+   */
+  _handleUploadAfterChange = (name, value) => {
+    this.setState({
+      uploadValue: value
+    })
   }
 }

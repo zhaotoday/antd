@@ -1,7 +1,6 @@
 import React from 'react'
 import {Upload, Button, Icon, message} from 'antd'
 import consts from 'utils/consts'
-import Model from './models/files'
 import helpers from 'utils/helpers'
 
 // 上传地址
@@ -33,16 +32,15 @@ export default class extends React.Component {
   value = ''
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value && this.props.value !== nextProps.value && this.value !== nextProps.value) {
-      new Model()
-        .addPaths(['{file_id}'])
-        .replace({
-          file_id: nextProps.value
-        })
-        .GET()
-        .then((response) => {
-          const {model, created_at, ext, name} = response.data.data
-          const url = helpers.getFileSrc(model, created_at, ext)
+    const {value} = nextProps
+
+    if (value === '') {
+      this.setState({
+        fileList: []
+      })
+    } else {
+      if (this.props.value !== value && this.value !== value) {
+        helpers.getFileURL(value).then((url) => {
           this.setState({
             fileList: [{
               uid: -1,
@@ -53,6 +51,7 @@ export default class extends React.Component {
             }]
           })
         })
+      }
     }
   }
 
@@ -96,6 +95,10 @@ export default class extends React.Component {
       const id = file.response.data.id.toString()
       this.value = id
       this.props.afterChange(this.props.name, id)
+    }
+
+    if (fileList.length === 0) {
+      this.props.afterChange(this.props.name, '')
     }
 
     this.setState({fileList})

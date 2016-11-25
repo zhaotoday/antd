@@ -1,19 +1,18 @@
 import React from 'react'
-import * as helpers from './utils/helpers'
+import * as _helpers from './utils/helpers'
+import helpers from 'utils/helpers'
 
 import 'kindeditor'
 import 'kindeditor/themes/default/default.css'
-import './theme/styles'
-import ImageInsert from './components/imageInsert'
+import Image from './components/image'
 import consts from './utils/consts'
 
 export default class extends React.Component {
   constructor() {
     super()
 
-    // 添加插入图片插件
-    helpers.addImageInsertPlugin(() => {
-      this.setState({iiVisible: true})
+    _helpers.overrideImagePlugin(() => {
+      this.setState({imageVisible: true})
     })
 
     // 是否已初始化
@@ -41,7 +40,7 @@ export default class extends React.Component {
 
   state = {
     // 插入图片组件是否可见
-    iiVisible: false
+    imageVisible: false
   }
 
   componentDidMount() {
@@ -70,23 +69,26 @@ export default class extends React.Component {
   render() {
     return <div>
       <textarea ref="content" />
-      <ImageInsert visible={this.state.iiVisible} onOk={this._handleImageInsertOk}
-        onCancel={this._handleImageInsertCancel} />
+      <Image visible={this.state.imageVisible} onOk={this._handleImageOk}
+        onCancel={this._handleImageCancel} />
     </div>
   }
 
   /**
    * 确定插入图片
    */
-  _handleImageInsertOk = () => {
-    this.setState({iiVisible: false})
-    this.editor.insertHtml('222')
+  _handleImageOk = (fileId) => {
+    this.setState({imageVisible: false})
+    helpers.getFileURL(fileId).then((url) => {
+      this.editor.insertHtml(`<img src="${url}" />`)
+    })
+
   }
 
   /**
    * 取消插入图片
    */
-  _handleImageInsertCancel = () => {
-    this.setState({iiVisible: false})
+  _handleImageCancel = () => {
+    this.setState({imageVisible: false})
   }
 }
