@@ -56,10 +56,6 @@ export default class extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.value !== nextProps.value
-  }
-
   render() {
     const {fileList} = this.state
     const props = {
@@ -97,8 +93,9 @@ export default class extends React.Component {
     fileList = fileList.slice(-1)
 
     if (file.response && file.response.data && file.response.data.id) {
-      this.value = file.response.data.id
-      this.props.afterChange(this.props.name, file.response.data.id.toString())
+      const id = file.response.data.id.toString()
+      this.value = id
+      this.props.afterChange(this.props.name, id)
     }
 
     this.setState({fileList})
