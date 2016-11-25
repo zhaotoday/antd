@@ -1,5 +1,3 @@
-import 'kindeditor'
-
 /**
  * 重写插入图片插件
  * @param onEdit {function} edit 事件

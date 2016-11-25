@@ -1,5 +1,5 @@
 import React from 'react'
-import {Breadcrumb, Form, Input, Button, Row, Col, TreeSelect} from 'antd'
+import {Breadcrumb, Form, Input, Button, Row, Col} from 'antd'
 import Editor from 'components/editor'
 import Upload from 'components/upload'
 import CategorySelect from 'components/categorySelect'
@@ -36,7 +36,7 @@ module.exports = Form.create()(class extends React.Component {
             rules: [{
               required: true,
               message: '请输入标题'
-            }],
+            }]
           })(
             <Input />
           )}
@@ -51,7 +51,7 @@ module.exports = Form.create()(class extends React.Component {
             rules: [{
               required: true,
               message: '请输入内容'
-            }],
+            }]
           })(
             <Editor name="content" afterChange={this._handleAfterChange} />
           )}
@@ -64,7 +64,7 @@ module.exports = Form.create()(class extends React.Component {
             rules: [{
               required: true,
               message: '请选择栏目'
-            }],
+            }]
           })(
             <CategorySelect name="category_id" afterChange={this._handleAfterChange} />
           )}
@@ -77,7 +77,7 @@ module.exports = Form.create()(class extends React.Component {
             rules: [{
               required: true,
               message: '请上传图片'
-            }],
+            }]
           })(
             <Upload name="picture" afterChange={this._handleAfterChange} />
           )}
@@ -98,11 +98,11 @@ module.exports = Form.create()(class extends React.Component {
     const {upload, editor} = this.refs
     const {form} = this.props
 
-    e.preventDefault();
+    e.preventDefault()
 
     form.validateFields((err, fieldsValue) => {
       if (err) {
-        return;
+        return
       }
 
       alert(JSON.stringify(fieldsValue))
@@ -115,7 +115,7 @@ module.exports = Form.create()(class extends React.Component {
    * 处理 afterChange 事件
    */
   _handleAfterChange = (name, value) => {
-    const {setFieldsValue,validateFields} = this.props.form
+    const {setFieldsValue, validateFields} = this.props.form
 
     setFieldsValue({
       [name]: value
