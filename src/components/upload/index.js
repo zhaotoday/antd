@@ -1,6 +1,8 @@
 import React from 'react'
 import {Upload, Button, Icon, message} from 'antd'
 import consts from 'utils/consts'
+import Model from './models/files'
+import helpers from 'utils/helpers'
 
 // 上传地址
 const action = consts.API_URL + '/files'
@@ -32,6 +34,19 @@ export default class extends React.Component {
 
   get value() {
     return this.id
+  }
+
+  componentDidMount() {
+    new Model()
+      .addPaths(['{file_id}'])
+      .replace({
+        file_id: 1
+      })
+      .GET()
+      .then((response) => {
+        const {model, created_at, ext} = response.data.data
+        console.log(helpers.getFileSrc(model, created_at, ext))
+      })
   }
 
   render() {
