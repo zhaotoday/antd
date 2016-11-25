@@ -47,11 +47,10 @@ export default class extends React.Component {
   componentDidMount() {
     const that = this
     const {name, afterChange, height} = this.props
-    const items = consts.ITEMS
     const options = {
       width: '100%',
       height: height,
-      items: items,
+      items: consts.ITEMS,
       pluginsPath: 'KEPlugins/',
       afterChange: function () {
         if (that.initialized && that.props.value !== this.html()) {
