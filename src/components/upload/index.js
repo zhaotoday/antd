@@ -30,27 +30,37 @@ export default class extends React.Component {
   }
 
   // 上传成功后返回的文件 ID
-  id = ''
+  value = ''
 
-  get value() {
-    return this.id
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value && this.props.value !== nextProps.value && this.value !== nextProps.value) {
+      new Model()
+        .addPaths(['{file_id}'])
+        .replace({
+          file_id: nextProps.value
+        })
+        .GET()
+        .then((response) => {
+          const {model, created_at, ext, name} = response.data.data
+          const url = helpers.getFileSrc(model, created_at, ext)
+          this.setState({
+            fileList: [{
+              uid: -1,
+              name,
+              status: 'done',
+              url,
+              thumbUrl: url,
+            }]
+          })
+        })
+    }
   }
 
-  componentDidMount() {
-    new Model()
-      .addPaths(['{file_id}'])
-      .replace({
-        file_id: 1
-      })
-      .GET()
-      .then((response) => {
-        const {model, created_at, ext} = response.data.data
-        console.log(helpers.getFileSrc(model, created_at, ext))
-      })
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.value !== nextProps.value
   }
 
   render() {
-    const {defaultValue} = this.props
     const {fileList} = this.state
     const props = {
       name: 'userfile',
@@ -76,6 +86,8 @@ export default class extends React.Component {
     let {file, fileList} = info
     const {status, name} = file
 
+    console.log(file, fileList)
+
     if (status === 'done') {
       message.success(`${name} 上传成功！`)
     } else if (status === 'error') {
@@ -85,7 +97,8 @@ export default class extends React.Component {
     fileList = fileList.slice(-1)
 
     if (file.response && file.response.data && file.response.data.id) {
-      this.id = file.response.data.id
+      this.value = file.response.data.id
+      this.props.afterChange(this.props.name, file.response.data.id.toString())
     }
 
     this.setState({fileList})

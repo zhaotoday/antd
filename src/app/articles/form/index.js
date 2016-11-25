@@ -12,7 +12,7 @@ module.exports = Form.create()(class extends React.Component {
       title: '2',
       content: 'abc<br />dd',
       category_id: '',
-      picture: ''
+      picture: '1'
     })
   }
 
@@ -79,7 +79,7 @@ module.exports = Form.create()(class extends React.Component {
               message: '请上传图片'
             }],
           })(
-            <Upload />
+            <Upload name="picture" afterChange={this._handleAfterChange} />
           )}
         </Form.Item>
       </Form>
