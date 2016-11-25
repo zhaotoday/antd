@@ -95,7 +95,7 @@ module.exports = Form.create()(class extends React.Component {
    * 提交表单
    */
   _handleSubmit = (e) => {
-    const {upload, editor} = this.refs
+    const {editor} = this.refs
     const {form} = this.props
 
     e.preventDefault()

@@ -26,16 +26,16 @@ export default class extends React.Component {
       children: [{
         label: 'Child Node1',
         value: '0-0-1',
-        key: '0-0-1',
+        key: '0-0-1'
       }, {
         label: 'Child Node2',
         value: '0-0-2',
-        key: '0-0-2',
-      }],
+        key: '0-0-2'
+      }]
     }, {
       label: 'Node2',
       value: '0-1',
-      key: '0-1',
+      key: '0-1'
     }]
 
     return <TreeSelect

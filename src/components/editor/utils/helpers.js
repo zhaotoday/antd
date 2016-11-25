@@ -9,7 +9,7 @@ export const overrideImagePlugin = (onEdit) => {
       delete: () => {
         let target = this.plugin.getSelectedImage()
 
-        if (target.parent().name == 'a') {
+        if (target.parent().name === 'a') {
           target = target.parent()
         }
 

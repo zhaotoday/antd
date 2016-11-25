@@ -2,7 +2,7 @@ import React from 'react'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
 import helpers from 'utils/helpers'
-import { Breadcrumb, Form, Button, Input } from 'antd'
+import {Breadcrumb, Form, Button, Input} from 'antd'
 import consts from 'utils/consts'
 import List from 'components/list'
 
@@ -26,11 +26,11 @@ class Comp extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return Object.keys(nextProps.articles) != 0
+    return Object.keys(nextProps.articles) !== 0
   }
 
   render() {
-    const { articles } = this.props
+    const {articles} = this.props
 
     // 列表属性
     let listProps = {
@@ -38,21 +38,19 @@ class Comp extends React.Component {
         title: '标题',
         dataIndex: 'title',
         key: 'title',
-        render: text => <a href="#">{text}</a>,
+        render: text => <a href="#">{text}</a>
       }, {
         title: '栏目',
         dataIndex: 'category_id',
-        key: 'category_id',
+        key: 'category_id'
       }, {
         title: '操作',
         key: 'action',
-        render: (text, record) => (
-          <span>
+        render: (text, record) => <span>
           <a href="#">修改</a>
           <span className="ant-divider" />
           <a href="#">删除</a>
         </span>
-        ),
       }],
       dataSource: articles.data ? articles.data.data.items : [],
       pagination: {
@@ -72,7 +70,9 @@ class Comp extends React.Component {
       <div className="actions">
         <Form className="action" inline>
           <Form.Item>
-            <Button type="primary" onClick={() => {helpers.go.bind(this)('/articles/form')}}>新增</Button>
+            <Button type="primary" onClick={() => {
+              helpers.go.bind(this)('/articles/form')
+            }}>新增</Button>
           </Form.Item>
           <Form.Item>
             <Button type="primary">删除</Button>
