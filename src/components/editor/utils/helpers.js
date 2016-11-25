@@ -2,14 +2,12 @@ import 'kindeditor'
 
 /**
  * 重写插入图片插件
- * @param cb {function} 回调
+ * @param onEdit {function} edit 事件
  */
-export const overrideImagePlugin = (cb) => {
+export const overrideImagePlugin = (onEdit) => {
   KindEditor.plugin('image', function (K) {
     this.plugin.image = {
-      edit: () => {
-        cb()
-      },
+      edit: onEdit,
       delete: () => {
         let target = this.plugin.getSelectedImage()
 
