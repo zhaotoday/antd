@@ -2,16 +2,29 @@ import actionTypes from '../consts/files'
 import Model from '../models/files'
 import createAction from 'redux-actions/lib/createAction'
 
-export const postFile = createAction(
-  actionTypes.POST_FILE,
+/**
+ * 获取文件详情
+ */
+export const getFile = createAction(
+  actionTypes.GET_FILE,
   (options) => {
     return new Model()
-      .addPaths(['{category}', 'news'])
+      .addPaths(['{file_id}'])
       .replace({
-        category: 123
+        file_id: options.file_id
       })
-      .POST({
-        data: options.data
-      })
+      .GET()
+  }
+)
+
+/**
+ * 获取文件列表
+ */
+export const getFiles = createAction(
+  actionTypes.GET_FILES,
+  (options) => {
+    return new Model().GET({
+      params: options.params
+    })
   }
 )

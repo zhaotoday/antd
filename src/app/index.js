@@ -8,24 +8,8 @@ import 'antd/dist/antd.less'
 import 'themes/global'
 import {message} from 'antd'
 
-@connect(
-  state => ({
-    articles: state.articles,
-    files: state.files
-  }),
-  dispatch => ({
-    postArticle: (options) => dispatch(actionCreators.postArticle(options)),
-    postFile: (options) => dispatch(actionCreators.postFile(options))
-  })
-)
 class Comp extends React.Component {
   componentDidMount() {
-    this.props.postFile({
-      data: {
-        title: 'the title'
-      }
-    })
-
     this.refs.sidebar.openKey = this.props.location.pathname
   }
 

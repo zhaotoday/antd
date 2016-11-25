@@ -2,7 +2,7 @@ import actionTypes from '../consts/files'
 import typeToReducer from 'type-to-reducer'
 
 export default typeToReducer({
-  [`${actionTypes.GET_FILES}`]: {
+  [`${actionTypes.GET_FILE}`]: {
     LOADING: () => ({}),
     ERROR: (state, action) => ({
       isRejected: true,

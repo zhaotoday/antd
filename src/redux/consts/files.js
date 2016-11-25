@@ -1,5 +1,6 @@
 import keyMirror from 'fbjs/lib/keyMirror'
 
 export default keyMirror({
-  POST_FILE: null
+  GET_FILE: null,
+  GET_FILES: null
 })
