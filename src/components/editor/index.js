@@ -7,8 +7,6 @@ import 'kindeditor/themes/default/default.css'
 import Image from './components/image'
 import consts from './utils/consts'
 
-const KindEditor = window.KindEditor
-
 export default class extends React.Component {
   constructor() {
     super()
