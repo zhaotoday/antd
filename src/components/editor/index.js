@@ -7,6 +7,8 @@ import 'kindeditor/themes/default/default.css'
 import Image from './components/image'
 import consts from './utils/consts'
 
+const KindEditor = window.KindEditor
+
 export default class extends React.Component {
   constructor() {
     super()
@@ -79,10 +81,10 @@ export default class extends React.Component {
    */
   _handleImageOk = (fileId) => {
     this.setState({imageVisible: false})
+
     helpers.getFileURL(fileId).then((url) => {
       this.editor.insertHtml(`<img src="${url}" />`)
     })
-
   }
 
   /**

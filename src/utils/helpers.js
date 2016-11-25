@@ -24,7 +24,7 @@ const getFileURL = (fileId) => {
       })
       .GET()
       .then((response) => {
-        const {model, created_at, ext, name} = response.data.data
+        const {model, created_at, ext} = response.data.data
         const url = `${consts.BASE_URL}/files/${model}/${moment(parseFloat(created_at + '000')).format('YYYYMMDD/HHmmss')}${ext}`
 
         resolve(url)
