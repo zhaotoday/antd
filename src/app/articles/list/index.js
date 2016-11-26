@@ -26,7 +26,7 @@ class Comp extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return Object.keys(nextProps.articles) !== 0
+    return !nextProps.articles.isPending
   }
 
   render() {
