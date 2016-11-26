@@ -5,10 +5,14 @@ export default class extends React.Component {
   static propTypes = {
     // 确认事件
     onOk: React.PropTypes.func,
+    // validate 事件
+    onValidate: React.PropTypes.func
   }
 
   static defaultProps = {
     onOk() {
+    },
+    onValidate() {
     }
   }
 
@@ -41,7 +45,9 @@ export default class extends React.Component {
    * 点击删除
    */
   _handleClickDelete = () => {
-    this.setState({visible: true})
+    this.props.onValidate().then(() => {
+      this.setState({visible: true})
+    })
   }
 
   /**

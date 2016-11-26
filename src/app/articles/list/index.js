@@ -2,7 +2,7 @@ import React from 'react'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
 import helpers from 'utils/helpers'
-import {Breadcrumb, Form, Button, Input} from 'antd'
+import {Breadcrumb, Form, Button, Input, message} from 'antd'
 import consts from 'utils/consts'
 import List from 'components/list'
 import Delete from 'components/delete'
@@ -84,7 +84,7 @@ class Comp extends React.Component {
             }}>新增</Button>
           </Form.Item>
           <Form.Item>
-            <Delete onOk={this._handleDelete} />
+            <Delete onValidate={this._handleDeleteValidate} onOk={this._handleDelete} />
           </Form.Item>
         </Form>
         <Form className="search" inline>
@@ -119,11 +119,26 @@ class Comp extends React.Component {
   }
 
   /**
+   * 检查是否符合删除条件
+   */
+  _handleDeleteValidate = () => {
+    const {selectedRowKeys} = this.refs.list
+
+    return new Promise((resolve) => {
+      if (selectedRowKeys.length) {
+        resolve()
+      } else {
+        message.error('没有选中记录')
+      }
+    })
+  }
+
+  /**
    * 删除
    */
   _handleDelete = () => {
     const {selectedRowKeys} = this.refs.list
-    alert(JSON.stringify(selectedRowKeys))
+    alert(selectedRowKeys)
   }
 
   /**

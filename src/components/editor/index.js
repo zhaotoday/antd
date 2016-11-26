@@ -15,8 +15,8 @@ export default class extends React.Component {
       this.setState({imageVisible: true})
     })
 
-    // 是否已初始化
-    this.initialized = false
+    // 开关，是否可改变，为 true 时才可以执行 afterChange 事件
+    this.changeable = false
   }
 
   static propTypes = {
@@ -32,7 +32,7 @@ export default class extends React.Component {
 
   static defaultProps = {
     name: 'editor',
-    value: '',
+    value: undefined,
     afterChange: () => {
     },
     height: '500'
@@ -43,6 +43,14 @@ export default class extends React.Component {
     imageVisible: false
   }
 
+  componentWillReceiveProps(nextProps) {
+    // FIX: 表单重置 BUG
+    if (!nextProps.value) {
+      this.changeable = false
+      this.editor.html('')
+    }
+  }
+
   componentDidMount() {
     const that = this
     const {name, afterChange, height} = this.props
@@ -51,16 +59,20 @@ export default class extends React.Component {
       height: height,
       items: consts.ITEMS,
       pluginsPath: 'KEPlugins/',
-      afterChange: function () {
-        if (that.initialized && that.props.value !== this.html()) {
+      afterChange: function (e) {
+        const {value} = that.props
+
+        if (that.changeable && value !== this.html()) {
           afterChange(name, this.html())
         }
+
+        that.changeable = true
       }
     }
 
     setTimeout(() => {
-      this.editor.appendHtml(that.props.value)
-      that.initialized = true
+      this.editor.html(that.props.value)
+      that.changeable = true
     }, 100)
 
     this.editor = KindEditor.create(this.refs.content, {...options})

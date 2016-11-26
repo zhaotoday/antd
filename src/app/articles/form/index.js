@@ -1,8 +1,10 @@
 import React from 'react'
-import {Breadcrumb, Form, Input, Button, Row, Col} from 'antd'
+import {Breadcrumb, Form, Input, Button, Row, Col, message} from 'antd'
+import helpers from 'utils/helpers'
 import Editor from 'components/editor'
 import Upload from 'components/upload'
 import CategorySelect from 'components/categorySelect'
+import Padding from 'components/padding'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
 
@@ -15,14 +17,18 @@ import actionCreators from '../../../redux/actions'
   })
 )
 class Comp extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   componentDidMount() {
     const {setFieldsValue} = this.props.form
 
     setFieldsValue({
-      title: '2',
-      content: 'abc<br />dd',
+      title: '',
+      content: '',
       category_id: '',
-      picture: '1'
+      picture: ''
     })
   }
 
@@ -96,6 +102,12 @@ class Comp extends React.Component {
       <Row>
         <Col offset="2" span="20">
           <Button type="primary" onClick={this._handleSubmit}>提交</Button>
+          <Padding dir={['left', 'right']}>
+            <Button type="primary" onClick={this._handleSubmit}>提交并返回</Button>
+          </Padding>
+          <Button type="primary" onClick={() => {
+            helpers.go.bind(this)('/articles')
+          }}>取消</Button>
         </Col>
       </Row>
     </div>
@@ -107,16 +119,18 @@ class Comp extends React.Component {
   _handleSubmit = (e) => {
     const {editor} = this.refs
     const {form, postArticle} = this.props
+    const {resetFields, validateFields} = form
 
     e.preventDefault()
 
-    form.validateFields((err, fieldsValue) => {
-      if (err) {
-        return
-      }
-      alert(JSON.stringify(fieldsValue))
+    validateFields((err, fieldsValue) => {
+      if (err) return
+
       postArticle({
         data: fieldsValue
+      }).then(() => {
+        message.success('新增成功')
+        resetFields()
       })
     })
   }

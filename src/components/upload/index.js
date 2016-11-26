@@ -34,7 +34,7 @@ export default class extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {value} = nextProps
 
-    if (value === '') {
+    if (!value) {
       this.setState({
         fileList: []
       })
