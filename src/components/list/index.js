@@ -1,8 +1,10 @@
 import React from 'react'
-import { Table } from 'antd'
+import {Table} from 'antd'
 
 export default class extends React.Component {
   static propTypes = {
+    // 键名，用来表示唯一索引，一般是记录的 ID
+    keyName: React.PropTypes.string,
     // 数据标题
     columns: React.PropTypes.array,
     // 数据
@@ -14,6 +16,7 @@ export default class extends React.Component {
   }
 
   static defaultProps = {
+    keyName: 'id',
     columns: [],
     dataSource: [],
     pagination: {
@@ -27,7 +30,7 @@ export default class extends React.Component {
 
   state = {
     // 选中行
-    selectedRows: [],
+    selectedRowKeys: [],
     // 分页是否加载中
     loading: true
   }
@@ -35,31 +38,33 @@ export default class extends React.Component {
   /**
    * 获取选中列
    */
-  get selectedRows() {
-    return this.state.selectedRows
+  get selectedRowKeys() {
+    return this.state.selectedRowKeys
   }
 
   componentDidMount() {
-    this._setLoading(false)
+    this.setState({loading: false})
   }
 
   componentWillReceiveProps(nextProps) {
-    this._setLoading(false)
+    this.setState({loading: false})
   }
 
   render() {
-    let { columns, dataSource, pagination } = this.props
+    let {keyName, columns, dataSource, pagination} = this.props
+    const {selectedRowKeys, loading} = this.state
     const rowSelection = {
+      selectedRowKeys: selectedRowKeys,
       onChange: this._handleSelectChange
     }
 
     dataSource = dataSource.map((item, index) => {
-      item.key = index
+      item.key = item[keyName]
       return item
     })
 
     return <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource} pagination={pagination}
-      loading={this.state.loading}
+      loading={loading}
       onChange={this._handleTableChange} />
   }
 
@@ -68,7 +73,7 @@ export default class extends React.Component {
    */
   _handleSelectChange = (selectedRowKeys, selectedRows) => {
     this.setState({
-      selectedRows: selectedRows
+      selectedRowKeys: selectedRowKeys
     })
   }
 
@@ -76,22 +81,13 @@ export default class extends React.Component {
    * 处理表格改变事件
    */
   _handleTableChange = (pagination, filters, sorter) => {
-    const { current } = pagination
-    const { getData } = this.props
+    const {current} = pagination
+    const {getData} = this.props
 
-    this._setLoading(true)
+    this.setState({loading: true})
 
     getData(current).then(() => {
-      this._setLoading(false)
-    })
-  }
-
-  /**
-   * 设置是否加载中
-   */
-  _setLoading(loading) {
-    this.setState({
-      loading: loading
+      this.setState({loading: false})
     })
   }
 }

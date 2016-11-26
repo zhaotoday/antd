@@ -42,6 +42,7 @@ class Comp extends React.Component {
 
     // 列表属性
     let listProps = {
+      keyName: 'id',
       columns: [{
         title: '标题',
         dataIndex: 'title',
@@ -88,7 +89,7 @@ class Comp extends React.Component {
         </Form>
         <Form className="search" inline>
           <Form.Item>
-            <Input placeholder="请输入标题" onChange={this._handleChangeSearch} />
+            <Input placeholder="请输入标题" style={{width: '250px'}} onChange={this._handleChangeSearch} />
           </Form.Item>
           <Form.Item>
             <Button type="primary" onClick={this._handleClickSearch}>搜索</Button>
@@ -121,8 +122,8 @@ class Comp extends React.Component {
    * 删除
    */
   _handleDelete = () => {
-    const {selectedRows} = this.refs.list
-    alert(JSON.stringify(selectedRows))
+    const {selectedRowKeys} = this.refs.list
+    alert(JSON.stringify(selectedRowKeys))
   }
 
   /**
