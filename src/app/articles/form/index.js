@@ -3,8 +3,18 @@ import {Breadcrumb, Form, Input, Button, Row, Col} from 'antd'
 import Editor from 'components/editor'
 import Upload from 'components/upload'
 import CategorySelect from 'components/categorySelect'
+import connect from 'react-redux/lib/components/connect'
+import actionCreators from '../../../redux/actions'
 
-module.exports = Form.create()(class extends React.Component {
+@connect(
+  state => ({
+    articles: state.articles
+  }),
+  dispatch => ({
+    postArticle: (options) => dispatch(actionCreators.postArticle(options))
+  })
+)
+class Comp extends React.Component {
   componentDidMount() {
     const {setFieldsValue} = this.props.form
 
@@ -96,7 +106,7 @@ module.exports = Form.create()(class extends React.Component {
    */
   _handleSubmit = (e) => {
     const {editor} = this.refs
-    const {form} = this.props
+    const {form, postArticle} = this.props
 
     e.preventDefault()
 
@@ -104,10 +114,10 @@ module.exports = Form.create()(class extends React.Component {
       if (err) {
         return
       }
-
       alert(JSON.stringify(fieldsValue))
-
-      alert(editor.value)
+      postArticle({
+        data: fieldsValue
+      })
     })
   }
 
@@ -123,4 +133,6 @@ module.exports = Form.create()(class extends React.Component {
 
     validateFields([name])
   }
-})
+}
+
+module.exports = Form.create()(Comp)
