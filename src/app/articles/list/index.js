@@ -145,8 +145,7 @@ class Comp extends React.Component {
    * 搜索词 change 事件
    */
   _handleChangeSearch = (e) => {
-    const value = e.target.value.trim()
-    if (value) this.search.keyword = value
+    this.search.keyword = e.target.value.trim()
   }
 
   /**
