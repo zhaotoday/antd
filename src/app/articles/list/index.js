@@ -5,6 +5,7 @@ import helpers from 'utils/helpers'
 import {Breadcrumb, Form, Button, Input} from 'antd'
 import consts from 'utils/consts'
 import List from 'components/list'
+import Delete from 'components/delete'
 
 module.exports = @connect(
   state => ({
@@ -19,7 +20,14 @@ class Comp extends React.Component {
     router: React.PropTypes.object.isRequired
   }
 
+  // 当前页码
   current = 0
+
+  // 当前搜索参数
+  search = {
+    is: false,
+    keyword: ''
+  }
 
   componentDidMount() {
     this._getData()
@@ -75,15 +83,15 @@ class Comp extends React.Component {
             }}>新增</Button>
           </Form.Item>
           <Form.Item>
-            <Button type="primary">删除</Button>
+            <Delete onOk={this._handleDelete} />
           </Form.Item>
         </Form>
         <Form className="search" inline>
           <Form.Item>
-            <Input placeholder="请输入标题" />
+            <Input placeholder="请输入标题" onChange={this._handleChangeSearch} />
           </Form.Item>
           <Form.Item>
-            <Button type="primary">搜索</Button>
+            <Button type="primary" onClick={this._handleClickSearch}>搜索</Button>
           </Form.Item>
         </Form>
       </div>
@@ -97,11 +105,40 @@ class Comp extends React.Component {
   _getData = (current = 1) => {
     this.current = current
 
+    // 搜索参数
+    const searchParams = this.search.is ? {title: this.search.keyword} : null
+
     return this.props.getArticles({
       params: {
         limit: consts.PAGE_SIZE,
-        offset: (current - 1) * consts.PAGE_SIZE
+        offset: (current - 1) * consts.PAGE_SIZE,
+        ...searchParams
       }
     })
+  }
+
+  /**
+   * 删除
+   */
+  _handleDelete = () => {
+    const {selectedRows} = this.refs.list
+    alert(JSON.stringify(selectedRows))
+  }
+
+  /**
+   * 搜索词 change 事件
+   */
+  _handleChangeSearch = (e) => {
+    const value = e.target.value.trim()
+    if (value) this.search.keyword = value
+  }
+
+  /**
+   * 点击搜索
+   */
+  _handleClickSearch = () => {
+    // 设置当前进入搜索状态
+    this.search.is = true
+    this._getData(1)
   }
 }

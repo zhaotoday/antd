@@ -35,7 +35,7 @@ export default class extends React.Component {
   /**
    * 获取选中列
    */
-  get selectRows() {
+  get selectedRows() {
     return this.state.selectedRows
   }
 
