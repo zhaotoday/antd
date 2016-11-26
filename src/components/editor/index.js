@@ -59,7 +59,7 @@ export default class extends React.Component {
       height: height,
       items: consts.ITEMS,
       pluginsPath: 'KEPlugins/',
-      afterChange: function (e) {
+      afterChange: function () {
         const {value} = that.props
 
         if (that.changeable && value !== this.html()) {
