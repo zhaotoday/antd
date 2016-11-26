@@ -3,7 +3,9 @@ import typeToReducer from 'type-to-reducer'
 
 export default typeToReducer({
   [`${actionTypes.GET_FILES}`]: {
-    LOADING: () => ({}),
+    LOADING: () => ({
+      isPending: true
+    }),
     ERROR: (state, action) => ({
       isRejected: true,
       error: action.payload
