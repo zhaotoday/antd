@@ -2,7 +2,7 @@ import React from 'react'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
 import * as helpers from 'utils/helpers'
-import {Breadcrumb, Form, Button, Input, message} from 'antd'
+import {Breadcrumb, Form, Button, Input, message, Popconfirm} from 'antd'
 import consts from 'utils/consts'
 import List from 'components/list'
 import Delete from 'components/delete'
@@ -72,7 +72,9 @@ class Comp extends React.Component {
         render: (text, record) => <span>
           <a href="#">修改</a>
           <span className="ant-divider" />
-          <a href="#">删除</a>
+          <Popconfirm title="确认删除该记录？" onConfirm={this._handleDelete.bind(null, record.id)} okText="确认" cancelText="取消">
+            <a href="#">删除</a>
+          </Popconfirm>
         </span>
       }],
       dataSource: articles.data ? articles.data.data.items : [],
@@ -98,7 +100,7 @@ class Comp extends React.Component {
             }}>新增</Button>
           </Form.Item>
           <Form.Item>
-            <Delete onValidate={this._handleDeleteValidate} onOk={this._handleDelete} />
+            <Delete onValidate={this._handleDeleteValidate} onConfirm={this._handleDelete} />
           </Form.Item>
         </Form>
         <Form className="search" inline>
@@ -148,10 +150,11 @@ class Comp extends React.Component {
   _handleDeleteValidate = () => {
     const {selectedRowKeys} = this.refs.list
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       if (selectedRowKeys.length) {
         resolve()
       } else {
+        reject()
         message.error('没有选中记录')
       }
     })
@@ -159,16 +162,22 @@ class Comp extends React.Component {
 
   /**
    * 删除
+   * @param {string} id 待删除 ID
    */
-  _handleDelete = () => {
-    const {selectedRowKeys} = this.refs.list
+  _handleDelete = (id) => {
+    if (!id) {
+      const {selectedRowKeys} = this.refs.list
+      id = selectedRowKeys.join(',')
+    }
 
     this.props.deleteArticle({
       params: {
-        id: selectedRowKeys.join(',')
+        id: id
       }
     }).then(() => {
       message.success('删除成功')
+      // FIX: 删除后，选中状态有问题的 BUG
+      this.refs.list.selectedRowKeys = []
       this._getData()
     })
   }

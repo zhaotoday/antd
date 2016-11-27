@@ -1,23 +1,24 @@
 import React from 'react'
-import {Button, Modal} from 'antd'
+import {Button, Popconfirm} from 'antd'
 
 export default class extends React.Component {
   static propTypes = {
     // 确认事件
-    onOk: React.PropTypes.func,
+    onConfirm: React.PropTypes.func,
     // validate 事件
     onValidate: React.PropTypes.func
   }
 
   static defaultProps = {
-    onOk() {
+    onConfirm() {
     },
     onValidate() {
     }
   }
 
   state = {
-    visible: false
+    visible: false,
+    condition: true
   }
 
   /**
@@ -32,13 +33,10 @@ export default class extends React.Component {
   }
 
   render() {
-    return <span>
+    return <Popconfirm title="确认删除选中记录？" visible={this.state.visible}
+      onConfirm={this._handleConfirm} onCancel={this._handleCancel} onVisibleChange={this._handleVisibleChange}>
       <Button type="primary" size="large" onClick={this._handleClickDelete}>删除</Button>
-      <Modal title="请确认" width="400" visible={this.state.visible}
-        onOk={this._handleOk} onCancel={this._handleCancel}>
-        <p>确认删除选中记录？</p>
-      </Modal>
-    </span>
+    </Popconfirm>
   }
 
   /**
@@ -46,15 +44,17 @@ export default class extends React.Component {
    */
   _handleClickDelete = () => {
     this.props.onValidate().then(() => {
-      this.setState({visible: true})
+      this.setState({condition: true})
+    }).catch(() => {
+      this.setState({condition: false})
     })
   }
 
   /**
    * 确认
    */
-  _handleOk = () => {
-    this.props.onOk()
+  _handleConfirm = () => {
+    this.props.onConfirm()
     this.setState({visible: false})
   }
 
@@ -63,5 +63,15 @@ export default class extends React.Component {
    */
   _handleCancel = () => {
     this.setState({visible: false})
+  }
+
+  _handleVisibleChange = (visible) => {
+    setTimeout(() => {
+      if (this.state.condition) {
+        this.setState({visible})
+      } else {
+        this.setState({visible: false})
+      }
+    }, 0)
   }
 }

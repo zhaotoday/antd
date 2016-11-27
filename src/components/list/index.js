@@ -42,6 +42,15 @@ export default class extends React.Component {
     return this.state.selectedRowKeys
   }
 
+  /**
+   * 设置选中列
+   */
+  set selectedRowKeys(value) {
+    this.setState({
+      selectedRowKeys: value
+    })
+  }
+
   componentDidMount() {
     this.setState({loading: false})
   }

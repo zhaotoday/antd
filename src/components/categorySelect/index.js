@@ -35,10 +35,17 @@ export default class extends React.Component {
   }
 
   render() {
-    const {treeData} = this.state
+    let {treeData} = this.state
+
+    treeData.push({
+      id: '0',
+      pid: '-1',
+      value: '0',
+      label: '顶级'
+    })
 
     return <TreeSelect
-      treeDataSimpleMode={{id: 'id', pId: 'pid', rootPId: '0'}}
+      treeDataSimpleMode={{id: 'id', pId: 'pid', rootPId: '-1'}}
       value={this.props.value || undefined}
       style={{width: 220}}
       size="large"
