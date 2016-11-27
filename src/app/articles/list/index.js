@@ -1,11 +1,12 @@
 import React from 'react'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
-import helpers from 'utils/helpers'
+import * as helpers from 'utils/helpers'
 import {Breadcrumb, Form, Button, Input, message} from 'antd'
 import consts from 'utils/consts'
 import List from 'components/list'
 import Delete from 'components/delete'
+import CategorySelect from 'components/categorySelect'
 
 module.exports = @connect(
   state => ({
@@ -31,17 +32,21 @@ class Comp extends React.Component {
     keyword: ''
   }
 
+  state = {
+    category_id: ''
+  }
+
   componentDidMount() {
     this._getData()
     this._getCategories()
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !nextProps.articles.isPending
+    return !nextProps.articles.isPending && !nextProps.categories.isPending
   }
 
   render() {
-    const {articles} = this.props
+    const {articles, categories} = this.props
 
     // 列表属性
     let listProps = {
@@ -54,7 +59,12 @@ class Comp extends React.Component {
       }, {
         title: '栏目',
         dataIndex: 'category_id',
-        key: 'category_id'
+        key: 'category_id',
+        render: (text, record) => {
+          return <span>
+            {helpers.getCategoryById(categories.data.data.items, text).title}
+          </span>
+        }
       }, {
         title: '操作',
         key: 'action',
@@ -92,7 +102,10 @@ class Comp extends React.Component {
         </Form>
         <Form className="search" inline>
           <Form.Item>
-            <Input placeholder="请输入标题" style={{width: '250px'}} onChange={this._handleChangeSearch} />
+            <CategorySelect name="category_id" afterChange={this._handleAfterChange} value={this.state.category_id} />
+          </Form.Item>
+          <Form.Item>
+            <Input placeholder="请输入标题" style={{width: '220px'}} onChange={this._handleChangeSearch} />
           </Form.Item>
           <Form.Item>
             <Button type="primary" onClick={this._handleClickSearch}>搜索</Button>
@@ -110,7 +123,7 @@ class Comp extends React.Component {
     this.current = current
 
     // 搜索参数
-    const searchParams = this.search.is ? {title: this.search.keyword} : null
+    const searchParams = this.search.is ? {title: this.search.keyword, category_id: this.state.category_id} : null
 
     return this.props.getArticles({
       params: {
@@ -165,5 +178,14 @@ class Comp extends React.Component {
     // 设置当前进入搜索状态
     this.search.is = true
     this._getData(1)
+  }
+
+  /**
+   * afterChange 事件
+   */
+  _handleAfterChange = (name, value) => {
+    this.setState({
+      [name]: value
+    })
   }
 }

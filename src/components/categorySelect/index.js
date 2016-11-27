@@ -40,7 +40,8 @@ export default class extends React.Component {
     return <TreeSelect
       treeDataSimpleMode={{id: 'id', pId: 'pid', rootPId: '0'}}
       value={this.props.value || undefined}
-      style={{width: 300}}
+      style={{width: 220}}
+      size="large"
       dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
       treeData={treeData}
       placeholder="请选择栏目"

@@ -6,7 +6,7 @@ import FileModel from 'redux/models/files'
  * 路由跳转
  * @param path {string} 跳转地址
  */
-const go = function (path) {
+export const go = function (path) {
   this.context.router.push(path)
 }
 
@@ -15,7 +15,7 @@ const go = function (path) {
  * @param fileId {string} 文件 ID
  * @returns {promise}
  */
-const getFileURL = (fileId) => {
+export const getFileURL = (fileId) => {
   return new Promise((resolve, reject) => {
     new FileModel()
       .addPaths(['{file_id}'])
@@ -32,7 +32,15 @@ const getFileURL = (fileId) => {
   })
 }
 
-export default {
-  go,
-  getFileURL
+/**
+ * 获取栏目详情
+ * @param id {string} 栏目 ID
+ * @returns {object}
+ */
+export const getCategoryById = (array, id) => {
+  for (let value of array) {
+    if (value.id === id) return value
+  }
+
+  return {}
 }
