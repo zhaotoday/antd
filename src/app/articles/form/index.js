@@ -10,9 +10,10 @@ import actionCreators from '../../../redux/actions'
 
 @connect(
   state => ({
-    articles: state.articles
+    article: state.article
   }),
   dispatch => ({
+    getArticle: (options) => dispatch(actionCreators.getArticle(options)),
     postArticle: (options) => dispatch(actionCreators.postArticle(options))
   })
 )
@@ -20,8 +21,29 @@ class Comp extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
+  /*
+   shouldComponentUpdate(nextProps, nextState) {
+   return !nextProps.article.isPending
+   }
+   */
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.article.data &&nextProps.article.data.data.id) {
+      const data = nextProps.article.data.data
+      const {setFieldsValue} = this.props.form
+
+      setFieldsValue({
+        title: data.title,
+        content: '222',
+        category_id: data.category_id,
+        picture: data.picture
+      })
+    }
+  }
 
   componentDidMount() {
+    this.props.getArticle({
+      article_id: this.props.params.article_id
+    })
     const {setFieldsValue} = this.props.form
 
     setFieldsValue({
@@ -34,7 +56,7 @@ class Comp extends React.Component {
 
   render() {
     const {getFieldDecorator} = this.props.form
-
+    console.log(this.props.form.getFieldsValue())
     return <div>
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>

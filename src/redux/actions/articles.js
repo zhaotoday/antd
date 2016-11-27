@@ -5,6 +5,21 @@ import createAction from 'redux-actions/lib/createAction'
 /**
  * 获取文章列表
  */
+export const getArticle = createAction(
+  actionTypes.GET_ARTICLE,
+  (options) => {
+    return new Model()
+      .addPaths(['{article_id}'])
+      .replace({
+        article_id: options.article_id
+      })
+      .GET()
+  }
+)
+
+/**
+ * 获取文章列表
+ */
 export const getArticles = createAction(
   actionTypes.GET_ARTICLES,
   (options) => {
