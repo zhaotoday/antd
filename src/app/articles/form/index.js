@@ -103,7 +103,7 @@ class Comp extends React.Component {
         <Col offset="2" span="20">
           <Button type="primary" onClick={this._handleSubmit}>提交</Button>
           <Padding dir={['left', 'right']}>
-            <Button type="primary" onClick={this._handleSubmit}>提交并返回</Button>
+            <Button type="primary" onClick={this._handleSubmitThenGoBack}>提交并返回</Button>
           </Padding>
           <Button type="primary" onClick={() => {
             helpers.go.bind(this)('/articles')
@@ -133,6 +133,14 @@ class Comp extends React.Component {
         resetFields()
       })
     })
+  }
+
+  /**
+   * 提交表单并返回
+   */
+  _handleSubmitThenGoBack = (e) => {
+    this._handleSubmit(e)
+    helpers.go.bind(this)('/articles')
   }
 
   /**

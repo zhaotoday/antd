@@ -44,3 +44,11 @@ export const getCategoryById = (array, id) => {
 
   return {}
 }
+/**
+ * 获取时间
+ * @param time {string} 待转化时间
+ * @returns {string}
+ */
+export const getTime = (time) => {
+  return moment(parseFloat(time + '000')).format('YYYY-MM-DD HH:mm:ss')
+}

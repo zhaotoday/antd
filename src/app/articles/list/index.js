@@ -67,6 +67,15 @@ class Comp extends React.Component {
           </span>
         }
       }, {
+        title: '发布时间',
+        dataIndex: 'created_at',
+        key: 'created_at',
+        render: (text, record) => {
+          return <span>
+            {helpers.getTime(record.created_at)}
+          </span>
+        }
+      }, {
         title: '操作',
         key: 'action',
         render: (text, record) => <span>
