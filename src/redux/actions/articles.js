@@ -26,3 +26,16 @@ export const postArticle = createAction(
       })
   }
 )
+
+/**
+ * 删除文章
+ */
+export const deleteArticle = createAction(
+  actionTypes.DELETE_ARTICLE,
+  (options) => {
+    return new Model()
+      .DELETE({
+        params: options.params
+      })
+  }
+)

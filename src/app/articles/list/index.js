@@ -15,6 +15,7 @@ module.exports = @connect(
   }),
   dispatch => ({
     getArticles: (options) => dispatch(actionCreators.getArticles(options)),
+    deleteArticle: (options) => dispatch(actionCreators.deleteArticle(options)),
     getCategories: (options) => dispatch(actionCreators.getCategories(options))
   })
 )
@@ -161,7 +162,15 @@ class Comp extends React.Component {
    */
   _handleDelete = () => {
     const {selectedRowKeys} = this.refs.list
-    alert(selectedRowKeys)
+
+    this.props.deleteArticle({
+      params: {
+        id: selectedRowKeys.join(',')
+      }
+    }).then(() => {
+      message.success('删除成功')
+      this._getData()
+    })
   }
 
   /**
