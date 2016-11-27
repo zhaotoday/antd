@@ -117,7 +117,6 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleSubmit = (e) => {
-    const {editor} = this.refs
     const {form, postArticle} = this.props
     const {resetFields, validateFields} = form
 
