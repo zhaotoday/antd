@@ -9,10 +9,12 @@ import Delete from 'components/delete'
 
 module.exports = @connect(
   state => ({
-    articles: state.articles
+    articles: state.articles,
+    categories: state.categories
   }),
   dispatch => ({
-    getArticles: (options) => dispatch(actionCreators.getArticles(options))
+    getArticles: (options) => dispatch(actionCreators.getArticles(options)),
+    getCategories: (options) => dispatch(actionCreators.getCategories(options))
   })
 )
 class Comp extends React.Component {
@@ -31,6 +33,7 @@ class Comp extends React.Component {
 
   componentDidMount() {
     this._getData()
+    this._getCategories()
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -116,6 +119,13 @@ class Comp extends React.Component {
         ...searchParams
       }
     })
+  }
+
+  /**
+   * 获取栏目
+   */
+  _getCategories = () => {
+    this.props.getCategories()
   }
 
   /**
