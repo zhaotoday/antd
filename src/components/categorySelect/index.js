@@ -1,5 +1,7 @@
 import React from 'react'
+import Model from './models/categories'
 import {TreeSelect} from 'antd'
+import * as _helpers from './utils/helpers'
 
 export default class extends React.Component {
   static propTypes = {
@@ -18,27 +20,25 @@ export default class extends React.Component {
     }
   }
 
+  state = {
+    treeData: []
+  }
+
+  componentDidMount() {
+    new Model()
+      .GET()
+      .then((response) => {
+        this.setState({
+          treeData: _helpers.toTreeData(response.data.data.items)
+        })
+      })
+  }
+
   render() {
-    const treeData = [{
-      label: 'Node1',
-      value: '0-0',
-      key: '0-0',
-      children: [{
-        label: 'Child Node1',
-        value: '0-0-1',
-        key: '0-0-1'
-      }, {
-        label: 'Child Node2',
-        value: '0-0-2',
-        key: '0-0-2'
-      }]
-    }, {
-      label: 'Node2',
-      value: '0-1',
-      key: '0-1'
-    }]
+    const {treeData} = this.state
 
     return <TreeSelect
+      treeDataSimpleMode={{id: 'id', pId: 'pid', rootPId: '0'}}
       value={this.props.value || undefined}
       style={{width: 300}}
       dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
