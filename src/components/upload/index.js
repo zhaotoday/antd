@@ -34,6 +34,10 @@ export default class extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {value} = nextProps
 
+    if (this.props.value === undefined) {
+      this.condition = false
+    }
+
     if (!(this.props.value === undefined || this.props.value !== value)) {
       return
     }
@@ -46,8 +50,6 @@ export default class extends React.Component {
       // 组件第一次 receive props 会调用
       if (this.condition) {
         helpers.getFileURL(value).then((url) => {
-          this.condition = false
-
           this.setState({
             fileList: [{
               uid: -1,
@@ -60,6 +62,8 @@ export default class extends React.Component {
         })
       }
     }
+
+    this.condition = false
   }
 
   render() {

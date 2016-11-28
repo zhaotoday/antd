@@ -21,13 +21,15 @@ class Comp extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
-  /*
-   shouldComponentUpdate(nextProps, nextState) {
-   return !nextProps.article.isPending
-   }
-   */
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !nextProps.article.isPending
+  }
+  
+  id = null
+
   componentWillReceiveProps(nextProps) {
-    if (!this.props.article.data &&nextProps.article.data.data.id) {
+    if (this.id && !this.props.article.data && nextProps.article.data.data.id) {
       const data = nextProps.article.data.data
       const {setFieldsValue} = this.props.form
 
@@ -41,17 +43,13 @@ class Comp extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getArticle({
-      article_id: this.props.params.article_id
-    })
-    const {setFieldsValue} = this.props.form
+    this.id = this.props.params.article_id
 
-    setFieldsValue({
-      title: '',
-      content: '',
-      category_id: '',
-      picture: ''
-    })
+    if (this.id) {
+      this.props.getArticle({
+        article_id: this.id
+      })
+    }
   }
 
   render() {

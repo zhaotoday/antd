@@ -1,6 +1,6 @@
 import React from 'react'
 import * as _helpers from './utils/helpers'
-import helpers from 'utils/helpers'
+import * as helpers from 'utils/helpers'
 
 import 'kindeditor'
 import 'kindeditor/themes/default/default.css'
@@ -18,6 +18,8 @@ export default class extends React.Component {
     // 开关，是否可改变，为 true 时才可以执行 afterChange 事件
     this.changeable = false
   }
+
+  condition = true
 
   static propTypes = {
     // 名称
@@ -44,10 +46,18 @@ export default class extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // FIX: 表单重置 BUG
-    if (!nextProps.value) {
+    const {value} = nextProps
+
+   // if (!(this.props.value === undefined || this.props.value !== value)) return
+
+    if (!value) {
       this.changeable = false
       this.editor.html('')
+    } else {
+      if (this.condition) {
+        this.condition = false
+        this.editor.insertHtml(nextProps.value)
+      }
     }
   }
 
@@ -71,7 +81,7 @@ export default class extends React.Component {
     }
 
     setTimeout(() => {
-      this.editor.html(that.props.value)
+      this.editor.insertHtml(that.props.value)
       that.changeable = true
     }, 100)
 
