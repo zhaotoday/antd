@@ -14,7 +14,8 @@ import actionCreators from '../../../redux/actions'
   }),
   dispatch => ({
     getArticle: (options) => dispatch(actionCreators.getArticle(options)),
-    postArticle: (options) => dispatch(actionCreators.postArticle(options))
+    postArticle: (options) => dispatch(actionCreators.postArticle(options)),
+    patchArticle: (options) => dispatch(actionCreators.patchArticle(options))
   })
 )
 class Comp extends React.Component {
@@ -38,7 +39,7 @@ class Comp extends React.Component {
 
       setFieldsValue({
         title: data.title,
-        content: '222',
+        content: data.content,
         category_id: data.category_id,
         picture: data.picture
       })
@@ -140,7 +141,7 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleSubmit = (e) => {
-    const {form, postArticle} = this.props
+    const {form, postArticle, patchArticle} = this.props
     const {resetFields, validateFields} = form
 
     e.preventDefault()
@@ -148,12 +149,21 @@ class Comp extends React.Component {
     validateFields((err, fieldsValue) => {
       if (err) return
 
-      postArticle({
-        data: fieldsValue
-      }).then(() => {
-        message.success('新增成功')
-        resetFields()
-      })
+      if(this.id) {
+        patchArticle({
+          'article_id': this.id,
+          data: fieldsValue
+        }).then(() => {
+          message.success('编辑成功')
+        })
+      } else{
+        postArticle({
+          data: fieldsValue
+        }).then(() => {
+          message.success('新增成功')
+          resetFields()
+        })
+      }
     })
   }
 

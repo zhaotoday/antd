@@ -43,6 +43,23 @@ export const postArticle = createAction(
 )
 
 /**
+ * 编辑文章
+ */
+export const patchArticle = createAction(
+  actionTypes.PATCH_ARTICLE,
+  (options) => {
+    return new Model()
+      .addPaths(['{article_id}'])
+      .replace({
+        'article_id': options.article_id
+      })
+      .PATCH({
+        data: options.data
+      })
+  }
+)
+
+/**
  * 删除文章
  */
 export const deleteArticle = createAction(

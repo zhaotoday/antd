@@ -56,7 +56,11 @@ class Comp extends React.Component {
         title: '标题',
         dataIndex: 'title',
         key: 'title',
-        render: text => <a href="#">{text}</a>
+        render: (text, record) => {
+          return <span className="btn-action" onClick={() => {
+            helpers.go.bind(this)(`/articles/form/${record.id}`)
+          }}>{text}</span>
+        }
       }, {
         title: '栏目',
         dataIndex: 'category_id',
@@ -79,10 +83,12 @@ class Comp extends React.Component {
         title: '操作',
         key: 'action',
         render: (text, record) => <span>
-          <a href="#">修改</a>
+          <span className="btn-action" onClick={() => {
+            helpers.go.bind(this)(`/articles/form/${record.id}`)
+          }}>编辑</span>
           <span className="ant-divider" />
           <Popconfirm title="确认删除该记录？" onConfirm={this._handleDelete.bind(null, record.id)} okText="确认" cancelText="取消">
-            <a href="#">删除</a>
+            <span className="btn-action">删除</span>
           </Popconfirm>
         </span>
       }],
