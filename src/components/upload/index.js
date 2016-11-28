@@ -1,7 +1,7 @@
 import React from 'react'
 import {Upload, Button, Icon, message} from 'antd'
 import consts from 'utils/consts'
-import helpers from 'utils/helpers'
+import * as helpers from 'utils/helpers'
 
 // 上传地址
 const action = consts.API_URL + '/files'
@@ -28,19 +28,26 @@ export default class extends React.Component {
     fileList: []
   }
 
-  // 上传成功后返回的文件 ID
-  value = ''
+  // 组件第一次 receive props
+  condition = true
 
   componentWillReceiveProps(nextProps) {
     const {value} = nextProps
+
+    if (!(this.props.value === undefined || this.props.value !== value)) {
+      return
+    }
 
     if (!value) {
       this.setState({
         fileList: []
       })
     } else {
-      if (this.props.value !== value && this.value !== value) {
+      // 组件第一次 receive props 会调用
+      if (this.condition) {
         helpers.getFileURL(value).then((url) => {
+          this.condition = false
+
           this.setState({
             fileList: [{
               uid: -1,
@@ -81,8 +88,6 @@ export default class extends React.Component {
     let {file, fileList} = info
     const {status, name} = file
 
-    console.log(file, fileList)
-
     if (status === 'done') {
       message.success(`${name} 上传成功！`)
     } else if (status === 'error') {
@@ -93,7 +98,6 @@ export default class extends React.Component {
 
     if (file.response && file.response.data && file.response.data.id) {
       const id = file.response.data.id.toString()
-      this.value = id
       this.props.afterChange(this.props.name, id)
     }
 
