@@ -18,6 +18,11 @@ import actionCreators from '../../../redux/actions'
   })
 )
 class Comp extends React.Component {
+  constructor() {
+    super()
+    this.id = null
+  }
+
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
@@ -25,8 +30,6 @@ class Comp extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return !nextProps.article.isPending
   }
-  
-  id = null
 
   componentWillReceiveProps(nextProps) {
     if (this.id && !this.props.article.data && nextProps.article.data.data.id) {
@@ -89,7 +92,7 @@ class Comp extends React.Component {
               message: '请输入内容'
             }]
           })(
-            <Editor name="content" afterChange={this._handleAfterChange} />
+            <Editor name="content" afterChange={this._handleAfterChange} editState={!!this.id} />
           )}
         </Form.Item>
         <Form.Item
@@ -115,7 +118,7 @@ class Comp extends React.Component {
               message: '请上传图片'
             }]
           })(
-            <Upload name="picture" afterChange={this._handleAfterChange} />
+            <Upload name="picture" afterChange={this._handleAfterChange} editState={!!this.id} />
           )}
         </Form.Item>
       </Form>

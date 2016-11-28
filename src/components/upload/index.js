@@ -7,20 +7,29 @@ import * as helpers from 'utils/helpers'
 const action = consts.API_URL + '/files'
 
 export default class extends React.Component {
+  constructor() {
+    super()
+
+    this.initial = true
+  }
+
   static propTypes = {
     // 名称
     name: React.PropTypes.string,
     // 值
     value: React.PropTypes.string,
     // afterChange 事件
-    afterChange: React.PropTypes.func
+    afterChange: React.PropTypes.func,
+    // 是否编辑状态
+    editState: React.PropTypes.bool
   }
 
   static defaultProps = {
     name: 'upload',
     value: undefined,
     afterChange: () => {
-    }
+    },
+    editState: false
   }
 
   state = {
@@ -32,38 +41,26 @@ export default class extends React.Component {
   condition = true
 
   componentWillReceiveProps(nextProps) {
-    const {value} = nextProps
+    const {value, editState} = nextProps
 
-    if (this.props.value === undefined) {
-      this.condition = false
-    }
+    if (value) {
+      // 初始状态 && 编辑状态 && value 有值
+      if (this.initial && editState) {
+        helpers.getFile(value).then((file) => {
+          const {name, url} = file
 
-    if (!(this.props.value === undefined || this.props.value !== value)) {
-      return
-    }
-
-    if (!value) {
-      this.setState({
-        fileList: []
-      })
-    } else {
-      // 组件第一次 receive props 会调用
-      if (this.condition) {
-        helpers.getFileURL(value).then((url) => {
           this.setState({
-            fileList: [{
-              uid: -1,
-              name,
-              status: 'done',
-              url,
-              thumbUrl: url,
-            }]
+            fileList: [{uid: -1, name, status: 'done', url, thumbUrl: url}]
           })
         })
       }
+    } else {
+      this.setState({
+        fileList: []
+      })
     }
 
-    this.condition = false
+    this.initial = false
   }
 
   render() {

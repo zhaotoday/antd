@@ -97,8 +97,8 @@ export default class extends React.Component {
   _handleImageOk = (fileId) => {
     this.setState({imageVisible: false})
 
-    helpers.getFileURL(fileId).then((url) => {
-      this.editor.insertHtml(`<img src="${url}" />`)
+    helpers.getFile(fileId).then((file) => {
+      this.editor.insertHtml(`<img src="${file.url}" />`)
     })
   }
 

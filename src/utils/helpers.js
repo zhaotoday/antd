@@ -11,23 +11,23 @@ export const go = function (path) {
 }
 
 /**
- * 加载文件
- * @param fileId {string} 文件 ID
+ * 获取文件
+ * @param id {string} 文件 ID
  * @returns {promise}
  */
-export const getFileURL = (fileId) => {
+export const getFile = (id) => {
   return new Promise((resolve, reject) => {
     new FileModel()
       .addPaths(['{file_id}'])
       .replace({
-        file_id: fileId
+        file_id: id
       })
       .GET()
       .then((response) => {
-        const {model, created_at, ext} = response.data.data
+        const {name, model, created_at, ext} = response.data.data
         const url = `${consts.BASE_URL}/files/${model}/${moment(parseFloat(created_at + '000')).format('YYYYMMDD/HHmmss')}${ext}`
 
-        resolve(url)
+        resolve({name, url})
       }).catch(reject)
   })
 }
