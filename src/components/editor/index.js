@@ -11,15 +11,15 @@ export default class extends React.Component {
   constructor() {
     super()
 
+    // 为 true 时才可以执行 afterChange 事件
+    this.changeable = false
+    // 初始状态
+    this.initial = true
+
     _helpers.overrideImagePlugin(() => {
       this.setState({imageVisible: true})
     })
-
-    // 开关，是否可改变，为 true 时才可以执行 afterChange 事件
-    this.changeable = false
   }
-
-  condition = true
 
   static propTypes = {
     // 名称
@@ -29,7 +29,9 @@ export default class extends React.Component {
     // afterChange 事件
     afterChange: React.PropTypes.func,
     // 高度
-    height: React.PropTypes.string
+    height: React.PropTypes.string,
+    // 是否编辑状态
+    editState: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -37,7 +39,8 @@ export default class extends React.Component {
     value: undefined,
     afterChange: () => {
     },
-    height: '500'
+    height: '500',
+    editState: false
   }
 
   state = {
@@ -46,19 +49,17 @@ export default class extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {value} = nextProps
+    const {value, editState} = nextProps
 
-   // if (!(this.props.value === undefined || this.props.value !== value)) return
+    this.changeable = false
 
-    if (!value) {
-      this.changeable = false
-      this.editor.html('')
-    } else {
-      if (this.condition) {
-        this.condition = false
-        this.editor.insertHtml(nextProps.value)
-      }
+    // 初始状态 && 编辑状态 && value 有值
+    if (this.initial && editState && value) {
+      this.editor.html(nextProps.value)
     }
+
+    // 进入非初始状态
+    this.initial = false
   }
 
   componentDidMount() {
@@ -80,19 +81,13 @@ export default class extends React.Component {
       }
     }
 
-    setTimeout(() => {
-      this.editor.insertHtml(that.props.value)
-      that.changeable = true
-    }, 100)
-
     this.editor = KindEditor.create(this.refs.content, {...options})
   }
 
   render() {
     return <div>
       <textarea ref="content" />
-      <Image visible={this.state.imageVisible} onOk={this._handleImageOk}
-        onCancel={this._handleImageCancel} />
+      <Image visible={this.state.imageVisible} onOk={this._handleImageOk} onCancel={this._handleImageCancel} />
     </div>
   }
 
