@@ -31,20 +31,19 @@ class Comp extends React.Component {
   }
 
   state = {
-    category_id: ''
+    pid: ''
   }
 
   componentDidMount() {
     this._getData()
-    this._getCategories()
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !nextProps.articles.isPending && !nextProps.categories.isPending
+    return !nextProps.categories.isPending
   }
 
   render() {
-    const {articles, categories} = this.props
+    const {categories} = this.props
 
     // 列表属性
     let listProps = {
@@ -57,15 +56,6 @@ class Comp extends React.Component {
           return <span className="btn-action" onClick={() => {
             helpers.go.bind(this)(`/articles/form/${record.id}`)
           }}>{text}</span>
-        }
-      }, {
-        title: '栏目',
-        dataIndex: 'category_id',
-        key: 'category_id',
-        render: (text, record) => {
-          return <span>
-            {helpers.getCategoryById(categories.data.data.items, text).title}
-          </span>
         }
       }, {
         title: '发布时间',
@@ -89,11 +79,11 @@ class Comp extends React.Component {
           </Popconfirm>
         </span>
       }],
-      dataSource: articles.data ? articles.data.data.items : [],
+      dataSource: categories.data ? categories.data.data.items : [],
       pagination: {
         current: this.current,
         pageSize: consts.PAGE_SIZE,
-        total: articles.data ? articles.data.data.total : 0
+        total: categories.data ? categories.data.data.total : 0
       },
       getData: this._getData
     }
@@ -102,10 +92,16 @@ class Comp extends React.Component {
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
         <Breadcrumb.Item>文章管理</Breadcrumb.Item>
-        <Breadcrumb.Item>文章列表</Breadcrumb.Item>
+        <Breadcrumb.Item>栏目列表</Breadcrumb.Item>
       </Breadcrumb>
       <div className="actions">
         <Form className="action" inline>
+          <Form.Item>
+            <CategorySelect name="pid" afterChange={this._handleAfterChange} value={this.state.pid} />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" onClick={this._handleClickSearch}>列出子栏目</Button>
+          </Form.Item>
           <Form.Item>
             <Button type="primary" onClick={() => {
               helpers.go.bind(this)('/articles/form')
@@ -113,17 +109,6 @@ class Comp extends React.Component {
           </Form.Item>
           <Form.Item>
             <Delete onValidate={this._handleDeleteValidate} onConfirm={this._handleDelete} />
-          </Form.Item>
-        </Form>
-        <Form className="search" inline>
-          <Form.Item>
-            <CategorySelect name="category_id" afterChange={this._handleAfterChange} value={this.state.category_id} />
-          </Form.Item>
-          <Form.Item>
-            <Input placeholder="请输入标题" style={{width: '220px'}} onChange={this._handleChangeSearch} />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" onClick={this._handleClickSearch}>搜索</Button>
           </Form.Item>
         </Form>
       </div>
@@ -138,22 +123,15 @@ class Comp extends React.Component {
     this.current = current
 
     // 搜索参数
-    const searchParams = this.search.is ? {title: this.search.keyword, category_id: this.state.category_id} : null
+    const searchParams = this.search.is ? {title: this.search.keyword, pid: this.state.pid} : null
 
-    return this.props.getArticles({
+    return this.props.getCategories({
       params: {
         limit: consts.PAGE_SIZE,
         offset: (current - 1) * consts.PAGE_SIZE,
         ...searchParams
       }
     })
-  }
-
-  /**
-   * 获取栏目
-   */
-  _getCategories = () => {
-    this.props.getCategories()
   }
 
   /**
@@ -192,13 +170,6 @@ class Comp extends React.Component {
       this.refs.list.selectedRowKeys = []
       this._getData()
     })
-  }
-
-  /**
-   * 搜索词 change 事件
-   */
-  _handleChangeSearch = (e) => {
-    this.search.keyword = e.target.value.trim()
   }
 
   /**
