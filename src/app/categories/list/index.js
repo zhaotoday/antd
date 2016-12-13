@@ -10,12 +10,9 @@ import CategorySelect from 'components/categorySelect'
 
 module.exports = @connect(
   state => ({
-    articles: state.articles,
     categories: state.categories
   }),
   dispatch => ({
-    getArticles: (options) => dispatch(actionCreators.getArticles(options)),
-    deleteArticle: (options) => dispatch(actionCreators.deleteArticle(options)),
     getCategories: (options) => dispatch(actionCreators.getCategories(options))
   })
 )

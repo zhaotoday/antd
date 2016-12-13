@@ -1,14 +1,16 @@
 import combineReducers from 'redux/lib/combineReducers'
-import article from './article'
 import articles from './articles'
-import file from './file'
+import article from './article'
 import files from './files'
+import file from './file'
 import categories from './categories'
+import category from './category'
 
 export default combineReducers({
-  article,
   articles,
-  file,
+  article,
   files,
-  categories
+  file,
+  categories,
+  category
 })

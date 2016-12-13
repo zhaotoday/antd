@@ -58,7 +58,7 @@ class Comp extends React.Component {
 
   render() {
     const {getFieldDecorator} = this.props.form
-    console.log(this.props.form.getFieldsValue())
+
     return <div>
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
@@ -149,14 +149,14 @@ class Comp extends React.Component {
     validateFields((err, fieldsValue) => {
       if (err) return
 
-      if(this.id) {
+      if (this.id) {
         patchArticle({
           'article_id': this.id,
           data: fieldsValue
         }).then(() => {
           message.success('编辑成功')
         })
-      } else{
+      } else {
         postArticle({
           data: fieldsValue
         }).then(() => {
