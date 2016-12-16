@@ -8,7 +8,7 @@
     "clean": "rimraf index.html dist",
     "start": "better-npm-run start",
     "build": "better-npm-run build",
-    "eslint": "eslint src",
+    "eslint": "eslint src --fix && eslint src",
     "stylelint": "stylelint src/**/*.scss"
   },
   "betterScripts": {
