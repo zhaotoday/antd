@@ -1,5 +1,5 @@
 import React from 'react'
-import {Breadcrumb, Form, Input, Button, Row, Col, message} from 'antd'
+import {Breadcrumb, Form, Input, Button, Row, Col, message, Modal} from 'antd'
 import * as helpers from 'utils/helpers'
 import Editor from 'components/editor'
 import Upload from 'components/upload'
@@ -13,9 +13,9 @@ import actionCreators from '../../../redux/actions'
     article: state.article
   }),
   dispatch => ({
-    getArticle: (options) => dispatch(actionCreators.getArticle(options)),
-    postArticle: (options) => dispatch(actionCreators.postArticle(options)),
-    patchArticle: (options) => dispatch(actionCreators.patchArticle(options))
+    getCategory: (options) => dispatch(actionCreators.getCategory(options)),
+    postCategory: (options) => dispatch(actionCreators.postCategory(options)),
+    patchCategory: (options) => dispatch(actionCreators.patchCategory(options))
   })
 )
 class Comp extends React.Component {
@@ -62,7 +62,6 @@ class Comp extends React.Component {
     return <div>
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
-        <Breadcrumb.Item>文章管理</Breadcrumb.Item>
         <Breadcrumb.Item>新增文章</Breadcrumb.Item>
       </Breadcrumb>
       <Form horizontal>

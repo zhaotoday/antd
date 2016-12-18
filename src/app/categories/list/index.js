@@ -8,6 +8,7 @@ import Ellipsis from 'components/ellipsis'
 import List from 'components/list'
 import Delete from 'components/delete'
 import CategorySelect from 'components/categorySelect'
+import CategoryForm from '../components/form'
 
 module.exports = @connect(
   state => ({
@@ -76,7 +77,7 @@ class Comp extends React.Component {
         width: 100,
         render: (text, record) => <span>
           <span className="btn-action" onClick={() => {
-            helpers.go.bind(this)(`/articles/form/${record.id}`)
+            helpers.go.bind(this)(`/categories/form/${record.id}`)
           }}>编辑</span>
           <span className="ant-divider" />
           <Popconfirm title="确认删除该记录？" onConfirm={this._handleDelete.bind(null, record.id)} okText="确认" cancelText="取消">
@@ -104,7 +105,11 @@ class Comp extends React.Component {
         <Form className="action" inline>
           <Form.Item>
             <Button type="primary" onClick={() => {
-              helpers.go.bind(this)('/articles/form')
+              const {categoryForm} = this
+              categoryForm.init({
+                category_id: 1
+              })
+              categoryForm.show()
             }}>新增</Button>
           </Form.Item>
           <Form.Item>
@@ -113,7 +118,8 @@ class Comp extends React.Component {
         </Form>
         <Form className="search" inline>
           <Form.Item>
-            <CategorySelect name="pid" afterChange={this._handleAfterChange} value={this.state.pid} placeholder="请选择父类" />
+            <CategorySelect name="pid" afterChange={this._handleAfterChange} value={this.state.pid}
+              placeholder="请选择父类" />
           </Form.Item>
           <Form.Item>
             <Button type="primary" onClick={this._handleClickSearch}>搜索</Button>
@@ -121,6 +127,9 @@ class Comp extends React.Component {
         </Form>
       </div>
       <List ref="list" {...listProps} />
+      <CategoryForm provideController={(component) => {
+        this.categoryForm = component
+      }} />
     </div>
   }
 
