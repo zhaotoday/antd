@@ -7,7 +7,7 @@ import createAction from 'redux-actions/lib/createAction'
  */
 export const getArticle = createAction(
   actionTypes.GET_ARTICLE,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .addPaths(['{article_id}'])
       .replace({
@@ -22,7 +22,7 @@ export const getArticle = createAction(
  */
 export const getArticles = createAction(
   actionTypes.GET_ARTICLES,
-  (options) => {
+  (options = {}) => {
     return new Model().GET({
       params: options.params
     })
@@ -34,7 +34,7 @@ export const getArticles = createAction(
  */
 export const postArticle = createAction(
   actionTypes.POST_ARTICLE,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .POST({
         data: options.data
@@ -47,7 +47,7 @@ export const postArticle = createAction(
  */
 export const patchArticle = createAction(
   actionTypes.PATCH_ARTICLE,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .addPaths(['{article_id}'])
       .replace({
@@ -64,7 +64,7 @@ export const patchArticle = createAction(
  */
 export const deleteArticle = createAction(
   actionTypes.DELETE_ARTICLE,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .DELETE({
         params: options.params

@@ -7,7 +7,7 @@ import createAction from 'redux-actions/lib/createAction'
  */
 export const getCategory = createAction(
   actionTypes.GET_CATEGORY,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .addPaths(['{category_id}'])
       .replace({
@@ -22,7 +22,7 @@ export const getCategory = createAction(
  */
 export const getCategories = createAction(
   actionTypes.GET_CATEGORIES,
-  (options) => {
+  (options = {}) => {
     return new Model().GET({
       params: options.params
     })
@@ -34,7 +34,7 @@ export const getCategories = createAction(
  */
 export const postCategory = createAction(
   actionTypes.POST_CATEGORY,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .POST({
         data: options.data
@@ -47,7 +47,7 @@ export const postCategory = createAction(
  */
 export const patchCategory = createAction(
   actionTypes.PATCH_CATEGORY,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .addPaths(['{category_id}'])
       .replace({
@@ -64,7 +64,7 @@ export const patchCategory = createAction(
  */
 export const deleteCategory = createAction(
   actionTypes.DELETE_CATEGORY,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .DELETE({
         params: options.params
