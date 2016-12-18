@@ -97,7 +97,7 @@ class Comp extends React.Component {
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
         <Breadcrumb.Item>文章管理</Breadcrumb.Item>
-        <Breadcrumb.Item>栏目列表</Breadcrumb.Item>
+        <Breadcrumb.Item>分类列表</Breadcrumb.Item>
       </Breadcrumb>
       <div className="actions">
         <Form className="action" inline>
@@ -105,7 +105,7 @@ class Comp extends React.Component {
             <CategorySelect name="pid" afterChange={this._handleAfterChange} value={this.state.pid} />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" onClick={this._handleClickSearch}>列出子栏目</Button>
+            <Button type="primary" onClick={this._handleClickSearch}>列出子分类</Button>
           </Form.Item>
           <Form.Item>
             <Button type="primary" onClick={() => {

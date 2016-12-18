@@ -65,7 +65,7 @@ class Comp extends React.Component {
           </span>
         }
       }, {
-        title: '栏目',
+        title: '分类',
         dataIndex: 'category_id',
         key: 'category_id',
         width: 250,
@@ -159,7 +159,7 @@ class Comp extends React.Component {
   }
 
   /**
-   * 获取栏目
+   * 获取分类
    */
   _getCategories = () => {
     this.props.getCategories()

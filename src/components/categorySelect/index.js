@@ -9,6 +9,8 @@ export default class extends React.Component {
     name: React.PropTypes.string,
     // 值
     value: React.PropTypes.string,
+    // placeholder
+    placeholder: React.PropTypes.string,
     // afterChange 事件
     afterChange: React.PropTypes.func
   }
@@ -16,6 +18,7 @@ export default class extends React.Component {
   static defaultProps = {
     name: 'categorySelect',
     value: '',
+    placeholder: '请选择分类',
     afterChange: () => {
     }
   }
@@ -36,6 +39,7 @@ export default class extends React.Component {
 
   render() {
     let {treeData} = this.state
+    const {value, placeholder} = this.props
 
     treeData.push({
       id: '0',
@@ -46,12 +50,12 @@ export default class extends React.Component {
 
     return <TreeSelect
       treeDataSimpleMode={{id: 'id', pId: 'pid', rootPId: '-1'}}
-      value={this.props.value || undefined}
+      value={value || undefined}
       style={{width: 200}}
       size="large"
       dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
       treeData={treeData}
-      placeholder="请选择栏目"
+      placeholder={placeholder}
       treeDefaultExpandAll
       onChange={this._handleChange}
     />

@@ -3,7 +3,7 @@ import Model from '../models/categories'
 import createAction from 'redux-actions/lib/createAction'
 
 /**
- * 获取栏目列表
+ * 获取分类列表
  */
 export const getCategory = createAction(
   actionTypes.GET_CATEGORY,
@@ -18,7 +18,7 @@ export const getCategory = createAction(
 )
 
 /**
- * 获取栏目列表
+ * 获取分类列表
  */
 export const getCategories = createAction(
   actionTypes.GET_CATEGORIES,
@@ -30,7 +30,7 @@ export const getCategories = createAction(
 )
 
 /**
- * 新增栏目
+ * 新增分类
  */
 export const postCategory = createAction(
   actionTypes.POST_CATEGORY,
@@ -43,7 +43,7 @@ export const postCategory = createAction(
 )
 
 /**
- * 编辑栏目
+ * 编辑分类
  */
 export const patchCategory = createAction(
   actionTypes.PATCH_CATEGORY,
@@ -60,7 +60,7 @@ export const patchCategory = createAction(
 )
 
 /**
- * 删除栏目
+ * 删除分类
  */
 export const deleteCategory = createAction(
   actionTypes.DELETE_CATEGORY,

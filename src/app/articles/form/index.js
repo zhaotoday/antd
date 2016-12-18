@@ -99,11 +99,11 @@ class Comp extends React.Component {
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
-          label="栏目">
+          label="分类">
           {getFieldDecorator('category_id', {
             rules: [{
               required: true,
-              message: '请选择栏目'
+              message: '请选择分类'
             }]
           })(
             <CategorySelect name="category_id" afterChange={this._handleAfterChange} />
