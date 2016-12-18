@@ -47,7 +47,7 @@ export default class extends React.Component {
     return <TreeSelect
       treeDataSimpleMode={{id: 'id', pId: 'pid', rootPId: '-1'}}
       value={this.props.value || undefined}
-      style={{width: 220}}
+      style={{width: 200}}
       size="large"
       dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
       treeData={treeData}

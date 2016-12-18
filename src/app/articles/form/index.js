@@ -131,7 +131,7 @@ class Comp extends React.Component {
           </Padding>
           <Button type="primary" onClick={() => {
             helpers.go.bind(this)('/articles')
-          }}>取消</Button>
+          }}>返回</Button>
         </Col>
       </Row>
     </div>

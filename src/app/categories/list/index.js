@@ -4,6 +4,7 @@ import actionCreators from '../../../redux/actions'
 import * as helpers from 'utils/helpers'
 import {Breadcrumb, Form, Button, Input, message, Popconfirm} from 'antd'
 import consts from 'utils/consts'
+import Ellipsis from 'components/ellipsis'
 import List from 'components/list'
 import Delete from 'components/delete'
 import CategorySelect from 'components/categorySelect'
@@ -55,12 +56,15 @@ class Comp extends React.Component {
         render: (text, record) => {
           return <span className="btn-action" onClick={() => {
             helpers.go.bind(this)(`/articles/form/${record.id}`)
-          }}>{text}</span>
+          }}>
+            <Ellipsis value={text} width="300" />
+          </span>
         }
       }, {
         title: '发布时间',
         dataIndex: 'created_at',
         key: 'created_at',
+        width: 150,
         render: (text, record) => {
           return <span>
             {helpers.getTime(record.created_at)}
@@ -69,6 +73,7 @@ class Comp extends React.Component {
       }, {
         title: '操作',
         key: 'action',
+        width: 100,
         render: (text, record) => <span>
           <span className="btn-action" onClick={() => {
             helpers.go.bind(this)(`/articles/form/${record.id}`)
