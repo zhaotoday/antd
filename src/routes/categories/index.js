@@ -11,12 +11,5 @@ module.exports = {
         component: require('app/categories/list')
       })
     })
-  },
-  getChildRoutes(location, cb) {
-    require.ensure([], (require) => {
-      cb(null, [
-        require('./form')
-      ])
-    })
   }
 }
