@@ -45,7 +45,7 @@ export default class extends React.Component {
       id: '0',
       pid: '-1',
       value: '0',
-      label: '顶级'
+      label: '顶级分类'
     })
 
     return <TreeSelect
@@ -53,6 +53,7 @@ export default class extends React.Component {
       value={value || undefined}
       style={{width: 200}}
       size="large"
+      allowClear
       dropdownStyle={{maxHeight: 400, overflow: 'auto'}}
       treeData={treeData}
       placeholder={placeholder}

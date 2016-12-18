@@ -147,7 +147,7 @@ class Comp extends React.Component {
     this.current = current
 
     // 搜索参数
-    const searchParams = this.search.is ? {title: this.search.keyword, category_id: this.state.category_id} : null
+    const searchParams = this.search.is ? {title: this.search.keyword, category_id: this.state.category_id || ''} : null
 
     return this.props.getArticles({
       params: {
