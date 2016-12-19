@@ -18,9 +18,9 @@ export const go = function (path) {
 export const getFile = (id) => {
   return new Promise((resolve, reject) => {
     new FileModel()
-      .addPaths(['{file_id}'])
+      .addPath('{file_id}')
       .replace({
-        file_id: id
+        'file_id': id
       })
       .GET()
       .then((response) => {

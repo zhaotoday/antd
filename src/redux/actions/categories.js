@@ -9,9 +9,9 @@ export const getCategory = createAction(
   actionTypes.GET_CATEGORY,
   (options = {}) => {
     return new Model()
-      .addPaths(['{category_id}'])
+      .addPath('{category_id}')
       .replace({
-        category_id: options.category_id
+        'category_id': options['category_id']
       })
       .GET()
   }
@@ -49,9 +49,9 @@ export const patchCategory = createAction(
   actionTypes.PATCH_CATEGORY,
   (options = {}) => {
     return new Model()
-      .addPaths(['{category_id}'])
+      .addPath('{category_id}')
       .replace({
-        'category_id': options.category_id
+        'category_id': options['category_id']
       })
       .PATCH({
         data: options.data

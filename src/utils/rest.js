@@ -11,14 +11,16 @@ import axios from 'axios'
 export default class REST {
   /**
    * 构造函数
-   * @param {string} baseURL - 接口基础地址
-   * @param {string} [version] - 接口版本
-   * @param {string} path - 请求路劲
    */
-  constructor(baseURL = '', version = '', path = '') {
-    this.baseURL = baseURL
-    this.version = version
-    this.path = path
+  constructor() {
+    // 接口基础地址
+    this.baseURL = ''
+    // 接口版本
+    this.version = ''
+    // 请求路劲
+    this.path = ''
+    // headers
+    this.headers = {}
   }
 
   /**
@@ -28,7 +30,8 @@ export default class REST {
    * @return {object}
    */
   _request(method = 'GET', options = {}) {
-    let url = this.version ? `/${this.version}${this.path}` : this.path
+    let url = this.version ? `/${this.version}/${this.path}` : `/${this.path}`
+    const headers = Object.keys(this.headers) ? {headers: this.headers} : {}
 
     // GET
     if (options.params) {
@@ -36,6 +39,7 @@ export default class REST {
     }
 
     return axios({
+      ...headers,
       method: method,
       baseURL: this.baseURL,
       url: url,
@@ -44,8 +48,8 @@ export default class REST {
   }
 
   /**
-   * 对象转 url
-   * @param {object} obj - 带转化对象
+   * 对象转 URL
+   * @param {object} obj - 待转化对象
    * @return {string}
    */
   _objToUrl(obj) {
@@ -60,11 +64,22 @@ export default class REST {
 
   /**
    * 附加路劲
-   * @param {array} paths - 路劲
+   * @param {string} path - 路劲
    */
-  addPaths(paths = []) {
-    if (paths.length) {
-      this.path = `${this.path}/${paths.join('/')}`
+  addPath(path = '') {
+    this.path = this.path + path
+
+    return this
+  }
+
+  /**
+   * 添加 headers
+   * @param {object} headers - headers
+   */
+  addHeaders(headers) {
+    this.headers = {
+      ...this.headers,
+      ...headers
     }
 
     return this

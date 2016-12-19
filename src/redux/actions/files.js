@@ -9,9 +9,9 @@ export const getFile = createAction(
   actionTypes.GET_FILE,
   (options = {}) => {
     return new Model()
-      .addPaths(['{file_id}'])
+      .addPath('{file_id}')
       .replace({
-        file_id: options.file_id
+        'file_id': options['file_id']
       })
       .GET()
   }

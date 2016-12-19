@@ -9,9 +9,9 @@ export const getArticle = createAction(
   actionTypes.GET_ARTICLE,
   (options = {}) => {
     return new Model()
-      .addPaths(['{article_id}'])
+      .addPath('{article_id}')
       .replace({
-        article_id: options.article_id
+        'article_id': options['article_id']
       })
       .GET()
   }
@@ -49,9 +49,9 @@ export const patchArticle = createAction(
   actionTypes.PATCH_ARTICLE,
   (options = {}) => {
     return new Model()
-      .addPaths(['{article_id}'])
+      .addPath('{article_id}')
       .replace({
-        'article_id': options.article_id
+        'article_id': options['article_id']
       })
       .PATCH({
         data: options.data
