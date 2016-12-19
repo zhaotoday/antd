@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './theme/styles'
-import helpers from 'utils/helpers/base'
+import helpers from 'utils/helpers'
 
 import { Menu, Icon } from 'antd'
 

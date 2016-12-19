@@ -1,6 +1,6 @@
 import React from 'react'
 import {Breadcrumb, Form, Input, Button, Row, Col, message} from 'antd'
-import helpers from 'utils/helpers/base'
+import helpers from 'utils/helpers'
 import Editor from 'components/editor'
 import Upload from 'components/upload'
 import CategorySelect from 'components/categorySelect'

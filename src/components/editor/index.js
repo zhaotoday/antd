@@ -1,6 +1,6 @@
 import React from 'react'
 import * as _helpers from './utils/helpers'
-import app from 'utils/helpers/app'
+import app from 'utils/app'
 
 import 'kindeditor'
 import 'kindeditor/themes/default/default.css'
