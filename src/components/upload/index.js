@@ -1,7 +1,7 @@
 import React from 'react'
 import {Upload, Button, Icon, message} from 'antd'
 import consts from 'utils/consts'
-import * as helpers from 'utils/helpers'
+import * as app from 'utils/helpers/app'
 
 // 上传地址
 const action = consts.API_URL + '/files'
@@ -46,7 +46,7 @@ export default class extends React.Component {
     if (value) {
       // 初始状态 && 编辑状态 && value 有值
       if (this.initial && editState) {
-        helpers.getFile(value).then((file) => {
+        app.getFile(value).then((file) => {
           const {name, url} = file
 
           this.setState({

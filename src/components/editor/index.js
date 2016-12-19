@@ -1,6 +1,6 @@
 import React from 'react'
 import * as _helpers from './utils/helpers'
-import * as helpers from 'utils/helpers'
+import * as app from 'utils/helpers/app'
 
 import 'kindeditor'
 import 'kindeditor/themes/default/default.css'
@@ -97,7 +97,7 @@ export default class extends React.Component {
   _handleImageOk = (fileId) => {
     this.setState({imageVisible: false})
 
-    helpers.getFile(fileId).then((file) => {
+    app.getFile(fileId).then((file) => {
       this.editor.insertHtml(`<img src="${file.url}" />`)
     })
   }

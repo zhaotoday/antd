@@ -1,7 +1,9 @@
 import React from 'react'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
-import * as helpers from 'utils/helpers'
+import * as helpers from 'utils/helpers/base'
+import * as app from 'utils/helpers/app'
+import * as time from 'utils/helpers/time'
 import {Breadcrumb, Form, Button, Input, message, Popconfirm} from 'antd'
 import consts from 'utils/consts'
 import Ellipsis from 'components/ellipsis'
@@ -71,7 +73,7 @@ class Comp extends React.Component {
         width: 250,
         render: (text, record) => {
           return <span>
-            <Ellipsis value={helpers.getCategoryById(categories.data.data.items, text).title} width="250" />
+            <Ellipsis value={app.getCategoryById(categories.data.data.items, text).title} width="250" />
           </span>
         }
       }, {
@@ -81,7 +83,7 @@ class Comp extends React.Component {
         width: 150,
         render: (text, record) => {
           return <span>
-            {helpers.getTime(record.created_at)}
+            {time.getDateTime(record.created_at)}
           </span>
         }
       }, {
