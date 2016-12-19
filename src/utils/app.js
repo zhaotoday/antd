@@ -1,4 +1,4 @@
-import consts from '../consts'
+import consts from './consts'
 import FileModel from 'redux/models/files'
 
 export default {
