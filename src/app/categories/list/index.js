@@ -16,7 +16,8 @@ module.exports = @connect(
     categories: state.categories
   }),
   dispatch => ({
-    getCategories: (options) => dispatch(actionCreators.getCategories(options))
+    getCategories: (options) => dispatch(actionCreators.getCategories(options)),
+    deleteCategory: (options) => dispatch(actionCreators.deleteCategory(options)),
   })
 )
 class Comp extends React.Component {
@@ -78,7 +79,11 @@ class Comp extends React.Component {
         width: 100,
         render: (text, record) => <span>
           <span className="btn-action" onClick={() => {
-            helpers.go.bind(this)(`/categories/form/${record.id}`)
+            const {categoryForm} = this
+            categoryForm.show()
+            categoryForm.init({
+              id: record.id
+            })
           }}>编辑</span>
           <span className="ant-divider" />
           <Popconfirm title="确认删除该记录？" onConfirm={this._handleDelete.bind(null, record.id)} okText="确认" cancelText="取消">
@@ -107,10 +112,10 @@ class Comp extends React.Component {
           <Form.Item>
             <Button type="primary" onClick={() => {
               const {categoryForm} = this
-              categoryForm.init({
-                category_id: 1
-              })
               categoryForm.show()
+              categoryForm.init({
+                pid: this.state.pid || '0'
+              })
             }}>新增</Button>
           </Form.Item>
           <Form.Item>
@@ -130,6 +135,8 @@ class Comp extends React.Component {
       <List ref="list" {...listProps} />
       <CategoryForm provideController={(component) => {
         this.categoryForm = component
+      }} onReload={() => {
+        this._getData()
       }} />
     </div>
   }
@@ -178,7 +185,7 @@ class Comp extends React.Component {
       id = selectedRowKeys.join(',')
     }
 
-    this.props.deleteArticle({
+    this.props.deleteCategory({
       params: {
         id: id
       }

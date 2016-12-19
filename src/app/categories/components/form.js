@@ -16,15 +16,18 @@ import actionCreators from '../../../redux/actions'
 class Comp extends React.Component {
   constructor() {
     super()
+    this.id = ''
+    this.pid = ''
   }
 
   static propTypes = {
-    // ID
-    id: React.PropTypes.string
+    // 重载列表
+    onReload: React.PropTypes.func
   }
 
   static defaultProps = {
-    id: ''
+    onReload: () => {
+    }
   }
 
   static contextTypes = {
@@ -39,42 +42,42 @@ class Comp extends React.Component {
     return !nextProps.category.isPending
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.category.data && nextProps.category.data.data.id) {
-      const data = nextProps.category.data.data
-      const {setFieldsValue} = this.props.form
-
-      setFieldsValue({
-        title: data.title,
-        description: data.description,
-        pid: data.pid,
-        sort: data.sort
-      })
-    }
-  }
-
   componentDidMount() {
-    const {id} = this.props
-
-    if (id) {
-      this.props.getCategory({
-        category_id: id
-      })
-    }
-
-
     this.props.provideController({
       init: (data = {}) => {
-        if (data.category_id) {
+        const {id} = data
+
+        if (id) {
+          this.id = id
+          this.pid = ''
+
           this.props.getCategory({
-            category_id: data.category_id
+            category_id: id
+          }).then((response) => {
+            const data = response.value.data.data
+            const {setFieldsValue} = this.props.form
+
+            setFieldsValue({
+              title: data.title,
+              description: data.description,
+              sort: data.sort
+            })
           })
+        } else {
+          this.id = ''
+          this.pid = data.pid || '0'
+
+          setTimeout(() => {
+            this.props.form.setFieldsValue({
+              title: '',
+              description: '',
+              sort: ''
+            })
+          }, 0)
         }
       },
       show: () => {
-        this.setState({
-          visible: true
-        })
+        this.setState({visible: true})
       }
     })
   }
@@ -145,17 +148,24 @@ class Comp extends React.Component {
 
       if (this.id) {
         patchCategory({
-          'article_id': this.id,
+          'category_id': this.id,
           data: fieldsValue
         }).then(() => {
           message.success('编辑成功')
+          this.setState({visible: false})
+          this.props.onReload()
         })
       } else {
         postCategory({
-          data: fieldsValue
+          data: {
+            ...fieldsValue,
+            pid: this.pid
+          }
         }).then(() => {
           message.success('新增成功')
           resetFields()
+          this.setState({visible: false})
+          this.props.onReload()
         })
       }
     })
