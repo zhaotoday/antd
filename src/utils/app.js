@@ -1,5 +1,6 @@
 import consts from './consts'
 import FileModel from 'redux/models/files'
+import 'date-format-lite'
 
 export default {
   /**
@@ -17,7 +18,7 @@ export default {
         .GET()
         .then((response) => {
           const {name, model, created_at, ext} = response.data.data
-          const url = `${consts.BASE_URL}/files/${model}/${moment(parseFloat(created_at + '000')).format('YYYYMMDD/HHmmss')}${ext}`
+          const url = `${consts.BASE_URL}/files/${model}/${(created_at + '000').date('YYYYMMDD/hhmmss')}${ext}`
 
           resolve({name, url})
         }).catch(reject)

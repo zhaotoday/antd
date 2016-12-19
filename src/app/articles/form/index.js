@@ -125,12 +125,11 @@ class Comp extends React.Component {
       <Row>
         <Col offset="2" span="20">
           <Button type="primary" onClick={this._handleSubmit}>提交</Button>
-          <Padding dir={['left', 'right']}>
-            <Button type="primary" onClick={this._handleSubmitThenGoBack}>提交并返回</Button>
+          <Padding dir={['left']}>
+            <Button type="primary" onClick={() => {
+              helpers.go.bind(this)('/articles')
+            }}>返回</Button>
           </Padding>
-          <Button type="primary" onClick={() => {
-            helpers.go.bind(this)('/articles')
-          }}>返回</Button>
         </Col>
       </Row>
     </div>
@@ -146,32 +145,26 @@ class Comp extends React.Component {
     e.preventDefault()
 
     validateFields((err, fieldsValue) => {
-      if (err) return
-
-      if (this.id) {
-        patchArticle({
-          'article_id': this.id,
-          data: fieldsValue
-        }).then(() => {
-          message.success('编辑成功')
-        })
-      } else {
-        postArticle({
-          data: fieldsValue
-        }).then(() => {
-          message.success('新增成功')
-          resetFields()
-        })
+      if (!err) {
+        if (this.id) {
+          patchArticle({
+            'article_id': this.id,
+            data: fieldsValue
+          }).then(() => {
+            message.success('编辑成功')
+            helpers.go.bind(this)('/articles')
+          })
+        } else {
+          postArticle({
+            data: fieldsValue
+          }).then(() => {
+            message.success('新增成功')
+            resetFields()
+            helpers.go.bind(this)('/articles')
+          })
+        }
       }
     })
-  }
-
-  /**
-   * 提交表单并返回
-   */
-  _handleSubmitThenGoBack = (e) => {
-    this._handleSubmit(e)
-    helpers.go.bind(this)('/articles')
   }
 
   /**
