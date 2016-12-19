@@ -7,7 +7,7 @@ import createAction from 'redux-actions/lib/createAction'
  */
 export const getFile = createAction(
   actionTypes.GET_FILE,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .addPaths(['{file_id}'])
       .replace({
@@ -22,7 +22,7 @@ export const getFile = createAction(
  */
 export const getFiles = createAction(
   actionTypes.GET_FILES,
-  (options) => {
+  (options = {}) => {
     return new Model().GET({
       params: options.params
     })

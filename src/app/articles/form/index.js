@@ -47,8 +47,6 @@ class Comp extends React.Component {
   }
 
   componentDidMount() {
-    this.id = this.props.params.article_id
-
     if (this.id) {
       this.props.getArticle({
         article_id: this.id
@@ -58,12 +56,13 @@ class Comp extends React.Component {
 
   render() {
     const {getFieldDecorator} = this.props.form
+    this.id = this.props.params.article_id
 
     return <div>
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
         <Breadcrumb.Item>文章管理</Breadcrumb.Item>
-        <Breadcrumb.Item>新增文章</Breadcrumb.Item>
+        <Breadcrumb.Item>{this.id ? '编辑' : '新增'}</Breadcrumb.Item>
       </Breadcrumb>
       <Form horizontal>
         <Form.Item
@@ -99,11 +98,11 @@ class Comp extends React.Component {
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
-          label="栏目">
+          label="分类">
           {getFieldDecorator('category_id', {
             rules: [{
               required: true,
-              message: '请选择栏目'
+              message: '请选择分类'
             }]
           })(
             <CategorySelect name="category_id" afterChange={this._handleAfterChange} />
@@ -131,7 +130,7 @@ class Comp extends React.Component {
           </Padding>
           <Button type="primary" onClick={() => {
             helpers.go.bind(this)('/articles')
-          }}>取消</Button>
+          }}>返回</Button>
         </Col>
       </Row>
     </div>

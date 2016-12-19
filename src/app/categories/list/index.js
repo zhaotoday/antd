@@ -4,9 +4,11 @@ import actionCreators from '../../../redux/actions'
 import * as helpers from 'utils/helpers'
 import {Breadcrumb, Form, Button, Input, message, Popconfirm} from 'antd'
 import consts from 'utils/consts'
+import Ellipsis from 'components/ellipsis'
 import List from 'components/list'
 import Delete from 'components/delete'
 import CategorySelect from 'components/categorySelect'
+import CategoryForm from '../components/form'
 
 module.exports = @connect(
   state => ({
@@ -55,12 +57,15 @@ class Comp extends React.Component {
         render: (text, record) => {
           return <span className="btn-action" onClick={() => {
             helpers.go.bind(this)(`/articles/form/${record.id}`)
-          }}>{text}</span>
+          }}>
+            <Ellipsis value={text} width="300" />
+          </span>
         }
       }, {
         title: '发布时间',
         dataIndex: 'created_at',
         key: 'created_at',
+        width: 150,
         render: (text, record) => {
           return <span>
             {helpers.getTime(record.created_at)}
@@ -69,9 +74,10 @@ class Comp extends React.Component {
       }, {
         title: '操作',
         key: 'action',
+        width: 100,
         render: (text, record) => <span>
           <span className="btn-action" onClick={() => {
-            helpers.go.bind(this)(`/articles/form/${record.id}`)
+            helpers.go.bind(this)(`/categories/form/${record.id}`)
           }}>编辑</span>
           <span className="ant-divider" />
           <Popconfirm title="确认删除该记录？" onConfirm={this._handleDelete.bind(null, record.id)} okText="确认" cancelText="取消">
@@ -92,27 +98,38 @@ class Comp extends React.Component {
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
         <Breadcrumb.Item>文章管理</Breadcrumb.Item>
-        <Breadcrumb.Item>栏目列表</Breadcrumb.Item>
+        <Breadcrumb.Item>分类列表</Breadcrumb.Item>
       </Breadcrumb>
       <div className="actions">
+
         <Form className="action" inline>
           <Form.Item>
-            <CategorySelect name="pid" afterChange={this._handleAfterChange} value={this.state.pid} />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" onClick={this._handleClickSearch}>列出子栏目</Button>
-          </Form.Item>
-          <Form.Item>
             <Button type="primary" onClick={() => {
-              helpers.go.bind(this)('/articles/form')
+              const {categoryForm} = this
+              categoryForm.init({
+                category_id: 1
+              })
+              categoryForm.show()
             }}>新增</Button>
           </Form.Item>
           <Form.Item>
             <Delete onValidate={this._handleDeleteValidate} onConfirm={this._handleDelete} />
           </Form.Item>
         </Form>
+        <Form className="search" inline>
+          <Form.Item>
+            <CategorySelect name="pid" afterChange={this._handleAfterChange} value={this.state.pid}
+              placeholder="请选择父类" />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" onClick={this._handleClickSearch}>搜索</Button>
+          </Form.Item>
+        </Form>
       </div>
       <List ref="list" {...listProps} />
+      <CategoryForm provideController={(component) => {
+        this.categoryForm = component
+      }} />
     </div>
   }
 
@@ -123,7 +140,7 @@ class Comp extends React.Component {
     this.current = current
 
     // 搜索参数
-    const searchParams = this.search.is ? {title: this.search.keyword, pid: this.state.pid} : null
+    const searchParams = this.search.is ? {title: this.search.keyword, pid: this.state.pid} : {pid: '0'}
 
     return this.props.getCategories({
       params: {

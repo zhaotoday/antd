@@ -3,11 +3,11 @@ import Model from '../models/categories'
 import createAction from 'redux-actions/lib/createAction'
 
 /**
- * 获取栏目列表
+ * 获取分类列表
  */
 export const getCategory = createAction(
   actionTypes.GET_CATEGORY,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .addPaths(['{category_id}'])
       .replace({
@@ -18,11 +18,11 @@ export const getCategory = createAction(
 )
 
 /**
- * 获取栏目列表
+ * 获取分类列表
  */
 export const getCategories = createAction(
   actionTypes.GET_CATEGORIES,
-  (options) => {
+  (options = {}) => {
     return new Model().GET({
       params: options.params
     })
@@ -30,11 +30,11 @@ export const getCategories = createAction(
 )
 
 /**
- * 新增栏目
+ * 新增分类
  */
 export const postCategory = createAction(
   actionTypes.POST_CATEGORY,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .POST({
         data: options.data
@@ -43,11 +43,11 @@ export const postCategory = createAction(
 )
 
 /**
- * 编辑栏目
+ * 编辑分类
  */
 export const patchCategory = createAction(
   actionTypes.PATCH_CATEGORY,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .addPaths(['{category_id}'])
       .replace({
@@ -60,11 +60,11 @@ export const patchCategory = createAction(
 )
 
 /**
- * 删除栏目
+ * 删除分类
  */
 export const deleteCategory = createAction(
   actionTypes.DELETE_CATEGORY,
-  (options) => {
+  (options = {}) => {
     return new Model()
       .DELETE({
         params: options.params

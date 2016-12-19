@@ -33,8 +33,8 @@ export const getFile = (id) => {
 }
 
 /**
- * 获取栏目详情
- * @param id {string} 栏目 ID
+ * 获取分类详情
+ * @param id {string} 分类 ID
  * @returns {object}
  */
 export const getCategoryById = (array, id) => {
