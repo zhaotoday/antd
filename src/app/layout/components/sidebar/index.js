@@ -34,8 +34,7 @@ export default class extends React.Component {
       mode="inline">
       <SubMenu key="/articles" title={<span><Icon type="file" /><span>文章管理</span></span>}>
         <Menu.Item key="/articles">文章列表</Menu.Item>
-        <Menu.Item key="/categories">分类列表</Menu.Item>
-        <Menu.Item key="/cache">更新缓存</Menu.Item>
+        <Menu.Item key="/articles/categories">分类列表</Menu.Item>
       </SubMenu>
       <SubMenu key="/article1" title={<span><Icon type="appstore" /><span>系统设置</span></span>}>
         <Menu.Item key="/article1">网站设置</Menu.Item>

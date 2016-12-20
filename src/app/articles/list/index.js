@@ -218,7 +218,7 @@ class Comp extends React.Component {
   _handleClickSearch = () => {
     // 设置当前进入搜索状态
     this.search.is = true
-    this._getData(1)
+    this._getData()
   }
 
   /**

@@ -21,6 +21,11 @@ module.exports = @connect(
   })
 )
 class Comp extends React.Component {
+  constructor() {
+    super()
+    this.model = ''
+  }
+
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
@@ -47,7 +52,8 @@ class Comp extends React.Component {
   }
 
   render() {
-    const {categories} = this.props
+    const {categories, params} = this.props
+    this.model = consts.MODELS[params.model] || consts.MODELS.ARTICLES
 
     // 列表属性
     let listProps = {
@@ -134,7 +140,7 @@ class Comp extends React.Component {
       <List ref="list" {...listProps} />
       <CategoryForm provideController={(component) => {
         this.categoryForm = component
-      }} onReload={() => {
+      }} model={this.model} onReload={() => {
         this._getData()
       }} />
     </div>
@@ -147,10 +153,11 @@ class Comp extends React.Component {
     this.current = current
 
     // 搜索参数
-    const searchParams = this.search.is ? {title: this.search.keyword, pid: this.state.pid} : {pid: '0'}
+    const searchParams = this.search.is ? {title: this.search.keyword, pid: this.state.pid || '0'} : {pid: '0'}
 
     return this.props.getCategories({
       params: {
+        model: this.model,
         limit: consts.PAGE_SIZE,
         offset: (current - 1) * consts.PAGE_SIZE,
         ...searchParams
@@ -204,7 +211,7 @@ class Comp extends React.Component {
   _handleClickSearch = () => {
     // 设置当前进入搜索状态
     this.search.is = true
-    this._getData(1)
+    this._getData()
   }
 
   /**

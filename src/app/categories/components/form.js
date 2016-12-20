@@ -21,11 +21,14 @@ class Comp extends React.Component {
   }
 
   static propTypes = {
+    // 模型
+    model: React.PropTypes.string,
     // 重载列表
     onReload: React.PropTypes.func
   }
 
   static defaultProps = {
+    model: '',
     onReload: () => {
     }
   }
@@ -140,7 +143,7 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleOk = () => {
-    const {form, postCategory, patchCategory} = this.props
+    const {form, postCategory, patchCategory, model} = this.props
     const {resetFields, validateFields} = form
 
     validateFields((err, fieldsValue) => {
@@ -149,7 +152,10 @@ class Comp extends React.Component {
       if (this.id) {
         patchCategory({
           'category_id': this.id,
-          data: fieldsValue
+          data: {
+            ...fieldsValue,
+            model
+          }
         }).then(() => {
           message.success('编辑成功')
           this.setState({visible: false})
@@ -159,7 +165,8 @@ class Comp extends React.Component {
         postCategory({
           data: {
             ...fieldsValue,
-            pid: this.pid
+            pid: this.pid,
+            model
           }
         }).then(() => {
           message.success('新增成功')
