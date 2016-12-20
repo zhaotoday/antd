@@ -27,7 +27,8 @@ module.exports = {
         cb(null, [
           require('./articles'),
           require('./categories'),
-          require('./settings')
+          require('./settings'),
+          require('./commodities')
         ])
       })
     }
