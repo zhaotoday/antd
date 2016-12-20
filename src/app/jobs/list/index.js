@@ -112,14 +112,14 @@ class Comp extends React.Component {
     return <div>
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
-        <Breadcrumb.Item>文章管理</Breadcrumb.Item>
-        <Breadcrumb.Item>文章列表</Breadcrumb.Item>
+        <Breadcrumb.Item>岗位管理</Breadcrumb.Item>
+        <Breadcrumb.Item>岗位列表</Breadcrumb.Item>
       </Breadcrumb>
       <div className="actions">
         <Form className="action" inline>
           <Form.Item>
             <Button type="primary" onClick={() => {
-              helpers.go.bind(this)('/articles/form')
+              helpers.go.bind(this)('/jobs/form')
             }}>新增</Button>
           </Form.Item>
           <Form.Item>

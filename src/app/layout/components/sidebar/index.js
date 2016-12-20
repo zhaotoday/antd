@@ -41,7 +41,7 @@ export default class extends React.Component {
       </SubMenu>
       <SubMenu key="/jobs" title={<span><Icon type="file" /><span>岗位管理</span></span>}>
         <Menu.Item key="/jobs">岗位列表</Menu.Item>
-        <Menu.Item key="/jobs/categories/ARTICLES">分类列表</Menu.Item>
+        <Menu.Item key="/jobs/categories/JOBS">分类列表</Menu.Item>
       </SubMenu>
       <SubMenu key="/settings" title={<span><Icon type="setting" /><span>系统设置</span></span>}>
         <Menu.Item key="/settings">网站设置</Menu.Item>

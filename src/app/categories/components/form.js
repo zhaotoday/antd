@@ -109,12 +109,12 @@ class Comp extends React.Component {
         <Form.Item
           labelCol={{span: 4}}
           wrapperCol={{span: 18}}
-          label="描述"
+          label="备注"
           hasFeedback>
           {getFieldDecorator('description', {
             rules: []
           })(
-            <Input type="textarea" rows="4" />
+            <Input type="textarea" rows="2" />
           )}
         </Form.Item>
         <Form.Item
