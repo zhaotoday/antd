@@ -61,8 +61,8 @@ class Comp extends React.Component {
     return <div>
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
-        <Breadcrumb.Item>文章管理</Breadcrumb.Item>
-        <Breadcrumb.Item>{this.id ? '编辑' : '新增'}</Breadcrumb.Item>
+        <Breadcrumb.Item>系统设置</Breadcrumb.Item>
+        <Breadcrumb.Item>网站设置</Breadcrumb.Item>
       </Breadcrumb>
       <Form horizontal>
         <Form.Item

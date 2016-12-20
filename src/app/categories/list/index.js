@@ -63,12 +63,15 @@ class Comp extends React.Component {
         dataIndex: 'title',
         key: 'title',
         render: (text, record) => {
-          return <span className="btn-action" onClick={() => {
-            helpers.go.bind(this)(`/articles/form/${record.id}`)
-          }}>
+          return <span className="btn-action" onClick={this._handleModel.bind(null, record.id)}>
             <Ellipsis value={text} width="300" />
           </span>
         }
+      }, {
+        title: '排序',
+        dataIndex: 'sort',
+        key: 'sort',
+        width: 150
       }, {
         title: '发布时间',
         dataIndex: 'created_at',
@@ -84,13 +87,7 @@ class Comp extends React.Component {
         key: 'action',
         width: 100,
         render: (text, record) => <span>
-          <span className="btn-action" onClick={() => {
-            const {categoryForm} = this
-            categoryForm.show()
-            categoryForm.init({
-              id: record.id
-            })
-          }}>编辑</span>
+          <span className="btn-action" onClick={this._handleModel.bind(null, record.id)}>编辑</span>
           <span className="ant-divider" />
           <Popconfirm title="确认删除该记录？" onConfirm={this._handleDelete.bind(null, record.id)} okText="确认" cancelText="取消">
             <span className="btn-action">删除</span>
@@ -115,13 +112,7 @@ class Comp extends React.Component {
       <div className="actions">
         <Form className="action" inline>
           <Form.Item>
-            <Button type="primary" onClick={() => {
-              const {categoryForm} = this
-              categoryForm.show()
-              categoryForm.init({
-                pid: this.state.pid || '0'
-              })
-            }}>新增</Button>
+            <Button type="primary" onClick={this._handleAdd}>新增</Button>
           </Form.Item>
           <Form.Item>
             <Delete onValidate={this._handleDeleteValidate} onConfirm={this._handleDelete} />
@@ -130,6 +121,7 @@ class Comp extends React.Component {
         <Form className="search" inline>
           <Form.Item>
             <CategorySelect ref="pid" name="pid" afterChange={this._handleAfterChange} value={this.state.pid}
+              model={this.model}
               placeholder="请选择父类" />
           </Form.Item>
           <Form.Item>
@@ -221,5 +213,25 @@ class Comp extends React.Component {
     this.setState({
       [name]: value
     })
+  }
+
+  /**
+   * 新增
+   */
+  _handleAdd = () => {
+    const {categoryForm} = this
+    categoryForm.show()
+    categoryForm.init({
+      pid: this.state.pid || '0'
+    })
+  }
+
+  /**
+   * 编辑
+   */
+  _handleModel = (id) => {
+    const {categoryForm} = this
+    categoryForm.show()
+    categoryForm.init({id})
   }
 }

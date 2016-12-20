@@ -9,6 +9,8 @@ export default class extends React.Component {
     name: React.PropTypes.string,
     // 值
     value: React.PropTypes.string,
+    // 模型
+    model: React.PropTypes.string,
     // placeholder
     placeholder: React.PropTypes.string,
     // afterChange 事件
@@ -18,6 +20,7 @@ export default class extends React.Component {
   static defaultProps = {
     name: 'categorySelect',
     value: '',
+    model: '',
     placeholder: '请选择分类',
     afterChange: () => {
     }
@@ -75,8 +78,14 @@ export default class extends React.Component {
    * 获取数据
    */
   _getData = () => {
+    const {model} = this.props
+
     new Model()
-      .GET()
+      .GET({
+        params: {
+          model
+        }
+      })
       .then((response) => {
         this.setState({
           treeData: _helpers.toTreeData(response.data.data.items)

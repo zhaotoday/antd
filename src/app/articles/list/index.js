@@ -128,7 +128,7 @@ class Comp extends React.Component {
         </Form>
         <Form className="search" inline>
           <Form.Item>
-            <CategorySelect name="category_id" afterChange={this._handleAfterChange} value={this.state.category_id} />
+            <CategorySelect name="category_id" afterChange={this._handleAfterChange} value={this.state.category_id} model={consts.MODELS.ARTICLES} />
           </Form.Item>
           <Form.Item>
             <Input placeholder="请输入标题" style={{width: '200px'}} onChange={this._handleChangeSearch} />
@@ -164,7 +164,11 @@ class Comp extends React.Component {
    * 获取分类
    */
   _getCategories = () => {
-    this.props.getCategories()
+    this.props.getCategories({
+      params: {
+        model: consts.MODELS.ARTICLES
+      }
+    })
   }
 
   /**

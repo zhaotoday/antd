@@ -26,7 +26,8 @@ module.exports = {
       require.ensure([], (require) => {
         cb(null, [
           require('./articles'),
-          require('./categories')
+          require('./categories'),
+          require('./settings')
         ])
       })
     }

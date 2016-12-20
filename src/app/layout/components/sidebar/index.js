@@ -34,11 +34,10 @@ export default class extends React.Component {
       mode="inline">
       <SubMenu key="/articles" title={<span><Icon type="file" /><span>文章管理</span></span>}>
         <Menu.Item key="/articles">文章列表</Menu.Item>
-        <Menu.Item key="/articles/categories">分类列表</Menu.Item>
+        <Menu.Item key="/articles/categories/ARTICLES">分类列表</Menu.Item>
       </SubMenu>
-      <SubMenu key="/article1" title={<span><Icon type="appstore" /><span>系统设置</span></span>}>
-        <Menu.Item key="/article1">网站设置</Menu.Item>
-        <Menu.Item key="/article1">修改密码</Menu.Item>
+      <SubMenu key="/settings" title={<span><Icon type="appstore" /><span>系统设置</span></span>}>
+        <Menu.Item key="/settings">网站设置</Menu.Item>
       </SubMenu>
     </Menu>
   }
