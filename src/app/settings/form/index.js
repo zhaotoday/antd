@@ -58,10 +58,16 @@ class Comp extends React.Component {
           required
           hasFeedback>
           {getFieldDecorator('site_name', {
-            rules: [{
-              required: true,
-              message: '请输入网站名称'
-            }]
+            rules: [
+              {
+                required: true,
+                message: '请输入网站名称'
+              },
+              {
+                max: 50,
+                message: '不能超过 50 个字'
+              }
+            ]
           })(
             <Input />
           )}
@@ -71,17 +77,15 @@ class Comp extends React.Component {
           wrapperCol={{span: 16}}
           label="网站描述"
           hasFeedback>
-          {getFieldDecorator('description')(
+          {getFieldDecorator('description', {
+            rules: [
+              {
+                max: 200,
+                message: '不能超过 200 个字'
+              }
+            ]
+          })(
             <Input type="textarea" rows="4" />
-          )}
-        </Form.Item>
-        <Form.Item
-          labelCol={{span: 2}}
-          wrapperCol={{span: 16}}
-          label="域名"
-          hasFeedback>
-          {getFieldDecorator('domain')(
-            <Input />
           )}
         </Form.Item>
         <Form.Item
@@ -89,8 +93,15 @@ class Comp extends React.Component {
           wrapperCol={{span: 16}}
           label="关键词"
           hasFeedback>
-          {getFieldDecorator('keywords')(
-            <Input type="textarea" rows="4" />
+          {getFieldDecorator('keywords', {
+            rules: [
+              {
+                max: 100,
+                message: '不能超过 100 个字'
+              }
+            ]
+          })(
+            <Input type="textarea" rows="3" />
           )}
         </Form.Item>
         <Form.Item
@@ -98,7 +109,14 @@ class Comp extends React.Component {
           wrapperCol={{span: 16}}
           label="备案号"
           hasFeedback>
-          {getFieldDecorator('icp')(
+          {getFieldDecorator('icp', {
+            rules: [
+              {
+                max: 20,
+                message: '不能超过 20 个字'
+              }
+            ]
+          })(
             <Input />
           )}
         </Form.Item>
@@ -107,7 +125,46 @@ class Comp extends React.Component {
           wrapperCol={{span: 16}}
           label="电话"
           hasFeedback>
-          {getFieldDecorator('telephone')(
+          {getFieldDecorator('telephone', {
+            rules: [
+              {
+                pattern: /^0[0-9]{2,3}[-]?[0-9]{7,8}$/,
+                message: '格式错误'
+              }
+            ]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="传真"
+          hasFeedback>
+          {getFieldDecorator('fax', {
+            rules: [
+              {
+                pattern: /^0[0-9]{2,3}[-]?[0-9]{7,8}$/,
+                message: '格式错误'
+              }
+            ]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="邮政编码"
+          hasFeedback>
+          {getFieldDecorator('postcode', {
+            rules: [
+              {
+                pattern: /^[1-9][0-9]{5}$/,
+                message: '格式错误'
+              }
+            ]
+          })(
             <Input />
           )}
         </Form.Item>
@@ -116,7 +173,14 @@ class Comp extends React.Component {
           wrapperCol={{span: 16}}
           label="手机"
           hasFeedback>
-          {getFieldDecorator('mobilephone')(
+          {getFieldDecorator('mobilephone', {
+            rules: [
+              {
+                pattern: /^1[3|5|7|8][0-9]{9}$/,
+                message: '格式错误'
+              }
+            ]
+          })(
             <Input />
           )}
         </Form.Item>
@@ -129,7 +193,7 @@ class Comp extends React.Component {
             rules: [
               {
                 type: 'email',
-                message: '请输入合法的邮箱'
+                message: '格式错误'
               }
             ]
           })(
@@ -139,18 +203,16 @@ class Comp extends React.Component {
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 16}}
-          label="邮政编码"
-          hasFeedback>
-          {getFieldDecorator('fax')(
-            <Input />
-          )}
-        </Form.Item>
-        <Form.Item
-          labelCol={{span: 2}}
-          wrapperCol={{span: 16}}
           label="地址"
           hasFeedback>
-          {getFieldDecorator('address')(
+          {getFieldDecorator('address', {
+            rules: [
+              {
+                max: 100,
+                message: '不能超过 100 个字'
+              }
+            ]
+          })(
             <Input />
           )}
         </Form.Item>

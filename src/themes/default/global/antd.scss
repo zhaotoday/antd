@@ -4,7 +4,7 @@
 
 .actions {
   height: 50px;
-  
+
   .action {
     float: left;
   }
@@ -12,4 +12,8 @@
   .search {
     float: right;
   }
+}
+
+.ant-menu-submenu-title {
+  font-size: 14px !important;
 }
