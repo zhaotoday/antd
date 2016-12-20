@@ -85,7 +85,7 @@ class Comp extends React.Component {
               }
             ]
           })(
-            <Input type="textarea" rows="4" />
+            <Input type="textarea" rows="3" />
           )}
         </Form.Item>
         <Form.Item
@@ -101,7 +101,7 @@ class Comp extends React.Component {
               }
             ]
           })(
-            <Input type="textarea" rows="3" />
+            <Input type="textarea" rows="2" />
           )}
         </Form.Item>
         <Form.Item
