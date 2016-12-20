@@ -5,6 +5,10 @@ import files from './files'
 import file from './file'
 import categories from './categories'
 import category from './category'
+import commodities from './commodities'
+import commodity from './commodity'
+import jobs from './jobs'
+import job from './job'
 import setting from './setting'
 
 export default combineReducers({
@@ -14,5 +18,9 @@ export default combineReducers({
   file,
   categories,
   category,
+  commodities,
+  commodity,
+  jobs,
+  job,
   setting
 })
