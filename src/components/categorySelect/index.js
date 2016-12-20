@@ -1,7 +1,7 @@
 import React from 'react'
 import Model from './models/categories'
 import {TreeSelect} from 'antd'
-import * as _helpers from './utils/helpers'
+import _helpers from './utils/helpers'
 
 export default class extends React.Component {
   static propTypes = {
@@ -27,14 +27,15 @@ export default class extends React.Component {
     treeData: []
   }
 
+  /**
+   * 重新加载
+   */
+  reload() {
+    this._getData()
+  }
+
   componentDidMount() {
-    new Model()
-      .GET()
-      .then((response) => {
-        this.setState({
-          treeData: _helpers.toTreeData(response.data.data.items)
-        })
-      })
+    this._getData()
   }
 
   render() {
@@ -50,7 +51,7 @@ export default class extends React.Component {
 
     return <TreeSelect
       treeDataSimpleMode={{id: 'id', pId: 'pid', rootPId: '-1'}}
-      value={value || undefined}
+      value={_helpers.exist(value, treeData) ? value : undefined}
       style={{width: 200}}
       size="large"
       allowClear
@@ -68,5 +69,18 @@ export default class extends React.Component {
   _handleChange = (value) => {
     const {name, afterChange} = this.props
     afterChange(name, value)
+  }
+
+  /**
+   * 获取数据
+   */
+  _getData = () => {
+    new Model()
+      .GET()
+      .then((response) => {
+        this.setState({
+          treeData: _helpers.toTreeData(response.data.data.items)
+        })
+      })
   }
 }

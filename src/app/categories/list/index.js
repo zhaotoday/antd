@@ -107,7 +107,6 @@ class Comp extends React.Component {
         <Breadcrumb.Item>分类列表</Breadcrumb.Item>
       </Breadcrumb>
       <div className="actions">
-
         <Form className="action" inline>
           <Form.Item>
             <Button type="primary" onClick={() => {
@@ -124,7 +123,7 @@ class Comp extends React.Component {
         </Form>
         <Form className="search" inline>
           <Form.Item>
-            <CategorySelect name="pid" afterChange={this._handleAfterChange} value={this.state.pid}
+            <CategorySelect ref="pid" name="pid" afterChange={this._handleAfterChange} value={this.state.pid}
               placeholder="请选择父类" />
           </Form.Item>
           <Form.Item>
@@ -156,6 +155,8 @@ class Comp extends React.Component {
         offset: (current - 1) * consts.PAGE_SIZE,
         ...searchParams
       }
+    }).then(() => {
+      this.refs.pid.reload()
     })
   }
 
