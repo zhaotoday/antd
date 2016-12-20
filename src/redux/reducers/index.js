@@ -5,6 +5,7 @@ import files from './files'
 import file from './file'
 import categories from './categories'
 import category from './category'
+import setting from './setting'
 
 export default combineReducers({
   articles,
@@ -12,5 +13,6 @@ export default combineReducers({
   files,
   file,
   categories,
-  category
+  category,
+  setting
 })

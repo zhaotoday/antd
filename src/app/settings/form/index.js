@@ -10,53 +10,39 @@ import actionCreators from '../../../redux/actions'
 
 @connect(
   state => ({
-    article: state.article
+    setting: state.setting
   }),
   dispatch => ({
-    getArticle: (options) => dispatch(actionCreators.getArticle(options)),
-    postArticle: (options) => dispatch(actionCreators.postArticle(options)),
-    patchArticle: (options) => dispatch(actionCreators.patchArticle(options))
+    getSetting: (options) => dispatch(actionCreators.getSetting(options)),
+    patchSetting: (options) => dispatch(actionCreators.patchSetting(options))
   })
 )
 class Comp extends React.Component {
-  constructor() {
-    super()
-    this.id = null
-  }
-
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !nextProps.article.isPending
+    return !nextProps.setting.isPending
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.id && !this.props.article.data && nextProps.article.data.data.id) {
-      const data = nextProps.article.data.data
+    if (!this.props.setting.data && nextProps.setting.data.data.id) {
+      const data = nextProps.setting.data.data
       const {setFieldsValue} = this.props.form
 
-      setFieldsValue({
-        title: data.title,
-        content: data.content,
-        category_id: data.category_id,
-        picture: data.picture
-      })
+      setFieldsValue(data)
     }
   }
 
   componentDidMount() {
-    if (this.id) {
-      this.props.getArticle({
-        article_id: this.id
-      })
-    }
+    this.props.getSetting({
+      'setting_id': '1'
+    })
   }
 
   render() {
     const {getFieldDecorator} = this.props.form
-    this.id = this.props.params.article_id
 
     return <div>
       <Breadcrumb>
@@ -67,14 +53,14 @@ class Comp extends React.Component {
       <Form horizontal>
         <Form.Item
           labelCol={{span: 2}}
-          wrapperCol={{span: 20}}
-          label="标题"
+          wrapperCol={{span: 16}}
+          label="网站名称"
           required
           hasFeedback>
-          {getFieldDecorator('title', {
+          {getFieldDecorator('site_name', {
             rules: [{
               required: true,
-              message: '请输入标题'
+              message: '请输入网站名称'
             }]
           })(
             <Input />
@@ -82,54 +68,96 @@ class Comp extends React.Component {
         </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
-          wrapperCol={{span: 20}}
-          label="内容"
-          required
+          wrapperCol={{span: 16}}
+          label="网站描述"
           hasFeedback>
-          {getFieldDecorator('content', {
-            rules: [{
-              required: true,
-              message: '请输入内容'
-            }]
-          })(
-            <Editor name="content" afterChange={this._handleAfterChange} editState={!!this.id} />
+          {getFieldDecorator('description')(
+            <Input type="textarea" rows="4" />
           )}
         </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
-          wrapperCol={{span: 20}}
-          label="分类">
-          {getFieldDecorator('category_id', {
-            rules: [{
-              required: true,
-              message: '请选择分类'
-            }]
-          })(
-            <CategorySelect name="category_id" afterChange={this._handleAfterChange} />
+          wrapperCol={{span: 16}}
+          label="域名"
+          hasFeedback>
+          {getFieldDecorator('domain')(
+            <Input />
           )}
         </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
-          wrapperCol={{span: 20}}
-          label="图片">
-          {getFieldDecorator('picture', {
-            rules: [{
-              required: true,
-              message: '请上传图片'
-            }]
+          wrapperCol={{span: 16}}
+          label="关键词"
+          hasFeedback>
+          {getFieldDecorator('keywords')(
+            <Input type="textarea" rows="4" />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="备案号"
+          hasFeedback>
+          {getFieldDecorator('icp')(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="电话"
+          hasFeedback>
+          {getFieldDecorator('telephone')(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="手机"
+          hasFeedback>
+          {getFieldDecorator('mobilephone')(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="邮箱"
+          hasFeedback>
+          {getFieldDecorator('email', {
+            rules: [
+              {
+                type: 'email',
+                message: '请输入合法的邮箱'
+              }
+            ]
           })(
-            <Upload name="picture" afterChange={this._handleAfterChange} editState={!!this.id} />
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="邮政编码"
+          hasFeedback>
+          {getFieldDecorator('fax')(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="地址"
+          hasFeedback>
+          {getFieldDecorator('address')(
+            <Input />
           )}
         </Form.Item>
       </Form>
       <Row>
         <Col offset="2" span="20">
           <Button type="primary" onClick={this._handleSubmit}>提交</Button>
-          <Padding dir={['left']}>
-            <Button type="primary" onClick={() => {
-              helpers.go.bind(this)('/articles')
-            }}>返回</Button>
-          </Padding>
         </Col>
       </Row>
     </div>
@@ -139,45 +167,21 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleSubmit = (e) => {
-    const {form, postArticle, patchArticle} = this.props
-    const {resetFields, validateFields} = form
+    const {form, patchSetting} = this.props
+    const {validateFields} = form
 
     e.preventDefault()
 
     validateFields((err, fieldsValue) => {
       if (!err) {
-        if (this.id) {
-          patchArticle({
-            'article_id': this.id,
-            data: fieldsValue
-          }).then(() => {
-            message.success('编辑成功')
-            helpers.go.bind(this)('/articles')
-          })
-        } else {
-          postArticle({
-            data: fieldsValue
-          }).then(() => {
-            message.success('新增成功')
-            resetFields()
-            helpers.go.bind(this)('/articles')
-          })
-        }
+        patchSetting({
+          'setting_id': '1',
+          data: fieldsValue
+        }).then(() => {
+          message.success('编辑成功')
+        })
       }
     })
-  }
-
-  /**
-   * 处理 afterChange 事件
-   */
-  _handleAfterChange = (name, value) => {
-    const {setFieldsValue, validateFields} = this.props.form
-
-    setFieldsValue({
-      [name]: value
-    })
-
-    validateFields([name])
   }
 }
 
