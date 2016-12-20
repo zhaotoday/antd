@@ -28,7 +28,8 @@ module.exports = {
           require('./articles'),
           require('./categories'),
           require('./settings'),
-          require('./commodities')
+          require('./commodities'),
+          require('./jobs')
         ])
       })
     }

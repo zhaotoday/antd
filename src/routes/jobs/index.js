@@ -1,14 +1,14 @@
 module.exports = {
-  path: 'articles',
+  path: 'jobs',
   getComponents(location, cb) {
     require.ensure([], (require) => {
-      cb(null, require('app/articles'))
+      cb(null, require('app/jobs'))
     })
   },
   getIndexRoute(location, callback) {
     require.ensure([], function (require) {
       callback(null, {
-        component: require('app/articles/list')
+        component: require('app/jobs/list')
       })
     })
   },
