@@ -2,6 +2,7 @@ import React from 'react'
 import {Upload, Button, Icon, message} from 'antd'
 import consts from 'utils/consts'
 import app from 'utils/app'
+import auth from 'utils/auth'
 
 // 上传地址
 const action = consts.API_URL + '/files'
@@ -66,6 +67,7 @@ export default class extends React.Component {
   render() {
     const {fileList} = this.state
     const props = {
+      headers: auth.getAuth(),
       name: 'userfile',
       defaultFileList: [],
       fileList: fileList,
