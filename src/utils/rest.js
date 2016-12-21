@@ -4,6 +4,7 @@
  */
 
 import axios from 'axios'
+import {message} from 'antd'
 
 /**
  * @class REST 接口请求
@@ -38,12 +39,20 @@ export default class REST {
       url = url + this._objToUrl(options.params)
     }
 
-    return axios({
-      ...headers,
-      method: method,
-      baseURL: this.baseURL,
-      url: url,
-      data: options.data || {}
+    return new Promise((resolve, reject) => {
+      axios({
+        ...headers,
+        method: method,
+        baseURL: this.baseURL,
+        url: url,
+        data: options.data || {}
+      }).then((response) => {
+        resolve(response)
+      }).catch((error) => {
+        // 统一提示报错信息
+        message.error(error.response.data.error.message)
+        // reject(error)
+      })
     })
   }
 
@@ -58,8 +67,8 @@ export default class REST {
     }
 
     return '?' + Object.keys(obj).map((key) => {
-      return `${key}=${encodeURIComponent(obj[key])}`
-    }).join('&')
+        return `${key}=${encodeURIComponent(obj[key])}`
+      }).join('&')
   }
 
   /**

@@ -10,6 +10,7 @@ import commodity from './commodity'
 import jobs from './jobs'
 import job from './job'
 import setting from './setting'
+import actionLogin from './actions/login'
 
 export default combineReducers({
   articles,
@@ -22,5 +23,6 @@ export default combineReducers({
   commodity,
   jobs,
   job,
-  setting
+  setting,
+  actionLogin
 })

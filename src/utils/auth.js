@@ -16,7 +16,7 @@ export default {
 
   /**
    * 设置 token
-   * @param value
+   * @param value {string} 值
    */
   setToken(value) {
     token = value
@@ -28,6 +28,22 @@ export default {
    */
   getToken() {
     return token || storage.get(TOKEN)
+  },
+
+  /**
+   * 设置用户
+   * @param value {string} 值
+   */
+  setUser(value){
+    user = value
+    storage.set(USER, user)
+  },
+
+  /**
+   * 获取用户
+   */
+  getUser() {
+    return user || storage.get(USER)
   },
 
   /**

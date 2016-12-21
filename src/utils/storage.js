@@ -15,7 +15,7 @@ export default {
    * @param key {string} 键值
    */
   get(key) {
-    return JSON.parse(localStorage.getItem(key)) || {}
+    return JSON.parse(localStorage.getItem(key))
   },
 
   /**
