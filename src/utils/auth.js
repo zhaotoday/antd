@@ -53,5 +53,15 @@ export default {
     token = user = null
     storage.remove(TOKEN)
     storage.remove(USER)
+  },
+
+  /**
+   * 获取授权信息
+   */
+  getAuth() {
+    return {
+      auth: this.getToken(),
+      username: this.getUser().username
+    }
   }
 }
