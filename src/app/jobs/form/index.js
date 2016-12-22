@@ -1,5 +1,5 @@
 import React from 'react'
-import {Breadcrumb, Form, Input, Button, Row, Col, message} from 'antd'
+import {Breadcrumb, Form, Input, Button, Row, Col, message, InputNumber} from 'antd'
 import consts from 'utils/consts'
 import helpers from 'utils/helpers'
 import Editor from 'components/editor'
@@ -62,10 +62,23 @@ class Comp extends React.Component {
     return <div>
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
-        <Breadcrumb.Item>文章管理</Breadcrumb.Item>
+        <Breadcrumb.Item>岗位管理</Breadcrumb.Item>
         <Breadcrumb.Item>{this.id ? '编辑' : '新增'}</Breadcrumb.Item>
       </Breadcrumb>
       <Form horizontal>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 20}}
+          label="分类">
+          {getFieldDecorator('category_id', {
+            rules: [{
+              required: true,
+              message: '请选择分类'
+            }]
+          })(
+            <CategorySelect name="category_id" afterChange={this._handleAfterChange} model={consts.MODELS.ARTICLES} />
+          )}
+        </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
@@ -84,42 +97,64 @@ class Comp extends React.Component {
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
-          label="内容"
+          label="薪资"
           required
           hasFeedback>
-          {getFieldDecorator('content', {
+          {getFieldDecorator('salary', {
             rules: [{
               required: true,
-              message: '请输入内容'
+              message: '请输入薪资'
             }]
           })(
-            <Editor name="content" afterChange={this._handleAfterChange} editState={!!this.id} />
+            <InputNumber min={0} max={10000} defaultValue={0} />
+          )}
+          元/月
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 20}}
+          label="需求人数"
+          required
+          hasFeedback>
+          {getFieldDecorator('need_number', {
+            rules: [
+              {
+                required: true,
+                message: '请输入需求人数'
+              }
+            ]
+          })(
+            <InputNumber min={0} max={10000} defaultValue={0} />
           )}
         </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
-          label="分类">
-          {getFieldDecorator('category_id', {
+          label="岗位职责"
+          required
+          hasFeedback>
+          {getFieldDecorator('duty', {
             rules: [{
               required: true,
-              message: '请选择分类'
+              message: '请输入岗位职责'
             }]
           })(
-            <CategorySelect name="category_id" afterChange={this._handleAfterChange} model={consts.MODELS.ARTICLES} />
+            <Input type="textarea" rows="6" />
           )}
         </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
-          label="图片">
-          {getFieldDecorator('picture', {
+          label="任职要求"
+          required
+          hasFeedback>
+          {getFieldDecorator('requirement', {
             rules: [{
               required: true,
-              message: '请上传图片'
+              message: '请输入任职要求'
             }]
           })(
-            <Upload name="picture" afterChange={this._handleAfterChange} editState={!!this.id} />
+            <Input type="textarea" rows="6" />
           )}
         </Form.Item>
       </Form>
