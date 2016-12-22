@@ -72,6 +72,9 @@ class Comp extends React.Component {
       },
       show: () => {
         this.setState({visible: true})
+        setTimeout(() => {
+          this.picture.init()
+        }, 0)
       }
     })
   }
@@ -108,7 +111,10 @@ class Comp extends React.Component {
               message: '请上传图片'
             }]
           })(
-            <Upload name="picture" afterChange={this._handleAfterChange} editState={!!this.id} />
+            <Upload name="picture" afterChange={this._handleAfterChange} editState={!!this.id}
+              provideController={(component) => {
+                this.picture = component
+              }} />
           )}
         </Form.Item>
       </Form>

@@ -38,8 +38,12 @@ export default class extends React.Component {
     fileList: []
   }
 
-  init() {
-    this.initial = true
+  componentDidMount() {
+    this.props.provideController({
+      init() {
+        this.initial = true
+      }
+    })
   }
 
   componentWillReceiveProps(nextProps) {
