@@ -40,7 +40,7 @@ class Comp extends React.Component {
   }
 
   state = {
-    pid: ''
+    pid: '0'
   }
 
   componentDidMount() {

@@ -128,9 +128,11 @@ class Comp extends React.Component {
         </Form>
         <Form className="search" inline>
           <Form.Item>
+            分类：
             <CategorySelect name="category_id" afterChange={this._handleAfterChange} value={this.state.category_id} model={consts.MODELS.ARTICLES} />
           </Form.Item>
           <Form.Item>
+            标题：
             <Input placeholder="请输入标题" style={{width: '200px'}} onChange={this._handleChangeSearch} />
           </Form.Item>
           <Form.Item>
