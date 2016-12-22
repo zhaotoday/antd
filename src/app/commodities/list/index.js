@@ -9,17 +9,14 @@ import consts from 'utils/consts'
 import Ellipsis from 'components/ellipsis'
 import List from 'components/list'
 import Delete from 'components/delete'
-import CategorySelect from 'components/categorySelect'
 
 module.exports = @connect(
   state => ({
-    articles: state.articles,
-    categories: state.categories
+    commodities: state.commodities
   }),
   dispatch => ({
-    getArticles: (options) => dispatch(actionCreators.getArticles(options)),
-    deleteArticle: (options) => dispatch(actionCreators.deleteArticle(options)),
-    getCategories: (options) => dispatch(actionCreators.getCategories(options))
+    getCommodities: (options) => dispatch(actionCreators.getCommodities(options)),
+    deleteCommodity: (options) => dispatch(actionCreators.deleteCommodity(options))
   })
 )
 class Comp extends React.Component {
@@ -42,15 +39,14 @@ class Comp extends React.Component {
 
   componentDidMount() {
     this._getData()
-    this._getCategories()
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !nextProps.articles.isPending && !nextProps.categories.isPending
+    return !nextProps.commodities.isPending
   }
 
   render() {
-    const {articles, categories} = this.props
+    const {commodities} = this.props
 
     // 列表属性
     let listProps = {
@@ -61,19 +57,9 @@ class Comp extends React.Component {
         key: 'title',
         render: (text, record) => {
           return <span className="btn-action" onClick={() => {
-            helpers.go.bind(this)(`/articles/form/${record.id}`)
+            helpers.go.bind(this)(`/commodities/form/${record.id}`)
           }}>
             <Ellipsis value={text} width="300" />
-          </span>
-        }
-      }, {
-        title: '分类',
-        dataIndex: 'category_id',
-        key: 'category_id',
-        width: 250,
-        render: (text, record) => {
-          return <span>
-            <Ellipsis value={app.getCategoryById(categories.data.data.items, text).title} width="250" />
           </span>
         }
       }, {
@@ -92,7 +78,7 @@ class Comp extends React.Component {
         width: 100,
         render: (text, record) => <span>
           <span className="btn-action" onClick={() => {
-            helpers.go.bind(this)(`/articles/form/${record.id}`)
+            helpers.go.bind(this)(`/commodities/form/${record.id}`)
           }}>编辑</span>
           <span className="ant-divider" />
           <Popconfirm title="确认删除该记录？" onConfirm={this._handleDelete.bind(null, record.id)} okText="确认" cancelText="取消">
@@ -100,11 +86,11 @@ class Comp extends React.Component {
           </Popconfirm>
         </span>
       }],
-      dataSource: articles.data ? articles.data.data.items : [],
+      dataSource: commodities.data ? commodities.data.data.items : [],
       pagination: {
         current: this.current,
         pageSize: consts.PAGE_SIZE,
-        total: articles.data ? articles.data.data.total : 0
+        total: commodities.data ? commodities.data.data.total : 0
       },
       getData: this._getData
     }
@@ -112,14 +98,14 @@ class Comp extends React.Component {
     return <div>
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
-        <Breadcrumb.Item>文章管理</Breadcrumb.Item>
-        <Breadcrumb.Item>文章列表</Breadcrumb.Item>
+        <Breadcrumb.Item>产品管理</Breadcrumb.Item>
+        <Breadcrumb.Item>产品列表</Breadcrumb.Item>
       </Breadcrumb>
       <div className="actions">
         <Form className="action" inline>
           <Form.Item>
             <Button type="primary" onClick={() => {
-              helpers.go.bind(this)('/articles/form')
+              helpers.go.bind(this)('/commodities/form')
             }}>新增</Button>
           </Form.Item>
           <Form.Item>
@@ -127,9 +113,6 @@ class Comp extends React.Component {
           </Form.Item>
         </Form>
         <Form className="search" inline>
-          <Form.Item>
-            <CategorySelect name="category_id" afterChange={this._handleAfterChange} value={this.state.category_id} model={consts.MODELS.ARTICLES} />
-          </Form.Item>
           <Form.Item>
             <Input placeholder="请输入标题" style={{width: '200px'}} onChange={this._handleChangeSearch} />
           </Form.Item>
@@ -151,22 +134,11 @@ class Comp extends React.Component {
     // 搜索参数
     const searchParams = this.search.is ? {title: this.search.keyword, category_id: this.state.category_id || ''} : null
 
-    return this.props.getArticles({
+    return this.props.getCommodities({
       params: {
         limit: consts.PAGE_SIZE,
         offset: (current - 1) * consts.PAGE_SIZE,
         ...searchParams
-      }
-    })
-  }
-
-  /**
-   * 获取分类
-   */
-  _getCategories = () => {
-    this.props.getCategories({
-      params: {
-        model: consts.MODELS.ARTICLES
       }
     })
   }
@@ -197,7 +169,7 @@ class Comp extends React.Component {
       id = selectedRowKeys.join(',')
     }
 
-    this.props.deleteArticle({
+    this.props.deleteCommodity({
       params: {
         id: id
       }

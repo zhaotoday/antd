@@ -103,10 +103,23 @@ class Comp extends React.Component {
       getData: this._getData
     }
 
+    const currentModel = ((model) => {
+      switch (model) {
+        case consts.MODELS.ARTICLES:
+          return '文章'
+
+        case consts.MODELS.JOBS:
+          return '岗位'
+
+        default:
+          return ''
+      }
+    })(this.model)
+
     return <div>
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
-        <Breadcrumb.Item>文章管理</Breadcrumb.Item>
+        <Breadcrumb.Item>{currentModel}管理</Breadcrumb.Item>
         <Breadcrumb.Item>分类列表</Breadcrumb.Item>
       </Breadcrumb>
       <div className="actions">

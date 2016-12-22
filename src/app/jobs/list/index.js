@@ -13,7 +13,7 @@ import CategorySelect from 'components/categorySelect'
 
 module.exports = @connect(
   state => ({
-    articles: state.articles,
+    jobs: state.jobs,
     categories: state.categories
   }),
   dispatch => ({
@@ -46,11 +46,11 @@ class Comp extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !nextProps.articles.isPending && !nextProps.categories.isPending
+    return !nextProps.jobs.isPending && !nextProps.categories.isPending
   }
 
   render() {
-    const {articles, categories} = this.props
+    const {jobs, categories} = this.props
 
     // 列表属性
     let listProps = {
@@ -61,7 +61,7 @@ class Comp extends React.Component {
         key: 'title',
         render: (text, record) => {
           return <span className="btn-action" onClick={() => {
-            helpers.go.bind(this)(`/articles/form/${record.id}`)
+            helpers.go.bind(this)(`/jobs/form/${record.id}`)
           }}>
             <Ellipsis value={text} width="300" />
           </span>
@@ -70,11 +70,27 @@ class Comp extends React.Component {
         title: '分类',
         dataIndex: 'category_id',
         key: 'category_id',
-        width: 250,
+        width: 150,
         render: (text, record) => {
           return <span>
-            <Ellipsis value={app.getCategoryById(categories.data.data.items, text).title} width="250" />
+            <Ellipsis value={app.getCategoryById(categories.data.data.items, text).title} width="150" />
           </span>
+        }
+      }, {
+        title: '薪资',
+        dataIndex: 'salary',
+        key: 'salary',
+        width: 100,
+        render: (text, record) => {
+          return <span>{text}元/月</span>
+        }
+      }, {
+        title: '需求人数',
+        dataIndex: 'need_number',
+        key: 'need_number',
+        width: 100,
+        render: (text, record) => {
+          return <span>{text}</span>
         }
       }, {
         title: '发布时间',
@@ -92,7 +108,7 @@ class Comp extends React.Component {
         width: 100,
         render: (text, record) => <span>
           <span className="btn-action" onClick={() => {
-            helpers.go.bind(this)(`/articles/form/${record.id}`)
+            helpers.go.bind(this)(`/jobs/form/${record.id}`)
           }}>编辑</span>
           <span className="ant-divider" />
           <Popconfirm title="确认删除该记录？" onConfirm={this._handleDelete.bind(null, record.id)} okText="确认" cancelText="取消">
@@ -100,11 +116,11 @@ class Comp extends React.Component {
           </Popconfirm>
         </span>
       }],
-      dataSource: articles.data ? articles.data.data.items : [],
+      dataSource: jobs.data ? jobs.data.data.items : [],
       pagination: {
         current: this.current,
         pageSize: consts.PAGE_SIZE,
-        total: articles.data ? articles.data.data.total : 0
+        total: jobs.data ? jobs.data.data.total : 0
       },
       getData: this._getData
     }
@@ -129,7 +145,8 @@ class Comp extends React.Component {
         <Form className="search" inline>
           <Form.Item>
             分类：
-            <CategorySelect name="category_id" afterChange={this._handleAfterChange} value={this.state.category_id} model={consts.MODELS.JOBS} />
+            <CategorySelect name="category_id" afterChange={this._handleAfterChange} value={this.state.category_id}
+              model={consts.MODELS.JOBS} />
           </Form.Item>
           <Form.Item>
             标题：

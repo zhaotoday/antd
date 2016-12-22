@@ -4,19 +4,18 @@ import consts from 'utils/consts'
 import helpers from 'utils/helpers'
 import Editor from 'components/editor'
 import Upload from 'components/upload'
-import CategorySelect from 'components/categorySelect'
 import Padding from 'components/padding'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
 
 @connect(
   state => ({
-    article: state.article
+    commodity: state.commodity
   }),
   dispatch => ({
-    getArticle: (options) => dispatch(actionCreators.getArticle(options)),
-    postArticle: (options) => dispatch(actionCreators.postArticle(options)),
-    patchArticle: (options) => dispatch(actionCreators.patchArticle(options))
+    getCommodity: (options) => dispatch(actionCreators.getCommodity(options)),
+    postCommodity: (options) => dispatch(actionCreators.postCommodity(options)),
+    patchCommodity: (options) => dispatch(actionCreators.patchCommodity(options))
   })
 )
 class Comp extends React.Component {
@@ -30,39 +29,34 @@ class Comp extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !nextProps.article.isPending
+    return !nextProps.commodity.isPending
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.id && !this.props.article.data && nextProps.article.data.data.id) {
-      const data = nextProps.article.data.data
+    if (this.id && !this.props.commodity.data && nextProps.commodity.data.data.id) {
+      const data = nextProps.commodity.data.data
       const {setFieldsValue} = this.props.form
 
-      setFieldsValue({
-        title: data.title,
-        content: data.content,
-        category_id: data.category_id,
-        picture: data.picture
-      })
+      setFieldsValue(data)
     }
   }
 
   componentDidMount() {
     if (this.id) {
-      this.props.getArticle({
-        article_id: this.id
+      this.props.getCommodity({
+        commodity_id: this.id
       })
     }
   }
 
   render() {
     const {getFieldDecorator} = this.props.form
-    this.id = this.props.params.article_id
+    this.id = this.props.params.commodity_id
 
     return <div>
       <Breadcrumb>
         <Breadcrumb.Item href="/#/">首页</Breadcrumb.Item>
-        <Breadcrumb.Item>文章管理</Breadcrumb.Item>
+        <Breadcrumb.Item>产品管理</Breadcrumb.Item>
         <Breadcrumb.Item>{this.id ? '编辑' : '新增'}</Breadcrumb.Item>
       </Breadcrumb>
       <Form horizontal>
@@ -76,6 +70,48 @@ class Comp extends React.Component {
             rules: [{
               required: true,
               message: '请输入标题'
+            }]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 20}}
+          label="官网"
+          hasFeedback>
+          {getFieldDecorator('website', {
+            rules: [{
+              type: 'url',
+              message: '格式错误'
+            }]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 20}}
+          label="App Store"
+          hasFeedback>
+          {getFieldDecorator('app_store', {
+            rules: [{
+              type: 'url',
+              message: '格式错误'
+            }]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 20}}
+          label="Google Play"
+          hasFeedback>
+          {getFieldDecorator('google_play', {
+            rules: [{
+              type: 'url',
+              message: '格式错误'
             }]
           })(
             <Input />
@@ -99,27 +135,44 @@ class Comp extends React.Component {
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
-          label="分类">
-          {getFieldDecorator('category_id', {
+          label="图标">
+          {getFieldDecorator('icon', {
             rules: [{
               required: true,
-              message: '请选择分类'
+              message: '请上传图标'
             }]
           })(
-            <CategorySelect name="category_id" afterChange={this._handleAfterChange} model={consts.MODELS.ARTICLES} />
+            <Upload name="icon" afterChange={this._handleAfterChange} editState={!!this.id} />
           )}
         </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
-          label="图片">
-          {getFieldDecorator('picture', {
-            rules: [{
-              required: true,
-              message: '请上传图片'
-            }]
+          label="图片 1">
+          {getFieldDecorator('picture1', {
+            rules: []
           })(
-            <Upload name="picture" afterChange={this._handleAfterChange} editState={!!this.id} />
+            <Upload name="picture1" afterChange={this._handleAfterChange} editState={!!this.id} />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 20}}
+          label="图片 2">
+          {getFieldDecorator('picture2', {
+            rules: []
+          })(
+            <Upload name="picture2" afterChange={this._handleAfterChange} editState={!!this.id} />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 20}}
+          label="图片 3">
+          {getFieldDecorator('picture3', {
+            rules: []
+          })(
+            <Upload name="picture3" afterChange={this._handleAfterChange} editState={!!this.id} />
           )}
         </Form.Item>
       </Form>
@@ -128,7 +181,7 @@ class Comp extends React.Component {
           <Button type="primary" onClick={this._handleSubmit}>提交</Button>
           <Padding dir={['left']}>
             <Button type="primary" onClick={() => {
-              helpers.go.bind(this)('/articles')
+              helpers.go.bind(this)('/commodities')
             }}>返回</Button>
           </Padding>
         </Col>
@@ -140,7 +193,7 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleSubmit = (e) => {
-    const {form, postArticle, patchArticle} = this.props
+    const {form, postCommodity, patchCommodity} = this.props
     const {resetFields, validateFields} = form
 
     e.preventDefault()
@@ -148,20 +201,20 @@ class Comp extends React.Component {
     validateFields((err, fieldsValue) => {
       if (!err) {
         if (this.id) {
-          patchArticle({
-            'article_id': this.id,
+          patchCommodity({
+            'commodity_id': this.id,
             data: fieldsValue
           }).then(() => {
             message.success('编辑成功')
-            helpers.go.bind(this)('/articles')
+            helpers.go.bind(this)('/commodities')
           })
         } else {
-          postArticle({
+          postCommodity({
             data: fieldsValue
           }).then(() => {
             message.success('新增成功')
             resetFields()
-            helpers.go.bind(this)('/articles')
+            helpers.go.bind(this)('/commodities')
           })
         }
       }

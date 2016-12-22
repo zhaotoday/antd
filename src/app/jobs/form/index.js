@@ -11,7 +11,7 @@ import actionCreators from '../../../redux/actions'
 
 @connect(
   state => ({
-    article: state.article
+    job: state.job
   }),
   dispatch => ({
     getJob: (options) => dispatch(actionCreators.getJob(options)),
@@ -30,34 +30,29 @@ class Comp extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !nextProps.article.isPending
+    return !nextProps.job.isPending
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.id && !this.props.article.data && nextProps.article.data.data.id) {
-      const data = nextProps.article.data.data
+    if (this.id && !this.props.job.data && nextProps.job.data.data.id) {
+      const data = nextProps.job.data.data
       const {setFieldsValue} = this.props.form
 
-      setFieldsValue({
-        title: data.title,
-        content: data.content,
-        category_id: data.category_id,
-        picture: data.picture
-      })
+      setFieldsValue(data)
     }
   }
 
   componentDidMount() {
     if (this.id) {
       this.props.getJob({
-        article_id: this.id
+        job_id: this.id
       })
     }
   }
 
   render() {
     const {getFieldDecorator} = this.props.form
-    this.id = this.props.params.article_id
+    this.id = this.props.params.job_id
 
     return <div>
       <Breadcrumb>
@@ -166,11 +161,11 @@ class Comp extends React.Component {
       if (!err) {
         if (this.id) {
           patchJob({
-            'article_id': this.id,
+            'job_id': this.id,
             data: fieldsValue
           }).then(() => {
             message.success('编辑成功')
-            helpers.go.bind(this)('/articles')
+            helpers.go.bind(this)('/jobs')
           })
         } else {
           postJob({
@@ -178,7 +173,7 @@ class Comp extends React.Component {
           }).then(() => {
             message.success('新增成功')
             resetFields()
-            helpers.go.bind(this)('/articles')
+            helpers.go.bind(this)('/jobs')
           })
         }
       }
