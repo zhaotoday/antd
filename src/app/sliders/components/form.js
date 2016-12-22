@@ -1,16 +1,17 @@
 import React from 'react'
 import {Form, Input, message, Modal, InputNumber} from 'antd'
+import Upload from 'components/upload'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
 
 @connect(
   state => ({
-    category: state.category
+    slider: state.slider
   }),
   dispatch => ({
-    getCategory: (options) => dispatch(actionCreators.getCategory(options)),
-    postCategory: (options) => dispatch(actionCreators.postCategory(options)),
-    patchCategory: (options) => dispatch(actionCreators.patchCategory(options))
+    getSlider: (options) => dispatch(actionCreators.getSlider(options)),
+    postSlider: (options) => dispatch(actionCreators.postSlider(options)),
+    patchSlider: (options) => dispatch(actionCreators.patchSlider(options))
   })
 )
 class Comp extends React.Component {
@@ -21,14 +22,11 @@ class Comp extends React.Component {
   }
 
   static propTypes = {
-    // 模型
-    model: React.PropTypes.string,
     // 重载列表
     onReload: React.PropTypes.func
   }
 
   static defaultProps = {
-    model: '',
     onReload: () => {
     }
   }
@@ -42,7 +40,7 @@ class Comp extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !nextProps.category.isPending
+    return !nextProps.slider.isPending
   }
 
   componentDidMount() {
@@ -52,29 +50,22 @@ class Comp extends React.Component {
 
         if (id) {
           this.id = id
-          this.pid = ''
 
-          this.props.getCategory({
-            category_id: id
+          this.props.getSlider({
+            slider_id: id
           }).then((response) => {
             const data = response.value.data.data
             const {setFieldsValue} = this.props.form
 
-            setFieldsValue({
-              title: data.title,
-              description: data.description,
-              sort: data.sort
-            })
+            setFieldsValue(data)
           })
         } else {
           this.id = ''
-          this.pid = data.pid || '0'
 
           setTimeout(() => {
             this.props.form.setFieldsValue({
               title: '',
-              description: '',
-              sort: ''
+              picture: ''
             })
           }, 0)
         }
@@ -110,27 +101,31 @@ class Comp extends React.Component {
         <Form.Item
           labelCol={{span: 4}}
           wrapperCol={{span: 18}}
-          label="备注"
-          hasFeedback>
-          {getFieldDecorator('description', {
-            rules: []
+          label="图片">
+          {getFieldDecorator('picture', {
+            rules: [{
+              required: true,
+              message: '请上传图片'
+            }]
           })(
-            <Input type="textarea" rows="2" />
-          )}
-        </Form.Item>
-        <Form.Item
-          labelCol={{span: 4}}
-          wrapperCol={{span: 18}}
-          label="排序"
-          hasFeedback>
-          {getFieldDecorator('sort', {
-            rules: []
-          })(
-            <InputNumber min={0} max={10000} defaultValue={3} />
+            <Upload name="picture" afterChange={this._handleAfterChange} editState={!!this.id} />
           )}
         </Form.Item>
       </Form>
     </Modal>
+  }
+
+  /**
+   * 处理 afterChange 事件
+   */
+  _handleAfterChange = (name, value) => {
+    const {setFieldsValue, validateFields} = this.props.form
+
+    setFieldsValue({
+      [name]: value
+    })
+
+    validateFields([name])
   }
 
   /**
@@ -144,31 +139,24 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleOk = () => {
-    const {form, postCategory, patchCategory, model} = this.props
+    const {form, postSlider, patchSlider} = this.props
     const {resetFields, validateFields} = form
 
     validateFields((err, fieldsValue) => {
       if (err) return
 
       if (this.id) {
-        patchCategory({
-          'category_id': this.id,
-          data: {
-            ...fieldsValue,
-            model
-          }
+        patchSlider({
+          'slider_id': this.id,
+          data: fieldsValue
         }).then(() => {
           message.success('编辑成功')
           this.setState({visible: false})
           this.props.onReload()
         })
       } else {
-        postCategory({
-          data: {
-            ...fieldsValue,
-            pid: this.pid,
-            model
-          }
+        postSlider({
+          data: fieldsValue
         }).then(() => {
           message.success('新增成功')
           resetFields()

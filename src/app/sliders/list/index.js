@@ -9,15 +9,15 @@ import Ellipsis from 'components/ellipsis'
 import List from 'components/list'
 import Delete from 'components/delete'
 import CategorySelect from 'components/categorySelect'
-import CategoryForm from '../components/form'
+import SliderForm from '../components/form'
 
 module.exports = @connect(
   state => ({
-    categories: state.categories
+    sliders: state.sliders
   }),
   dispatch => ({
-    getCategories: (options) => dispatch(actionCreators.getCategories(options)),
-    deleteCategory: (options) => dispatch(actionCreators.deleteCategory(options)),
+    getSliders: (options) => dispatch(actionCreators.getSliders(options)),
+    deleteSlider: (options) => dispatch(actionCreators.deleteSlider(options)),
   })
 )
 class Comp extends React.Component {
@@ -48,11 +48,11 @@ class Comp extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return !nextProps.categories.isPending
+    return !nextProps.sliders.isPending
   }
 
   render() {
-    const {categories, params} = this.props
+    const {sliders, params} = this.props
     this.model = consts.MODELS[params.model] || consts.MODELS.ARTICLES
 
     // 列表属性
@@ -63,7 +63,7 @@ class Comp extends React.Component {
         dataIndex: 'title',
         key: 'title',
         render: (text, record) => {
-          return <span className="btn-action" onClick={this._handleModel.bind(null, record.id)}>
+          return <span className="btn-action" onClick={this._handleModify.bind(null, record.id)}>
             <Ellipsis value={text} width="300" />
           </span>
         }
@@ -87,18 +87,18 @@ class Comp extends React.Component {
         key: 'action',
         width: 100,
         render: (text, record) => <span>
-          <span className="btn-action" onClick={this._handleModel.bind(null, record.id)}>编辑</span>
+          <span className="btn-action" onClick={this._handleModify.bind(null, record.id)}>编辑</span>
           <span className="ant-divider" />
           <Popconfirm title="确认删除该记录？" onConfirm={this._handleDelete.bind(null, record.id)} okText="确认" cancelText="取消">
             <span className="btn-action">删除</span>
           </Popconfirm>
         </span>
       }],
-      dataSource: categories.data ? categories.data.data.items : [],
+      dataSource: sliders.data ? sliders.data.data.items : [],
       pagination: {
         current: this.current,
         pageSize: consts.PAGE_SIZE,
-        total: categories.data ? categories.data.data.total : 0
+        total: sliders.data ? sliders.data.data.total : 0
       },
       getData: this._getData
     }
@@ -131,22 +131,11 @@ class Comp extends React.Component {
             <Delete onValidate={this._handleDeleteValidate} onConfirm={this._handleDelete} />
           </Form.Item>
         </Form>
-        <Form className="search" inline>
-          <Form.Item>
-            父类：
-            <CategorySelect ref="pid" name="pid" afterChange={this._handleAfterChange} value={this.state.pid} showTop
-              model={this.model}
-              placeholder="请选择父类" />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" onClick={this._handleClickSearch}>搜索</Button>
-          </Form.Item>
-        </Form>
       </div>
       <List ref="list" {...listProps} />
-      <CategoryForm provideController={(component) => {
-        this.categoryForm = component
-      }} model={this.model} onReload={() => {
+      <SliderForm provideController={(component) => {
+        this.sliderForm = component
+      }} onReload={() => {
         this._getData()
       }} />
     </div>
@@ -161,7 +150,7 @@ class Comp extends React.Component {
     // 搜索参数
     const searchParams = this.search.is ? {title: this.search.keyword, pid: this.state.pid || '0'} : {pid: '0'}
 
-    return this.props.getCategories({
+    return this.props.getSliders({
       params: {
         model: this.model,
         limit: consts.PAGE_SIZE,
@@ -199,7 +188,7 @@ class Comp extends React.Component {
       id = selectedRowKeys.join(',')
     }
 
-    this.props.deleteCategory({
+    this.props.deleteSlider({
       params: {
         id: id
       }
@@ -212,30 +201,12 @@ class Comp extends React.Component {
   }
 
   /**
-   * 点击搜索
-   */
-  _handleClickSearch = () => {
-    // 设置当前进入搜索状态
-    this.search.is = true
-    this._getData()
-  }
-
-  /**
-   * afterChange 事件
-   */
-  _handleAfterChange = (name, value) => {
-    this.setState({
-      [name]: value
-    })
-  }
-
-  /**
    * 新增
    */
   _handleAdd = () => {
-    const {categoryForm} = this
-    categoryForm.show()
-    categoryForm.init({
+    const {sliderForm} = this
+    sliderForm.show()
+    sliderForm.init({
       pid: this.state.pid || '0'
     })
   }
@@ -243,9 +214,9 @@ class Comp extends React.Component {
   /**
    * 编辑
    */
-  _handleModel = (id) => {
-    const {categoryForm} = this
-    categoryForm.show()
-    categoryForm.init({id})
+  _handleModify = (id) => {
+    const {sliderForm} = this
+    sliderForm.show()
+    sliderForm.init({id})
   }
 }

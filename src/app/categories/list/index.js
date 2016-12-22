@@ -63,7 +63,7 @@ class Comp extends React.Component {
         dataIndex: 'title',
         key: 'title',
         render: (text, record) => {
-          return <span className="btn-action" onClick={this._handleModel.bind(null, record.id)}>
+          return <span className="btn-action" onClick={this._handleModify.bind(null, record.id)}>
             <Ellipsis value={text} width="300" />
           </span>
         }
@@ -87,7 +87,7 @@ class Comp extends React.Component {
         key: 'action',
         width: 100,
         render: (text, record) => <span>
-          <span className="btn-action" onClick={this._handleModel.bind(null, record.id)}>编辑</span>
+          <span className="btn-action" onClick={this._handleModify.bind(null, record.id)}>编辑</span>
           <span className="ant-divider" />
           <Popconfirm title="确认删除该记录？" onConfirm={this._handleDelete.bind(null, record.id)} okText="确认" cancelText="取消">
             <span className="btn-action">删除</span>
@@ -243,7 +243,7 @@ class Comp extends React.Component {
   /**
    * 编辑
    */
-  _handleModel = (id) => {
+  _handleModify = (id) => {
     const {categoryForm} = this
     categoryForm.show()
     categoryForm.init({id})

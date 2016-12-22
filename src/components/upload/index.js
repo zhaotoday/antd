@@ -38,8 +38,9 @@ export default class extends React.Component {
     fileList: []
   }
 
-  // 组件第一次 receive props
-  condition = true
+  init() {
+    this.initial = true
+  }
 
   componentWillReceiveProps(nextProps) {
     const {value, editState} = nextProps
