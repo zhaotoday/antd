@@ -1,5 +1,5 @@
-import actionTypes from '../consts/categories'
-import Model from '../models/categories'
+import actionTypes from '../consts/sliders'
+import Model from '../models/sliders'
 import createAction from 'redux-actions/lib/createAction'
 
 /**
@@ -9,9 +9,9 @@ export const getSlider = createAction(
   actionTypes.GET_SLIDER,
   (options = {}) => {
     return new Model()
-      .addPath('{category_id}')
+      .addPath('{slider_id}')
       .replace({
-        'category_id': options['category_id']
+        'slider_id': options['slider_id']
       })
       .GET()
   }
@@ -49,9 +49,9 @@ export const patchSlider = createAction(
   actionTypes.PATCH_SLIDER,
   (options = {}) => {
     return new Model()
-      .addPath('{category_id}')
+      .addPath('{slider_id}')
       .replace({
-        'category_id': options['category_id']
+        'slider_id': options['slider_id']
       })
       .PATCH({
         data: options.data

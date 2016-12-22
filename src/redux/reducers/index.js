@@ -9,6 +9,8 @@ import commodities from './commodities'
 import commodity from './commodity'
 import jobs from './jobs'
 import job from './job'
+import sliders from './sliders'
+import slider from './slider'
 import setting from './setting'
 import actionLogin from './actions/login'
 
@@ -23,6 +25,8 @@ export default combineReducers({
   commodity,
   jobs,
   job,
+  sliders,
+  slider,
   setting,
   actionLogin
 })
