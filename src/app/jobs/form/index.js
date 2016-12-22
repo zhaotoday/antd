@@ -14,9 +14,9 @@ import actionCreators from '../../../redux/actions'
     article: state.article
   }),
   dispatch => ({
-    getArticle: (options) => dispatch(actionCreators.getArticle(options)),
-    postArticle: (options) => dispatch(actionCreators.postArticle(options)),
-    patchArticle: (options) => dispatch(actionCreators.patchArticle(options))
+    getJob: (options) => dispatch(actionCreators.getJob(options)),
+    postJob: (options) => dispatch(actionCreators.postJob(options)),
+    patchJob: (options) => dispatch(actionCreators.patchJob(options))
   })
 )
 class Comp extends React.Component {
@@ -49,7 +49,7 @@ class Comp extends React.Component {
 
   componentDidMount() {
     if (this.id) {
-      this.props.getArticle({
+      this.props.getJob({
         article_id: this.id
       })
     }
@@ -76,7 +76,7 @@ class Comp extends React.Component {
               message: '请选择分类'
             }]
           })(
-            <CategorySelect name="category_id" afterChange={this._handleAfterChange} model={consts.MODELS.ARTICLES} />
+            <CategorySelect name="category_id" afterChange={this._handleAfterChange} model={consts.MODELS.JOBS} />
           )}
         </Form.Item>
         <Form.Item
@@ -98,15 +98,11 @@ class Comp extends React.Component {
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
           label="薪资"
-          required
           hasFeedback>
           {getFieldDecorator('salary', {
-            rules: [{
-              required: true,
-              message: '请输入薪资'
-            }]
+            rules: []
           })(
-            <InputNumber min={0} max={10000} defaultValue={0} />
+            <InputNumber min={0} max={100000} defaultValue={0} />
           )}
           元/月
         </Form.Item>
@@ -114,30 +110,20 @@ class Comp extends React.Component {
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
           label="需求人数"
-          required
           hasFeedback>
           {getFieldDecorator('need_number', {
-            rules: [
-              {
-                required: true,
-                message: '请输入需求人数'
-              }
-            ]
+            rules: []
           })(
-            <InputNumber min={0} max={10000} defaultValue={0} />
+            <InputNumber min={0} max={100} defaultValue={0} />
           )}
         </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
           label="岗位职责"
-          required
           hasFeedback>
           {getFieldDecorator('duty', {
-            rules: [{
-              required: true,
-              message: '请输入岗位职责'
-            }]
+            rules: []
           })(
             <Input type="textarea" rows="6" />
           )}
@@ -146,13 +132,9 @@ class Comp extends React.Component {
           labelCol={{span: 2}}
           wrapperCol={{span: 20}}
           label="任职要求"
-          required
           hasFeedback>
           {getFieldDecorator('requirement', {
-            rules: [{
-              required: true,
-              message: '请输入任职要求'
-            }]
+            rules: []
           })(
             <Input type="textarea" rows="6" />
           )}
@@ -163,7 +145,7 @@ class Comp extends React.Component {
           <Button type="primary" onClick={this._handleSubmit}>提交</Button>
           <Padding dir={['left']}>
             <Button type="primary" onClick={() => {
-              helpers.go.bind(this)('/articles')
+              helpers.go.bind(this)('/jobs')
             }}>返回</Button>
           </Padding>
         </Col>
@@ -175,7 +157,7 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleSubmit = (e) => {
-    const {form, postArticle, patchArticle} = this.props
+    const {form, postJob, patchJob} = this.props
     const {resetFields, validateFields} = form
 
     e.preventDefault()
@@ -183,7 +165,7 @@ class Comp extends React.Component {
     validateFields((err, fieldsValue) => {
       if (!err) {
         if (this.id) {
-          patchArticle({
+          patchJob({
             'article_id': this.id,
             data: fieldsValue
           }).then(() => {
@@ -191,7 +173,7 @@ class Comp extends React.Component {
             helpers.go.bind(this)('/articles')
           })
         } else {
-          postArticle({
+          postJob({
             data: fieldsValue
           }).then(() => {
             message.success('新增成功')
