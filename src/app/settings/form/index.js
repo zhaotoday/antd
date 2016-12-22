@@ -123,6 +123,38 @@ class Comp extends React.Component {
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 16}}
+          label="邮箱"
+          hasFeedback>
+          {getFieldDecorator('email', {
+            rules: [
+              {
+                type: 'email',
+                message: '格式错误'
+              }
+            ]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="地址"
+          hasFeedback>
+          {getFieldDecorator('address', {
+            rules: [
+              {
+                max: 100,
+                message: '不能超过 100 个字'
+              }
+            ]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
           label="电话"
           hasFeedback>
           {getFieldDecorator('telephone', {
@@ -178,38 +210,6 @@ class Comp extends React.Component {
               {
                 pattern: /^1[3|5|7|8][0-9]{9}$/,
                 message: '格式错误'
-              }
-            ]
-          })(
-            <Input />
-          )}
-        </Form.Item>
-        <Form.Item
-          labelCol={{span: 2}}
-          wrapperCol={{span: 16}}
-          label="邮箱"
-          hasFeedback>
-          {getFieldDecorator('email', {
-            rules: [
-              {
-                type: 'email',
-                message: '格式错误'
-              }
-            ]
-          })(
-            <Input />
-          )}
-        </Form.Item>
-        <Form.Item
-          labelCol={{span: 2}}
-          wrapperCol={{span: 16}}
-          label="地址"
-          hasFeedback>
-          {getFieldDecorator('address', {
-            rules: [
-              {
-                max: 100,
-                message: '不能超过 100 个字'
               }
             ]
           })(

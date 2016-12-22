@@ -82,7 +82,7 @@ class Comp extends React.Component {
         key: 'salary',
         width: 100,
         render: (text, record) => {
-          return <span>{text}元/月</span>
+          return <span>{text} 元/月</span>
         }
       }, {
         title: '需求人数',

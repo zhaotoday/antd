@@ -3,10 +3,10 @@ import Model from '../models/categories'
 import createAction from 'redux-actions/lib/createAction'
 
 /**
- * 获取分类详情
+ * 获取滚动广告详情
  */
-export const getCategory = createAction(
-  actionTypes.GET_CATEGORY,
+export const getSlider = createAction(
+  actionTypes.GET_SLIDER,
   (options = {}) => {
     return new Model()
       .addPath('{category_id}')
@@ -18,10 +18,10 @@ export const getCategory = createAction(
 )
 
 /**
- * 获取分类列表
+ * 获取滚动广告列表
  */
-export const getCategories = createAction(
-  actionTypes.GET_CATEGORIES,
+export const getSliders = createAction(
+  actionTypes.GET_SLIDERS,
   (options = {}) => {
     return new Model().GET({
       params: options.params
@@ -30,10 +30,10 @@ export const getCategories = createAction(
 )
 
 /**
- * 新增分类
+ * 新增滚动广告
  */
-export const postCategory = createAction(
-  actionTypes.POST_CATEGORY,
+export const postSlider = createAction(
+  actionTypes.POST_SLIDER,
   (options = {}) => {
     return new Model()
       .POST({
@@ -43,10 +43,10 @@ export const postCategory = createAction(
 )
 
 /**
- * 编辑分类
+ * 编辑滚动广告
  */
-export const patchCategory = createAction(
-  actionTypes.PATCH_CATEGORY,
+export const patchSlider = createAction(
+  actionTypes.PATCH_SLIDER,
   (options = {}) => {
     return new Model()
       .addPath('{category_id}')
@@ -60,10 +60,10 @@ export const patchCategory = createAction(
 )
 
 /**
- * 删除分类
+ * 删除滚动广告
  */
-export const deleteCategory = createAction(
-  actionTypes.DELETE_CATEGORY,
+export const deleteSlider = createAction(
+  actionTypes.DELETE_SLIDER,
   (options = {}) => {
     return new Model()
       .DELETE({

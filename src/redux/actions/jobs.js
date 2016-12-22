@@ -3,7 +3,7 @@ import Model from '../models/jobs'
 import createAction from 'redux-actions/lib/createAction'
 
 /**
- * 获取岗位列表
+ * 获取岗位详情
  */
 export const getJob = createAction(
   actionTypes.GET_JOB,

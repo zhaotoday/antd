@@ -31,7 +31,7 @@ const BASE_URL = (function () {
 const API_URL = BASE_URL + '/api'
 
 // 分页大小
-const PAGE_SIZE = 4
+const PAGE_SIZE = 10
 
 // 网站标题
 const TITLE = '网站后台'

@@ -3,7 +3,7 @@ import Model from '../models/commodities'
 import createAction from 'redux-actions/lib/createAction'
 
 /**
- * 获取商品列表
+ * 获取商品
  */
 export const getCommodity = createAction(
   actionTypes.GET_COMMODITY,

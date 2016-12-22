@@ -38,7 +38,7 @@ class Comp extends React.Component {
 
     return <div className={styles.login}>
       <Panel>
-        <Panel.Head>网站后台管理系统</Panel.Head>
+        <Panel.Head>后台管理系统</Panel.Head>
         <Panel.Body>
           <Form horizontal form={this.props.form}>
             <Form.Item

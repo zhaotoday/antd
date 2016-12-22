@@ -3,7 +3,7 @@ import Model from '../models/articles'
 import createAction from 'redux-actions/lib/createAction'
 
 /**
- * 获取文章列表
+ * 获取文章详情
  */
 export const getArticle = createAction(
   actionTypes.GET_ARTICLE,
