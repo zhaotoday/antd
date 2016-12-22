@@ -17,8 +17,8 @@ module.exports = @connect(
     categories: state.categories
   }),
   dispatch => ({
-    getArticles: (options) => dispatch(actionCreators.getArticles(options)),
-    deleteArticle: (options) => dispatch(actionCreators.deleteArticle(options)),
+    getJobs: (options) => dispatch(actionCreators.getJobs(options)),
+    deleteJob: (options) => dispatch(actionCreators.deleteJob(options)),
     getCategories: (options) => dispatch(actionCreators.getCategories(options))
   })
 )
@@ -129,7 +129,7 @@ class Comp extends React.Component {
         <Form className="search" inline>
           <Form.Item>
             分类：
-            <CategorySelect name="category_id" afterChange={this._handleAfterChange} value={this.state.category_id} model={consts.MODELS.ARTICLES} />
+            <CategorySelect name="category_id" afterChange={this._handleAfterChange} value={this.state.category_id} model={consts.MODELS.JOBS} />
           </Form.Item>
           <Form.Item>
             标题：
@@ -153,7 +153,7 @@ class Comp extends React.Component {
     // 搜索参数
     const searchParams = this.search.is ? {title: this.search.keyword, category_id: this.state.category_id || ''} : null
 
-    return this.props.getArticles({
+    return this.props.getJobs({
       params: {
         limit: consts.PAGE_SIZE,
         offset: (current - 1) * consts.PAGE_SIZE,
@@ -168,7 +168,7 @@ class Comp extends React.Component {
   _getCategories = () => {
     this.props.getCategories({
       params: {
-        model: consts.MODELS.ARTICLES
+        model: consts.MODELS.JOBS
       }
     })
   }
@@ -199,7 +199,7 @@ class Comp extends React.Component {
       id = selectedRowKeys.join(',')
     }
 
-    this.props.deleteArticle({
+    this.props.deleteJob({
       params: {
         id: id
       }
