@@ -11,6 +11,8 @@ export default class extends React.Component {
     value: React.PropTypes.string,
     // 模型
     model: React.PropTypes.string,
+    // 是否显示顶级
+    showTop: React.PropTypes.bool,
     // placeholder
     placeholder: React.PropTypes.string,
     // afterChange 事件
@@ -21,6 +23,7 @@ export default class extends React.Component {
     name: 'categorySelect',
     value: '',
     model: '',
+    showTop: false,
     placeholder: '请选择分类',
     afterChange: () => {
     }
@@ -43,18 +46,18 @@ export default class extends React.Component {
 
   render() {
     let {treeData} = this.state
-    const {value, placeholder} = this.props
+    const {value, showTop, placeholder} = this.props
 
-    treeData.push({
+    showTop && treeData.push({
       id: '0',
       pid: '-1',
       value: '0',
-      label: '顶级分类'
+      label: '顶级'
     })
 
     return <TreeSelect
-      treeDataSimpleMode={{id: 'id', pId: 'pid', rootPId: '-1'}}
-      value={_helpers.exist(value, treeData) ? value : undefined}
+      treeDataSimpleMode={{id: 'id', pId: 'pid', rootPId: showTop ? '-1' : '0'}}
+      value={_helpers.exist(value, treeData) ? value : showTop ? '0' : undefined}
       style={{width: 200}}
       size="large"
       allowClear

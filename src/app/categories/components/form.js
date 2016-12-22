@@ -88,7 +88,8 @@ class Comp extends React.Component {
   render() {
     const {getFieldDecorator} = this.props.form
 
-    return <Modal title="新增" visible={this.state.visible} onOk={this._handleOk} onCancel={this._handleCancel}>
+    return <Modal title={this.id ? '编辑' : '新增'} visible={this.state.visible} onOk={this._handleOk}
+      onCancel={this._handleCancel}>
 
       <Form horizontal>
         <Form.Item

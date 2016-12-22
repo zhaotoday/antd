@@ -120,7 +120,8 @@ class Comp extends React.Component {
         </Form>
         <Form className="search" inline>
           <Form.Item>
-            <CategorySelect ref="pid" name="pid" afterChange={this._handleAfterChange} value={this.state.pid}
+            父类：
+            <CategorySelect ref="pid" name="pid" afterChange={this._handleAfterChange} value={this.state.pid} showTop
               model={this.model}
               placeholder="请选择父类" />
           </Form.Item>
