@@ -3,7 +3,7 @@ import styles from './theme/styles'
 import Panel from 'components/panel'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../redux/actions'
-import {Form, Input, Button, Row, Col, message} from 'antd'
+import {Form, Input, Button, Row, Col} from 'antd'
 import helpers from 'utils/helpers'
 import auth from 'utils/auth'
 

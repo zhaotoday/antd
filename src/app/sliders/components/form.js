@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Input, message, Modal, InputNumber} from 'antd'
+import {Form, Input, message, Modal} from 'antd'
 import Upload from 'components/upload'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
