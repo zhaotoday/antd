@@ -1,6 +1,5 @@
 import React from 'react'
 import {Breadcrumb, Form, Input, Button, Row, Col, message} from 'antd'
-import consts from 'utils/consts'
 import helpers from 'utils/helpers'
 import Editor from 'components/editor'
 import Upload from 'components/upload'
