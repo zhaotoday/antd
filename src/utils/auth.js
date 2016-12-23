@@ -34,7 +34,7 @@ export default {
    * 设置用户
    * @param value {string} 值
    */
-  setUser(value){
+  setUser(value) {
     user = value
     storage.set(USER, user)
   },

@@ -12,7 +12,7 @@ import Delete from 'components/delete'
 module.exports = @connect(
   state => ({
     commodities: state.commodities
-  }),
+  }) ,
   dispatch => ({
     getCommodities: (options) => dispatch(actionCreators.getCommodities(options)),
     deleteCommodity: (options) => dispatch(actionCreators.deleteCommodity(options))

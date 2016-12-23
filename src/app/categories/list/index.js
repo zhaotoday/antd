@@ -13,10 +13,10 @@ import CategoryForm from '../components/form'
 module.exports = @connect(
   state => ({
     categories: state.categories
-  }),
+  }) ,
   dispatch => ({
     getCategories: (options) => dispatch(actionCreators.getCategories(options)),
-    deleteCategory: (options) => dispatch(actionCreators.deleteCategory(options)),
+    deleteCategory: (options) => dispatch(actionCreators.deleteCategory(options))
   })
 )
 class Comp extends React.Component {

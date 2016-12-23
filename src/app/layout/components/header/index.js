@@ -18,7 +18,7 @@ export default class extends React.Component {
         <div className={styles.user}>
           <Popconfirm title="确认退出？" onConfirm={this._handleLogout} okText="确认" cancelText="取消">
             <span className={styles.logout}>
-                <Icon type="poweroff" /> 退出
+              <Icon type="poweroff" /> 退出
             </span>
           </Popconfirm>
         </div>

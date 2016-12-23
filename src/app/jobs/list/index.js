@@ -13,7 +13,7 @@ import CategorySelect from 'components/categorySelect'
 
 module.exports = @connect(
   state => ({
-    jobs: state.jobs,
+    jobs: state.jobs ,
     categories: state.categories
   }),
   dispatch => ({

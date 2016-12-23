@@ -12,10 +12,10 @@ import SliderForm from '../components/form'
 module.exports = @connect(
   state => ({
     sliders: state.sliders
-  }),
+  }) ,
   dispatch => ({
     getSliders: (options) => dispatch(actionCreators.getSliders(options)),
-    deleteSlider: (options) => dispatch(actionCreators.deleteSlider(options)),
+    deleteSlider: (options) => dispatch(actionCreators.deleteSlider(options))
   })
 )
 class Comp extends React.Component {
