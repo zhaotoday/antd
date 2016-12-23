@@ -21,6 +21,7 @@ export default class extends React.Component {
     value: React.PropTypes.string,
     // afterChange 事件
     afterChange: React.PropTypes.func,
+    provideController: React.PropTypes.func,
     // 是否编辑状态
     editState: React.PropTypes.bool
   }
@@ -29,6 +30,8 @@ export default class extends React.Component {
     name: 'upload',
     value: undefined,
     afterChange: () => {
+    },
+    provideController: () => {
     },
     editState: false
   }
@@ -40,7 +43,7 @@ export default class extends React.Component {
 
   componentDidMount() {
     this.props.provideController({
-      init() {
+      init: () => {
         this.initial = true
       }
     })

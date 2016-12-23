@@ -57,6 +57,7 @@ class Comp extends React.Component {
             const data = response.value.data.data
             const {setFieldsValue} = this.props.form
 
+            this.picture && this.picture.init()
             setFieldsValue(data)
           })
         } else {
@@ -72,9 +73,6 @@ class Comp extends React.Component {
       },
       show: () => {
         this.setState({visible: true})
-        setTimeout(() => {
-          this.picture.init()
-        }, 0)
       }
     })
   }

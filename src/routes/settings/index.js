@@ -11,5 +11,12 @@ module.exports = {
         component: require('app/settings/form')
       })
     })
+  },
+  getChildRoutes(location, cb) {
+    require.ensure([], (require) => {
+      cb(null, [
+        require('./sliders')
+      ])
+    })
   }
 }
