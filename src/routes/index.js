@@ -27,7 +27,6 @@ module.exports = {
         cb(null, [
           require('./articles'),
           require('./categories'),
-          require('./sliders'),
           require('./settings'),
           require('./commodities'),
           require('./jobs')
