@@ -128,7 +128,7 @@ class Comp extends React.Component {
               message: '请输入内容'
             }]
           })(
-            <Editor name="content" afterChange={this._handleAfterChange} editState={!!this.id} />
+            <Input type="textarea" rows="20" />
           )}
         </Form.Item>
         <Form.Item

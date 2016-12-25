@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Input, message, Modal} from 'antd'
+import {Form, Input, message, Modal, InputNumber} from 'antd'
 import Upload from 'components/upload'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
@@ -97,6 +97,31 @@ class Comp extends React.Component {
             }]
           })(
             <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 4}}
+          wrapperCol={{span: 18}}
+          label="跳转地址"
+          hasFeedback>
+          {getFieldDecorator('url', {
+            rules: [{
+              type: 'url',
+              message: '格式错误'
+            }]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 4}}
+          wrapperCol={{span: 18}}
+          label="排序"
+          hasFeedback>
+          {getFieldDecorator('sort', {
+            rules: []
+          })(
+            <InputNumber min={0} max={10000} defaultValue={3} />
           )}
         </Form.Item>
         <Form.Item

@@ -17,10 +17,10 @@ export default {
         })
         .GET()
         .then((response) => {
-          const {name, model, created_at, ext} = response.data.data
-          const url = `${consts.BASE_URL}/files/${model}/${(created_at + '000').date('YYYYMMDD/hhmmss')}${ext}`
+          const {title, created_at, ext} = response.data.data
+          const url = `${consts.BASE_URL}/files/${(created_at + '000').date('YYYYMMDD/hhmmss')}${ext}`
 
-          resolve({name, url})
+          resolve({name: title, url})
         }).catch(reject)
     })
   },
