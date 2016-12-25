@@ -75,12 +75,12 @@ class Comp extends React.Component {
           {getFieldDecorator('description', {
             rules: [
               {
-                max: 200,
-                message: '不能超过 200 个字'
+                max: 500,
+                message: '不能超过 500 个字'
               }
             ]
           })(
-            <Input type="textarea" rows="3" />
+            <Input type="textarea" rows="4" />
           )}
         </Form.Item>
         <Form.Item
@@ -91,12 +91,28 @@ class Comp extends React.Component {
           {getFieldDecorator('keywords', {
             rules: [
               {
-                max: 100,
-                message: '不能超过 100 个字'
+                max: 200,
+                message: '不能超过 200 个字'
               }
             ]
           })(
             <Input type="textarea" rows="2" />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="关于我们"
+          hasFeedback>
+          {getFieldDecorator('about', {
+            rules: [
+              {
+                max: 1000,
+                message: '不能超过 1000 个字'
+              }
+            ]
+          })(
+            <Input type="textarea" rows="6" />
           )}
         </Form.Item>
         <Form.Item
@@ -107,8 +123,8 @@ class Comp extends React.Component {
           {getFieldDecorator('icp', {
             rules: [
               {
-                max: 20,
-                message: '不能超过 20 个字'
+                max: 50,
+                message: '不能超过 50 个字'
               }
             ]
           })(
