@@ -13,7 +13,7 @@ import CategoryForm from '../components/form'
 module.exports = @connect(
   state => ({
     categories: state.categories
-  }) ,
+  }),
   dispatch => ({
     getCategories: (options) => dispatch(actionCreators.getCategories(options)),
     deleteCategory: (options) => dispatch(actionCreators.deleteCategory(options))
@@ -93,11 +93,11 @@ class Comp extends React.Component {
           </Popconfirm>
         </span>
       }],
-      dataSource: categories.data ? categories.data.data.items : [],
+      dataSource: categories.data ? categories.data.items : [],
       pagination: {
         current: this.current,
         pageSize: consts.PAGE_SIZE,
-        total: categories.data ? categories.data.data.total : 0
+        total: categories.data ? categories.data.total : 0
       },
       getData: this._getData
     }
@@ -168,7 +168,7 @@ class Comp extends React.Component {
         ...searchParams
       }
     }).then(() => {
-      this.refs.pid.reload()
+      this.refs.pid && this.refs.pid.reload()
     })
   }
 

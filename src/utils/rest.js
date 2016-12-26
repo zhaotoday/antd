@@ -47,7 +47,7 @@ export default class REST {
         url: url,
         data: options.data || {}
       }).then((response) => {
-        resolve(response)
+        resolve(response.data || {})
       }).catch((error) => {
         // 统一提示报错信息
         message.error(error.response.data.error.message)
@@ -67,8 +67,8 @@ export default class REST {
     }
 
     return '?' + Object.keys(obj).map((key) => {
-      return `${key}=${encodeURIComponent(obj[key])}`
-    }).join('&')
+        return `${key}=${encodeURIComponent(obj[key])}`
+      }).join('&')
   }
 
   /**
