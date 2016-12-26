@@ -1,3 +1,1 @@
-/**
- * Created by Administrator on 2016/12/19.
- */
+import 'core-js/es6/promise'

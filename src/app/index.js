@@ -1,5 +1,6 @@
 import React from 'react'
 import {Header, Body, Sidebar, Main} from 'app/layout'
+import 'utils/polyfill'
 
 import 'antd/dist/antd.less'
 import 'themes/global'

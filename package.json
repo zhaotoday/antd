@@ -76,6 +76,7 @@
   "dependencies": {
     "antd": "^2.4.3",
     "axios": "^0.15.2",
+    "core-js": "^2.4.1",
     "date-format-lite": "^0.9.1",
     "fbjs": "^0.8.6",
     "history": "^4.4.0",
