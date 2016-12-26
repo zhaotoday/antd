@@ -57,7 +57,7 @@ class Comp extends React.Component {
           this.props.getCategory({
             category_id: id
           }).then((response) => {
-            const data = response.value.data.data
+            const data = response.value.data
             const {setFieldsValue} = this.props.form
 
             setFieldsValue({

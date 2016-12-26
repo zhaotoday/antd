@@ -17,7 +17,7 @@ export default {
         })
         .GET()
         .then((response) => {
-          const {title, created_at, ext} = response.data.data
+          const {title, created_at, ext} = response.data
           const url = `${consts.BASE_URL}/files/${(created_at + '000').date('YYYYMMDD/hhmmss')}${ext}`
 
           resolve({name: title, url})

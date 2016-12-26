@@ -32,8 +32,8 @@ class Comp extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.id && !this.props.job.data && nextProps.job.data.data.id) {
-      const data = nextProps.job.data.data
+    if (this.id && !this.props.job.data && nextProps.job.data.id) {
+      const data = nextProps.job.data
       const {setFieldsValue} = this.props.form
 
       setFieldsValue(data)

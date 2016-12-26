@@ -91,7 +91,7 @@ export default class extends React.Component {
       })
       .then((response) => {
         this.setState({
-          treeData: _helpers.toTreeData(response.data.data.items)
+          treeData: _helpers.toTreeData(response.data.items)
         })
       })
   }

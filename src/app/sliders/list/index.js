@@ -92,11 +92,11 @@ class Comp extends React.Component {
           </Popconfirm>
         </span>
       }],
-      dataSource: sliders.data ? sliders.data.data.items : [],
+      dataSource: sliders.data ? sliders.data.items : [],
       pagination: {
         current: this.current,
         pageSize: consts.PAGE_SIZE,
-        total: sliders.data ? sliders.data.data.total : 0
+        total: sliders.data ? sliders.data.total : 0
       },
       getData: this._getData
     }

@@ -32,8 +32,8 @@ class Comp extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.id && !this.props.commodity.data && nextProps.commodity.data.data.id) {
-      const data = nextProps.commodity.data.data
+    if (this.id && !this.props.commodity.data && nextProps.commodity.data.id) {
+      const data = nextProps.commodity.data
       const {setFieldsValue} = this.props.form
 
       setFieldsValue(data)

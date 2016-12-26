@@ -85,11 +85,11 @@ class Comp extends React.Component {
           </Popconfirm>
         </span>
       }],
-      dataSource: commodities.data ? commodities.data.data.items : [],
+      dataSource: commodities.data ? commodities.data.items : [],
       pagination: {
         current: this.current,
         pageSize: consts.PAGE_SIZE,
-        total: commodities.data ? commodities.data.data.total : 0
+        total: commodities.data ? commodities.data.total : 0
       },
       getData: this._getData
     }

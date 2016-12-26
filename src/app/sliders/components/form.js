@@ -54,7 +54,7 @@ class Comp extends React.Component {
           this.props.getSlider({
             slider_id: id
           }).then((response) => {
-            const data = response.value.data.data
+            const data = response.value.data
             const {setFieldsValue} = this.props.form
 
             this.picture && this.picture.init()
