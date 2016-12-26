@@ -104,12 +104,7 @@ class Comp extends React.Component {
           label="需求人数"
           hasFeedback>
           {getFieldDecorator('need_number', {
-            rules: [
-              {
-                max: 20,
-                message: '不能超过 20 个字'
-              }
-            ]
+            rules: []
           })(
             <InputNumber min={0} max={100} defaultValue={0} />
           )}

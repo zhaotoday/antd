@@ -2,6 +2,7 @@ import React from 'react'
 import {Breadcrumb, Form, Input, Button, Row, Col, message} from 'antd'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
+import lang from 'utils/lang'
 
 @connect(
   state => ({
@@ -13,6 +14,25 @@ import actionCreators from '../../../redux/actions'
   })
 )
 class Comp extends React.Component {
+  constructor() {
+    super()
+    this.id = ((lang) => {
+      switch (lang) {
+        case 'cn':
+          return 1
+
+        case 'ar':
+          return 2
+
+        case 'en':
+          return 3
+
+        default:
+          return 1
+      }
+    })(lang.get())
+  }
+
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
@@ -32,7 +52,7 @@ class Comp extends React.Component {
 
   componentDidMount() {
     this.props.getSetting({
-      'setting_id': '1'
+      'setting_id': this.id
     })
   }
 
@@ -280,7 +300,7 @@ class Comp extends React.Component {
     validateFields((err, fieldsValue) => {
       if (!err) {
         patchSetting({
-          'setting_id': '1',
+          'setting_id': this.id,
           data: fieldsValue
         }).then(() => {
           message.success('编辑成功')
