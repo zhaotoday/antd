@@ -70,17 +70,17 @@ class Comp extends React.Component {
         title: '分类',
         dataIndex: 'category_id',
         key: 'category_id',
-        width: 150,
+        width: 100,
         render: (text, record) => {
           return <span>
-            <Ellipsis value={app.getCategoryById(categories.data.data.items, text).title} width="150" />
+            <Ellipsis value={app.getCategoryById(categories.data.data.items, text).title} width="100" />
           </span>
         }
       }, {
         title: '薪资',
         dataIndex: 'salary',
         key: 'salary',
-        width: 100,
+        width: 150,
         render: (text, record) => {
           return <span>{text} 元/月</span>
         }

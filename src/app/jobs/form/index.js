@@ -95,9 +95,8 @@ class Comp extends React.Component {
           {getFieldDecorator('salary', {
             rules: []
           })(
-            <InputNumber min={0} max={100000} defaultValue={0} />
+            <Input />
           )}
-          元/月
         </Form.Item>
         <Form.Item
           labelCol={{span: 2}}
@@ -105,7 +104,12 @@ class Comp extends React.Component {
           label="需求人数"
           hasFeedback>
           {getFieldDecorator('need_number', {
-            rules: []
+            rules: [
+              {
+                max: 20,
+                message: '不能超过 20 个字'
+              }
+            ]
           })(
             <InputNumber min={0} max={100} defaultValue={0} />
           )}

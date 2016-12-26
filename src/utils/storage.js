@@ -4,7 +4,7 @@ export default {
   /**
    * 设置存储
    * @param key {string} 键值
-   * @data data {object} 数据
+   * @param data {object} 数据
    */
   set(key, data) {
     localStorage.setItem(key, JSON.stringify(data))

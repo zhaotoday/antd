@@ -166,6 +166,54 @@ class Comp extends React.Component {
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 16}}
+          label="手机"
+          hasFeedback>
+          {getFieldDecorator('mobilephone', {
+            rules: [
+              {
+                pattern: /^1[3|5|7|8][0-9]{9}$/,
+                message: '格式错误'
+              }
+            ]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="公司福利"
+          hasFeedback>
+          {getFieldDecorator('job_benefits', {
+            rules: [
+              {
+                max: 1000,
+                message: '不能超过 1000 个字'
+              }
+            ]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
+          label="招聘信息"
+          hasFeedback>
+          {getFieldDecorator('job_benefits', {
+            rules: [
+              {
+                max: 1000,
+                message: '不能超过 1000 个字'
+              }
+            ]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
           label="电话"
           hasFeedback>
           {getFieldDecorator('telephone', {
@@ -204,22 +252,6 @@ class Comp extends React.Component {
             rules: [
               {
                 pattern: /^[1-9][0-9]{5}$/,
-                message: '格式错误'
-              }
-            ]
-          })(
-            <Input />
-          )}
-        </Form.Item>
-        <Form.Item
-          labelCol={{span: 2}}
-          wrapperCol={{span: 16}}
-          label="手机"
-          hasFeedback>
-          {getFieldDecorator('mobilephone', {
-            rules: [
-              {
-                pattern: /^1[3|5|7|8][0-9]{9}$/,
                 message: '格式错误'
               }
             ]
