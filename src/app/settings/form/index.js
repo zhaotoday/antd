@@ -192,7 +192,7 @@ class Comp extends React.Component {
               }
             ]
           })(
-            <Input />
+            <Input type="textarea" rows="6" />
           )}
         </Form.Item>
         <Form.Item
@@ -200,7 +200,7 @@ class Comp extends React.Component {
           wrapperCol={{span: 16}}
           label="招聘信息"
           hasFeedback>
-          {getFieldDecorator('job_benefits', {
+          {getFieldDecorator('job_info', {
             rules: [
               {
                 max: 1000,
@@ -208,7 +208,7 @@ class Comp extends React.Component {
               }
             ]
           })(
-            <Input />
+            <Input type="textarea" rows="6" />
           )}
         </Form.Item>
         <Form.Item
