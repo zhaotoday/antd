@@ -73,7 +73,7 @@ class Comp extends React.Component {
         this.props.postLogin({
           data: values
         }).then((response) => {
-          const data = response.value.data.data
+          const data = response.value.data
           auth.setToken(data.token)
           auth.setUser(data.user)
           helpers.go.bind(this)('')

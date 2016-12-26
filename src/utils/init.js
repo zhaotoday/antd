@@ -1,3 +1,5 @@
-/**
- * Created by Administrator on 2016/12/19.
- */
+import lang from './lang'
+
+export default () => {
+  lang.init()
+}

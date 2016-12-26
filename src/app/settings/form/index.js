@@ -22,7 +22,7 @@ class Comp extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.props.setting.data && nextProps.setting.data.id) {
+    if (!this.props.setting.data && nextProps.setting.data && nextProps.setting.data.id) {
       const data = nextProps.setting.data
       const {setFieldsValue} = this.props.form
 

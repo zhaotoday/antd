@@ -23,7 +23,7 @@ const BASE_URL = (function () {
   if (ENV === DEVELOPMENT) {
     return 'http://localhost:8080'
   } else {
-    return 'http://www.game.im'
+    return 'http://www.cms.com'
   }
 })()
 
@@ -44,10 +44,18 @@ const MODELS = keyMirror({
   COMMODITIES: null
 })
 
+// 语言列表
+const LANGS = {
+  'cn': '中文',
+  'ar': 'العربية',
+  'en': 'English'
+}
+
 export default {
   BASE_URL,
   API_URL,
   PAGE_SIZE,
   TITLE,
-  MODELS
+  MODELS,
+  LANGS
 }

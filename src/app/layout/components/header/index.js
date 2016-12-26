@@ -1,7 +1,9 @@
 import React from 'react'
 import styles from './theme/styles'
-import {Icon, Popconfirm} from 'antd'
+import {Icon, Popconfirm, Select} from 'antd'
 import helpers from 'utils/helpers'
+import consts from 'utils/consts'
+import lang from 'utils/lang'
 import auth from 'utils/auth'
 
 export default class extends React.Component {
@@ -22,6 +24,15 @@ export default class extends React.Component {
             </span>
           </Popconfirm>
         </div>
+        <div className={styles.lang}>
+          <Select style={{width: '150px'}} value={lang.get() || 'cn'} onChange={this._handleChangeLang}>
+            {
+              Object.keys(consts.LANGS).map((key) => {
+                return <Select.Option value={key} key={key}>{consts.LANGS[key]}</Select.Option>
+              })
+            }
+          </Select>
+        </div>
       </div>
     </div>
   }
@@ -32,5 +43,13 @@ export default class extends React.Component {
   _handleLogout = () => {
     auth.destroy()
     helpers.go.bind(this)('/login')
+  }
+
+  /**
+   * 切换语言
+   */
+  _handleChangeLang = (value) => {
+    lang.set(value)
+    location.reload()
   }
 }

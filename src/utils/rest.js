@@ -5,6 +5,7 @@
 
 import axios from 'axios'
 import {message} from 'antd'
+import lang from 'utils/lang'
 
 /**
  * @class REST 接口请求
@@ -36,7 +37,13 @@ export default class REST {
 
     // GET
     if (options.params) {
+      options.params.lang = lang.get();
       url = url + this._objToUrl(options.params)
+    }
+
+    // POST/PATCH
+    if (options.data) {
+      options.data.lang = lang.get()
     }
 
     return new Promise((resolve, reject) => {
@@ -49,8 +56,12 @@ export default class REST {
       }).then((response) => {
         resolve(response.data || {})
       }).catch((error) => {
-        // 统一提示报错信息
-        message.error(error.response.data.error.message)
+        if (error.response) {
+          // 统一提示报错信息
+          message.error(error.response.data.error.message)
+        } else {
+          message.error('服务器异常')
+        }
         // reject(error)
       })
     })
