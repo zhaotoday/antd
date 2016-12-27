@@ -41,7 +41,7 @@ export default class REST {
       url = url + this._objToUrl(options.params)
     }
 
-    // POST/PATCH
+    // POST/PUT
     if (options.data) {
       options.data.lang = lang.get()
     }
