@@ -4,6 +4,6 @@ export default keyMirror({
   GET_ARTICLES: null,
   GET_ARTICLE: null,
   POST_ARTICLE: null,
-  PATCH_ARTICLE: null,
+  PUT_ARTICLE: null,
   DELETE_ARTICLE: null
 })

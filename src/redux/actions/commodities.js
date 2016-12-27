@@ -45,8 +45,8 @@ export const postCommodity = createAction(
 /**
  * 编辑商品
  */
-export const patchCommodity = createAction(
-  actionTypes.PATCH_COMMODITY,
+export const putCommodity = createAction(
+  actionTypes.PUT_COMMODITY,
   (options = {}) => {
     return new Model()
       .addPath('{commodity_id}')

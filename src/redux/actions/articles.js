@@ -45,8 +45,8 @@ export const postArticle = createAction(
 /**
  * 编辑文章
  */
-export const patchArticle = createAction(
-  actionTypes.PATCH_ARTICLE,
+export const putArticle = createAction(
+  actionTypes.PUT_ARTICLE,
   (options = {}) => {
     return new Model()
       .addPath('{article_id}')

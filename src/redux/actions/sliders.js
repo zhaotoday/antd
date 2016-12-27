@@ -45,8 +45,8 @@ export const postSlider = createAction(
 /**
  * 编辑滚动广告
  */
-export const patchSlider = createAction(
-  actionTypes.PATCH_SLIDER,
+export const putSlider = createAction(
+  actionTypes.PUT_SLIDER,
   (options = {}) => {
     return new Model()
       .addPath('{slider_id}')

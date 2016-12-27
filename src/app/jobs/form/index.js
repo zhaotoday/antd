@@ -14,7 +14,7 @@ import actionCreators from '../../../redux/actions'
   dispatch => ({
     getJob: (options) => dispatch(actionCreators.getJob(options)),
     postJob: (options) => dispatch(actionCreators.postJob(options)),
-    patchJob: (options) => dispatch(actionCreators.patchJob(options))
+    putJob: (options) => dispatch(actionCreators.putJob(options))
   })
 )
 class Comp extends React.Component {
@@ -149,7 +149,7 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleSubmit = (e) => {
-    const {form, postJob, patchJob} = this.props
+    const {form, postJob, putJob} = this.props
     const {resetFields, validateFields} = form
 
     e.preventDefault()
@@ -157,7 +157,7 @@ class Comp extends React.Component {
     validateFields((err, fieldsValue) => {
       if (!err) {
         if (this.id) {
-          patchJob({
+          putJob({
             'job_id': this.id,
             data: fieldsValue
           }).then(() => {

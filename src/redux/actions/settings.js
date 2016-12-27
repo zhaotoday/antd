@@ -20,8 +20,8 @@ export const getSetting = createAction(
 /**
  * 编辑设置
  */
-export const patchSetting = createAction(
-  actionTypes.PATCH_SETTING,
+export const putSetting = createAction(
+  actionTypes.PUT_SETTING,
   (options = {}) => {
     return new Model()
       .addPath('{setting_id}')

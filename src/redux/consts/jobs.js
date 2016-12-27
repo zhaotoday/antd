@@ -4,6 +4,6 @@ export default keyMirror({
   GET_JOBS: null,
   GET_JOB: null,
   POST_JOB: null,
-  PATCH_JOB: null,
+  PUT_JOB: null,
   DELETE_JOB: null
 })

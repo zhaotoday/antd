@@ -10,7 +10,7 @@ import actionCreators from '../../../redux/actions'
   dispatch => ({
     getCategory: (options) => dispatch(actionCreators.getCategory(options)),
     postCategory: (options) => dispatch(actionCreators.postCategory(options)),
-    patchCategory: (options) => dispatch(actionCreators.patchCategory(options))
+    putCategory: (options) => dispatch(actionCreators.putCategory(options))
   })
 )
 class Comp extends React.Component {
@@ -144,14 +144,14 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleOk = () => {
-    const {form, postCategory, patchCategory, model} = this.props
+    const {form, postCategory, putCategory, model} = this.props
     const {resetFields, validateFields} = form
 
     validateFields((err, fieldsValue) => {
       if (err) return
 
       if (this.id) {
-        patchCategory({
+        putCategory({
           'category_id': this.id,
           data: {
             ...fieldsValue,

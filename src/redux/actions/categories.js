@@ -45,8 +45,8 @@ export const postCategory = createAction(
 /**
  * 编辑分类
  */
-export const patchCategory = createAction(
-  actionTypes.PATCH_CATEGORY,
+export const putCategory = createAction(
+  actionTypes.PUT_CATEGORY,
   (options = {}) => {
     return new Model()
       .addPath('{category_id}')

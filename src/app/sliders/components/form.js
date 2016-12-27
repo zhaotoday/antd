@@ -11,7 +11,7 @@ import actionCreators from '../../../redux/actions'
   dispatch => ({
     getSlider: (options) => dispatch(actionCreators.getSlider(options)),
     postSlider: (options) => dispatch(actionCreators.postSlider(options)),
-    patchSlider: (options) => dispatch(actionCreators.patchSlider(options))
+    putSlider: (options) => dispatch(actionCreators.putSlider(options))
   })
 )
 class Comp extends React.Component {
@@ -168,14 +168,14 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleOk = () => {
-    const {form, postSlider, patchSlider} = this.props
+    const {form, postSlider, putSlider} = this.props
     const {resetFields, validateFields} = form
 
     validateFields((err, fieldsValue) => {
       if (err) return
 
       if (this.id) {
-        patchSlider({
+        putSlider({
           'slider_id': this.id,
           data: fieldsValue
         }).then(() => {

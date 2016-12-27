@@ -14,7 +14,7 @@ import actionCreators from '../../../redux/actions'
   dispatch => ({
     getCommodity: (options) => dispatch(actionCreators.getCommodity(options)),
     postCommodity: (options) => dispatch(actionCreators.postCommodity(options)),
-    patchCommodity: (options) => dispatch(actionCreators.patchCommodity(options))
+    putCommodity: (options) => dispatch(actionCreators.putCommodity(options))
   })
 )
 class Comp extends React.Component {
@@ -202,7 +202,7 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleSubmit = (e) => {
-    const {form, postCommodity, patchCommodity} = this.props
+    const {form, postCommodity, putCommodity} = this.props
     const {resetFields, validateFields} = form
 
     e.preventDefault()
@@ -210,7 +210,7 @@ class Comp extends React.Component {
     validateFields((err, fieldsValue) => {
       if (!err) {
         if (this.id) {
-          patchCommodity({
+          putCommodity({
             'commodity_id': this.id,
             data: fieldsValue
           }).then(() => {

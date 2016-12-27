@@ -45,8 +45,8 @@ export const postJob = createAction(
 /**
  * 编辑岗位
  */
-export const patchJob = createAction(
-  actionTypes.PATCH_JOB,
+export const putJob = createAction(
+  actionTypes.PUT_JOB,
   (options = {}) => {
     return new Model()
       .addPath('{job_id}')

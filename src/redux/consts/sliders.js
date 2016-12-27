@@ -4,6 +4,6 @@ export default keyMirror({
   GET_SLIDERS: null,
   GET_SLIDER: null,
   POST_SLIDER: null,
-  PATCH_SLIDER: null,
+  PUT_SLIDER: null,
   DELETE_SLIDER: null
 })

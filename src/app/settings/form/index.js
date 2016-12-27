@@ -10,7 +10,7 @@ import lang from 'utils/lang'
   }),
   dispatch => ({
     getSetting: (options) => dispatch(actionCreators.getSetting(options)),
-    patchSetting: (options) => dispatch(actionCreators.patchSetting(options))
+    putSetting: (options) => dispatch(actionCreators.putSetting(options))
   })
 )
 class Comp extends React.Component {
@@ -292,14 +292,14 @@ class Comp extends React.Component {
    * 提交表单
    */
   _handleSubmit = (e) => {
-    const {form, patchSetting} = this.props
+    const {form, putSetting} = this.props
     const {validateFields} = form
 
     e.preventDefault()
 
     validateFields((err, fieldsValue) => {
       if (!err) {
-        patchSetting({
+        putSetting({
           'setting_id': this.id,
           data: fieldsValue
         }).then(() => {
