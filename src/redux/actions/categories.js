@@ -53,7 +53,7 @@ export const patchCategory = createAction(
       .replace({
         'category_id': options['category_id']
       })
-      .PATCH({
+      .PUT({
         data: options.data
       })
   }

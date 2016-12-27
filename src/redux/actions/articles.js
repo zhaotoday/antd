@@ -53,7 +53,7 @@ export const patchArticle = createAction(
       .replace({
         'article_id': options['article_id']
       })
-      .PATCH({
+      .PUT({
         data: options.data
       })
   }

@@ -28,7 +28,7 @@ export const patchSetting = createAction(
       .replace({
         'setting_id': options['setting_id']
       })
-      .PATCH({
+      .PUT({
         data: options.data
       })
   }

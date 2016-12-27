@@ -53,7 +53,7 @@ export const patchJob = createAction(
       .replace({
         'job_id': options['job_id']
       })
-      .PATCH({
+      .PUT({
         data: options.data
       })
   }

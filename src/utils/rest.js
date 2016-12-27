@@ -145,11 +145,11 @@ export default class REST {
   }
 
   /**
-   * PATCH
+   * PUT
    * @param {object} options - 选项
    * @returns {object}
    */
-  PATCH(options = {}) {
-    return this._request('PATCH', options)
+  PUT(options = {}) {
+    return this._request('PUT', options)
   }
 }

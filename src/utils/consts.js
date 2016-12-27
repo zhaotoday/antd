@@ -23,7 +23,7 @@ const BASE_URL = (function () {
   if (ENV === DEVELOPMENT) {
     return 'http://localhost:8080'
   } else {
-    return 'http://www.cms.com'
+    return 'http://www.furuan.cn'
   }
 })()
 

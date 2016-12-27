@@ -53,7 +53,7 @@ export const patchSlider = createAction(
       .replace({
         'slider_id': options['slider_id']
       })
-      .PATCH({
+      .PUT({
         data: options.data
       })
   }
