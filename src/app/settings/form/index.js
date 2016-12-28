@@ -138,6 +138,22 @@ class Comp extends React.Component {
         <Form.Item
           labelCol={{span: 2}}
           wrapperCol={{span: 16}}
+          label="联系我们"
+          hasFeedback>
+          {getFieldDecorator('contact', {
+            rules: [
+              {
+                max: 1000,
+                message: '不能超过 1000 个字'
+              }
+            ]
+          })(
+            <Input type="textarea" rows="4" />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 16}}
           label="备案号"
           hasFeedback>
           {getFieldDecorator('icp', {
