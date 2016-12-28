@@ -86,7 +86,8 @@ export default class extends React.Component {
     new Model()
       .GET({
         params: {
-          model
+          model,
+          'order_by': 'sort,id desc'
         }
       })
       .then((response) => {

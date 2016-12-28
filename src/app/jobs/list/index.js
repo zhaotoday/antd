@@ -185,7 +185,8 @@ class Comp extends React.Component {
   _getCategories = () => {
     this.props.getCategories({
       params: {
-        model: consts.MODELS.JOBS
+        model: consts.MODELS.JOBS,
+        'order_by': 'sort,id desc'
       }
     })
   }

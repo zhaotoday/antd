@@ -140,6 +140,7 @@ class Comp extends React.Component {
         model: this.model,
         limit: consts.PAGE_SIZE,
         offset: (current - 1) * consts.PAGE_SIZE,
+        'order_by': 'sort,id desc',
         ...searchParams
       }
     }).then(() => {
