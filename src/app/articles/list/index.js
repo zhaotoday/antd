@@ -73,7 +73,7 @@ class Comp extends React.Component {
         width: 250,
         render: (text, record) => {
           return <span>
-            <Ellipsis value={app.getCategoryById(categories.data.data.items, text).title} width="250" />
+            <Ellipsis value={app.getCategoryById(categories.data.items, text).title} width="250" />
           </span>
         }
       }, {
@@ -100,11 +100,11 @@ class Comp extends React.Component {
           </Popconfirm>
         </span>
       }],
-      dataSource: articles.data ? articles.data.data.items : [],
+      dataSource: articles.data ? articles.data.items : [],
       pagination: {
         current: this.current,
         pageSize: consts.PAGE_SIZE,
-        total: articles.data ? articles.data.data.total : 0
+        total: articles.data ? articles.data.total : 0
       },
       getData: this._getData
     }
