@@ -37,13 +37,13 @@ export default class REST {
 
     // GET
     if (options.params) {
-      options.params.lang = lang.get();
+      options.params.language = lang.get();
       url = url + this._objToUrl(options.params)
     }
 
     // POST/PUT
     if (options.data) {
-      options.data.lang = lang.get()
+      options.data.language = lang.get()
     }
 
     return new Promise((resolve, reject) => {
