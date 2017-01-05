@@ -3,6 +3,7 @@ import {Breadcrumb, Form, Input, Button, Row, Col, message} from 'antd'
 import connect from 'react-redux/lib/components/connect'
 import actionCreators from '../../../redux/actions'
 import lang from 'utils/lang'
+import Editor from 'components/editor'
 
 @connect(
   state => ({
@@ -132,7 +133,7 @@ class Comp extends React.Component {
               }
             ]
           })(
-            <Input type="textarea" rows="6" />
+            <Editor name="about" afterChange={this._handleAfterChange} editState={!!this.id} height="250" />
           )}
         </Form.Item>
         <Form.Item
@@ -323,6 +324,19 @@ class Comp extends React.Component {
         })
       }
     })
+  }
+
+  /**
+   * 处理 afterChange 事件
+   */
+  _handleAfterChange = (name, value) => {
+    const {setFieldsValue, validateFields} = this.props.form
+
+    setFieldsValue({
+      [name]: value
+    })
+
+    validateFields([name])
   }
 }
 
