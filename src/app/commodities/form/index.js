@@ -184,6 +184,16 @@ class Comp extends React.Component {
             <Upload name="picture4" afterChange={this._handleAfterChange} editState={!!this.id} />
           )}
         </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 20}}
+          label="图片 5">
+          {getFieldDecorator('picture5', {
+            rules: []
+          })(
+            <Upload name="picture5" afterChange={this._handleAfterChange} editState={!!this.id} />
+          )}
+        </Form.Item>
       </Form>
       <Row>
         <Col offset="2" span="20">
