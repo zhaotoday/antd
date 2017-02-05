@@ -66,7 +66,11 @@ class Comp extends React.Component {
           setTimeout(() => {
             this.props.form.setFieldsValue({
               title: '',
-              picture: ''
+              website: '',
+              'app_store': '',
+              'google_play': '',
+              picture: '',
+              sort: ''
             })
           }, 0)
         }
@@ -102,9 +106,37 @@ class Comp extends React.Component {
         <Form.Item
           labelCol={{span: 4}}
           wrapperCol={{span: 18}}
-          label="跳转地址"
+          label="官网"
           hasFeedback>
-          {getFieldDecorator('url', {
+          {getFieldDecorator('website', {
+            rules: [{
+              type: 'url',
+              message: '格式错误'
+            }]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 4}}
+          wrapperCol={{span: 18}}
+          label="app_store"
+          hasFeedback>
+          {getFieldDecorator('app_store', {
+            rules: [{
+              type: 'url',
+              message: '格式错误'
+            }]
+          })(
+            <Input />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 4}}
+          wrapperCol={{span: 18}}
+          label="google_play"
+          hasFeedback>
+          {getFieldDecorator('google_play', {
             rules: [{
               type: 'url',
               message: '格式错误'
@@ -121,7 +153,7 @@ class Comp extends React.Component {
           {getFieldDecorator('sort', {
             rules: []
           })(
-            <InputNumber min={0} max={10000} defaultValue={3} />
+            <InputNumber min={0} max={10000} defaultValue={0} />
           )}
         </Form.Item>
         <Form.Item
