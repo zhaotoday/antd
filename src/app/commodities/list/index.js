@@ -12,7 +12,7 @@ import Delete from 'components/delete'
 module.exports = @connect(
   state => ({
     commodities: state.commodities
-  }) ,
+  }),
   dispatch => ({
     getCommodities: (options) => dispatch(actionCreators.getCommodities(options)),
     deleteCommodity: (options) => dispatch(actionCreators.deleteCommodity(options))
@@ -60,6 +60,14 @@ class Comp extends React.Component {
           }}>
             <Ellipsis value={text} width="300" />
           </span>
+        }
+      }, {
+        title: '排序',
+        dataIndex: 'sort',
+        key: 'sort',
+        width: 150,
+        render: (text, record) => {
+          return <span>{record.sort || 0}</span>
         }
       }, {
         title: '发布时间',
@@ -138,6 +146,7 @@ class Comp extends React.Component {
       params: {
         limit: consts.PAGE_SIZE,
         offset: (current - 1) * consts.PAGE_SIZE,
+        'order_by': 'sort,id desc',
         ...searchParams
       }
     })

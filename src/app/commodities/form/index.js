@@ -1,7 +1,6 @@
 import React from 'react'
-import {Breadcrumb, Form, Input, Button, Row, Col, message} from 'antd'
+import {Breadcrumb, Form, Input, Button, Row, Col, message, InputNumber} from 'antd'
 import helpers from 'utils/helpers'
-import Editor from 'components/editor'
 import Upload from 'components/upload'
 import Padding from 'components/padding'
 import connect from 'react-redux/lib/components/connect'
@@ -129,6 +128,17 @@ class Comp extends React.Component {
             }]
           })(
             <Input type="textarea" rows="20" />
+          )}
+        </Form.Item>
+        <Form.Item
+          labelCol={{span: 2}}
+          wrapperCol={{span: 20}}
+          label="排序"
+          hasFeedback>
+          {getFieldDecorator('sort', {
+            rules: []
+          })(
+            <InputNumber min={0} max={10000} defaultValue={0} />
           )}
         </Form.Item>
         <Form.Item

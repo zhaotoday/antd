@@ -126,7 +126,7 @@ class Comp extends React.Component {
           {getFieldDecorator('sort', {
             rules: []
           })(
-            <InputNumber min={0} max={10000} defaultValue={3} />
+            <InputNumber min={0} max={10000} defaultValue={0} />
           )}
         </Form.Item>
       </Form>
