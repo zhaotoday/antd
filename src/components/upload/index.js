@@ -4,9 +4,6 @@ import consts from 'utils/consts'
 import app from 'utils/app'
 import auth from 'utils/auth'
 
-// 上传地址
-const action = consts.API_URL + '/files'
-
 export default class extends React.Component {
   constructor() {
     super()
@@ -19,6 +16,8 @@ export default class extends React.Component {
     name: React.PropTypes.string,
     // 值
     value: React.PropTypes.string,
+    // 上传接口
+    action: React.PropTypes.string,
     // afterChange 事件
     afterChange: React.PropTypes.func,
     provideController: React.PropTypes.func,
@@ -29,6 +28,7 @@ export default class extends React.Component {
   static defaultProps = {
     name: 'upload',
     value: undefined,
+    action: consts.API_URL + '/images',
     afterChange: () => {
     },
     provideController: () => {
@@ -81,7 +81,7 @@ export default class extends React.Component {
       fileList: fileList,
       multiple: false,
       listType: 'picture',
-      action: action,
+      action: this.props.action,
       onChange: this._handleChange
     }
 
