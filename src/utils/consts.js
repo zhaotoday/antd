@@ -28,7 +28,7 @@ const BASE_URL = (function () {
 })()
 
 // 接口地址
-const API_URL = BASE_URL + '/api'
+const API_URL = BASE_URL + '/apis'
 
 // 分页大小
 const PAGE_SIZE = 10
